@@ -1,0 +1,15 @@
+TO DO:
+
+*current*--make VSEB as backtested in "BackTestingVSEB"v0.1
+--Next backtests should include stop loss (pretty easy to do even with v0.1)
+--Then: Make backtesting program all around better /re-write to be good
+--Do the same with RDF, maybe even before above
+--Rewrite VSEB based off of results from above, (above should be able to optimize for best values of stop loss, take profit, delay between buy/sell, etc.)
+
+
+--------------------------------------------------------------------------------
+
+IDEAS TO MAKE MORE MONEY
+
+--VSEB but on the way down as well with shorts
+--Buy if pre-market price skyrocketted (esp. with news of new earnings, etc.)
