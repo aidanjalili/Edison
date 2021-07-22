@@ -18,6 +18,8 @@ using namespace std;
 
 //all %returns
 vector<double> percentreturns;
+vector<string> datez;
+vector<string> mastertickers;
 
 vector<double> volumes;
 //Date, ticker, buy price, row number
@@ -40,19 +42,28 @@ void Init()
 // *
 
 
-double Stdeviation(vector<double>& v, double mean)
+double Stdeviation(const vector<double>& v, double mean)
 {
-    std::vector<double> diff(v.size());
-    std::transform(v.begin(), v.end(), diff.begin(), [mean](double x) { return x - mean; });
-    double sq_sum = std::inner_product(diff.begin(), diff.end(), diff.begin(), 0.0);
-    return std::sqrt(sq_sum / v.size());
+    vector<unsigned long long> squareofdifferencestomean;
+    for (int i = 0; i < v.size(); i++)
+    {
+        squareofdifferencestomean.push_back( (v[i] - mean)*(v[i] - mean) );
+    }
+    auto sumofsquares = std::accumulate(squareofdifferencestomean.begin(), squareofdifferencestomean.end(), 0.00);
+    unsigned long long variance = sumofsquares/squareofdifferencestomean.size();
+    return std::sqrt(variance);
 
 }
 
 
-double avg(std::vector<double> const& v)
+double avg(const std::vector<double>& v)
 {
-    return std::accumulate(v.begin(), v.end(), 0LL) / v.size();
+    unsigned long long sum = 0;
+    for (int i = 0; i < v.size(); i++)
+    {
+        sum+=v[i];
+    }
+    return sum/v.size();
 }
 
 
@@ -110,7 +121,7 @@ int main()
         volumes.clear();
         volumes.shrink_to_fit();
 
-        io::CSVReader<6> in( ("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/RawData/" + currentticker.symbol + ".csv").c_str() );
+        try {io::CSVReader<6> in( ("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/RawData/" + currentticker.symbol + ".csv").c_str() );
         in.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
         std::string Date; double Open; double Close; double Low; double High; double Volume;
 
@@ -163,6 +174,8 @@ int main()
                         if (High > 1.35*get<2>(currentbuy))
                         {
                             percentreturns.push_back(0.35);
+                            datez.push_back(Date);
+                            mastertickers.push_back(currentticker.symbol);
                             currentbuyorder++;
                         }
                         else if (index == get<3>(currentbuy)+2)
@@ -170,6 +183,8 @@ int main()
                             double currentpercentreturn;
                             currentpercentreturn = (Close-get<2>(currentbuy)) /get<2>(currentbuy);
                             percentreturns.push_back(currentpercentreturn);
+                            datez.push_back(Date);
+                            mastertickers.push_back(currentticker.symbol);
                             currentbuyorder++;
                         }
                     }
@@ -186,7 +201,8 @@ int main()
             volumes.erase(volumes.begin());
             volumes.push_back(Volume);
             index++;
-        }
+        }}
+        catch(exception& e){continue;}//catches if the file doesn't exist/some other error reading it...
 
         cout << "just finished looking at: " + currentticker.symbol << endl;
         cout << "Number of trades currently is: " << to_string(percentreturns.size()) << endl;
@@ -195,10 +211,10 @@ int main()
     }
 
 
-
-    ofstream OutputFile("/Users/aidanjalili03/Desktop/Edison/BackTestingVSEB/percent_returns_real.csv");
-    for(auto iter = percentreturns.begin(); iter!=percentreturns.end(); iter++)
-        OutputFile << to_string((*iter)) << "\n";
+    ofstream OutputFile("/Users/aidanjalili03/Desktop/Edison/BackTestingVSEB/percent_returns.csv");
+    OutputFile << "Date, Ticker, Percent Return" << "\n";
+    for(int i  = 0; i < percentreturns.size(); i++)
+        OutputFile << datez[i]  << "," << mastertickers[i] << "," << to_string(percentreturns[i]) << "\n";
 
     OutputFile.close();
 
