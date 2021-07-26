@@ -46,7 +46,7 @@ bool FirstRun()
 }
 
 
-//For get Data func
+//For get Data func -- only works with bars that are recieved with api v2
 void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar)
 {
     ofstream OutputFile(filename);
@@ -57,9 +57,7 @@ void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar)
     //Write the rows
     for(auto iter = InputBar.begin(); iter!=InputBar.end(); iter++)
     {
-        boost::gregorian::date Today = boost::gregorian::day_clock::local_day();
-        std::string TodayAsString = to_iso_extended_string(Today);
-        OutputFile << TodayAsString << "," << to_string((*iter).open_price) << "," << to_string((*iter).close_price) << "," << to_string((*iter).high_price) << "," << to_string((*iter).low_price) << "," << to_string((*iter).volume) << "\n";
+        OutputFile << (*iter).time << "," << to_string((*iter).open_price) << "," << to_string((*iter).close_price) << "," << to_string((*iter).high_price) << "," << to_string((*iter).low_price) << "," << to_string((*iter).volume) << "\n";
     }
 
     OutputFile.close();
@@ -116,6 +114,9 @@ int main()
     if (int ret = Init(); ret != 0)
         return ret;
 
+    auto env = alpaca::Environment();
+    auto client = alpaca::Client(env);
+
     if (FirstRun())
     {
 
@@ -136,6 +137,21 @@ int main()
             return ret;
 
     }
+
+    auto last_trade_response = client.getLastTrade("AAPL");
+    if (auto status = last_trade_response.first; !status.ok()) {
+        std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
+        return status.getCode();
+    }
+
+    auto last_trade = last_trade_response.second;
+    std::cout << "The last traded price of AAPL was: $" << last_trade.trade.price << std::endl;
+
+    /*
+     * BUT BEFORE ALL THAT GET GET_LAST_TRADE TO WORK WITH V2
+     *
+     */
+
 
     //while true here --> will have if statement with condition of if market is open today and
     //will run refresh function every night after the market was open during the day at ~11:30
