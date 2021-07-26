@@ -72,8 +72,8 @@ int main()
     /*Loops thru tickers here*/ //--> should put into a seperate function later
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
-        auto bars_response = client.getBars({(*iter).symbol}, "2018-01-01T09:30:00-04:00", "2020-01-03T09:30:00-04:00", "", "", "1D", 1000);
-
+        auto bars_response = client.getBars({(*iter).symbol}, "2018-01-01T09:30:00-04:00", "2020-01-03T09:30:00-04:00", "", "", "1Day", 1000);
+        //NEED TO REMOVE "[]" characters for json IsArray() to work
         if (auto status = bars_response.first; !status.ok())
         {
             std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;

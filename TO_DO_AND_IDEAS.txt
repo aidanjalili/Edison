@@ -6,6 +6,7 @@ TO DO:
 --Do the same with RDF, maybe even before above
 --Rewrite VSEB based off of results from above, (above should be able to optimize for best values of stop loss, take profit, delay between buy/sell, etc.)
 
+*I* concurrent with above, make detailed docs and explanation of programs. (First with v1.0 of VSEB, then with the new backtester and RDF as well as eventually with the new trader) *I*
 
 --------------------------------------------------------------------------------
 
