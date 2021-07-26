@@ -1,66 +1,38 @@
-/*
- * THIS PROGRAM MUST BE FIRST RUN BEOFRE AUG. 26TH... ONCE IT STARTS ITLL WORK FINE THROUGH THAT DATE
- * BUT IT MUST BE INITIALLY RUN BEFORE THEN
- */
-
 #include <iostream>
 #include <string>
-#include "alpaca/alpaca.h"
 #include <stdlib.h>
-#include <chrono>
-#include <ctime>
+#include <boost/date_time.hpp>
 
+#include "alpaca/alpaca.h"
 
+using namespace std;
 //Variables and structs...
-auto env = alpaca::Environment();
-auto client = alpaca::Client(env);
+
+
 struct StockVolumeInformation
 {
     string ticker;
-    double avg;
-    double stdev;
+    double avgvolume;
+    double stdevofvolume;
+    double todaysvolume;
 };
+
 string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";
 
 
 //Forward declare all functions (*note that this is a one file program)
+int Init();
+bool FirstRun();
+void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar);
+int GetData(string InputDir, string startdate, string enddate);
 
-
-
-using namespace std;
-
-string TodaysDateAsString()
-{
-    time_t curr_time;
-    tm * curr_tm;
-    char date_string[100];
-
-    time(&curr_time);
-    curr_tm = localtime(&curr_time);
-    strftime(date_string, 50, "%Y-%m-%d", curr_tm);
-    return date_string;
-}
 
 int Init()
 {
     setenv("APCA_API_KEY_ID", "PKLT0ZT8YQSKQNL1Q1CM", 1);
     setenv("APCA_API_SECRET_KEY", "Grf0tl7aXs6qdt2EbmoEV8llmUAMeHTGLjk8JgJR", 1);
-
-
-    if (auto status = env.parse(); !status.ok())
-    {
-        std::cout << "Error parsing config from environment: "
-                  << status.getMessage()
-                  << std::endl;
-        return status.getCode();
-    }
-    else
-    {
-        return 0;
-    }
-
+    return 0;
 }
-
 
 bool FirstRun()
 {
@@ -85,7 +57,9 @@ void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar)
     //Write the rows
     for(auto iter = InputBar.begin(); iter!=InputBar.end(); iter++)
     {
-        OutputFile << date::format("%F", chrono::sys_seconds{chrono::seconds( (*iter).time )} ) << "," << to_string((*iter).open_price) << "," << to_string((*iter).close_price) << "," << to_string((*iter).high_price) << "," << to_string((*iter).low_price) << "," << to_string((*iter).volume) << "\n";
+        boost::gregorian::date Today = boost::gregorian::day_clock::local_day();
+        std::string TodayAsString = to_iso_extended_string(Today);
+        OutputFile << TodayAsString << "," << to_string((*iter).open_price) << "," << to_string((*iter).close_price) << "," << to_string((*iter).high_price) << "," << to_string((*iter).low_price) << "," << to_string((*iter).volume) << "\n";
     }
 
     OutputFile.close();
@@ -95,6 +69,9 @@ void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar)
 
 int GetData(string InputDir, string startdate, string enddate)
 {
+    auto env = alpaca::Environment();
+    auto client = alpaca::Client(env);
+
 
     /*Tickers*/
     auto get_assets_response = client.getAssets();
@@ -111,7 +88,7 @@ int GetData(string InputDir, string startdate, string enddate)
     {
         auto bars_response = client.getBars({(*iter).symbol}, startdate, enddate, "", "", "1Day", 10000);
 
-        if (auto status = bars_response.first; status.ok() == false))
+        if (auto status = bars_response.first; status.ok() == false)
         {
             std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
             //Just pray that this doesnt end up in a never ending loop --> originally designed to retry after rate limit has been reached
@@ -135,20 +112,37 @@ int GetData(string InputDir, string startdate, string enddate)
 
 int main()
 {
-    //checking for init error
+
     if (int ret = Init(); ret != 0)
         return ret;
 
-    if (FirstRun() == true)
+    if (FirstRun())
     {
 
         //Run getdata and check for fetching ticker error
-        sixmonthsago = //do this next
-        if (int ret = GetData(DIRECTORY, TodaysDateAsString(), ); ret != 0)
+
+        //Get yesterday's date
+        boost::gregorian::date Today = boost::gregorian::day_clock::local_day();
+        boost::gregorian::days oneday(1);
+        auto Yesterday = Today - oneday;
+        std::string YesterdayAsString = to_iso_extended_string(Yesterday);
+
+        //Get 6 months from now date
+        boost::gregorian::months sixmonths(6);
+        boost::gregorian::date SixMonthsBeforeYesterday = Today - sixmonths;
+        std::string SixMonthsBeforeYesterdayAsString = to_iso_extended_string(SixMonthsBeforeYesterday);
+
+        if (int ret = GetData(DIRECTORY, SixMonthsBeforeYesterdayAsString+"T09:30:00-04:00", YesterdayAsString+"T16:00:00-04:00"); ret != 0)
             return ret;
 
-
     }
+
+    //while true here --> will have if statement with condition of if market is open today and
+    //will run refresh function every night after the market was open during the day at ~11:30
+    //to delete oldest day of stock data, and add newest.
+    //the first thing to do if market is open today is check the time, then if that's sufficiently late in the day,
+    //calculate todays sum volumes and compare to avg+8stdeviations using avg/stdev functions from backtestingVSEB
+    //but modifying to use new volumesinfo data struct. --> refresh function will also clear that data struct
 
 
 }
