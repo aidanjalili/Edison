@@ -105,8 +105,24 @@ int GetData(string InputDir, string startdate, string enddate)
     return 0;
 }
 
-//TO DO:
 
+int ExampleLastTradeCode()
+{
+    //These two lines you wouldn't need if the rest of the code is being copy pasted into
+    //A function that already has client and env defined
+    auto env = alpaca::Environment();
+    auto client = alpaca::Client(env);
+
+    auto last_trade_response = client.getLastTrade("AAPL");
+    if (auto status = last_trade_response.first; !status.ok()) {
+        std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
+        return status.getCode();
+    }
+
+    auto last_trade = last_trade_response.second;
+    std::cout << "The last traded price of AAPL was: $" << last_trade.trade.price << std::endl;
+    return 0;//this line also goes...
+}
 
 int main()
 {
@@ -138,19 +154,8 @@ int main()
 
     }
 
-    auto last_trade_response = client.getLastTrade("AAPL");
-    if (auto status = last_trade_response.first; !status.ok()) {
-        std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
-        return status.getCode();
-    }
+    ExampleLastTradeCode();
 
-    auto last_trade = last_trade_response.second;
-    std::cout << "The last traded price of AAPL was: $" << last_trade.trade.price << std::endl;
-
-    /*
-     * BUT BEFORE ALL THAT GET GET_LAST_TRADE TO WORK WITH V2
-     *
-     */
 
 
     //while true here --> will have if statement with condition of if market is open today and
