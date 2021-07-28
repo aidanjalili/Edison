@@ -14,3 +14,11 @@ IDEAS TO MAKE MORE MONEY
 
 --VSEB but on the way down as well with shorts
 --Buy if pre-market price skyrocketted (esp. with news of new earnings, etc.)
+
+--------------------------------------------------------------------------------
+
+IDEAS FOR FEATURES OF VSEBV1.0
+
+--make a function called AlertUser() or smthg that is sent when/if the algo is forced to stop
+--for whatever reason
+--it could like text me or smthg and include a message abt the currently purchased assets
