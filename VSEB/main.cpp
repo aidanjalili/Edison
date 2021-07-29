@@ -5,13 +5,19 @@
 #include <boost/date_time.hpp>
 #include <unistd.h>
 #include <sstream>
-
 #include "alpaca/alpaca.h"
 
 using namespace std;
+using namespace boost::posix_time;
 
 
 /*Global variables and structs...*/
+struct HomeMadeTimeObj
+{
+    int minutes;
+    int hours;
+};
+
 struct StockVolumeInformation
 {
     string ticker;
@@ -38,6 +44,7 @@ int Refresh(string InputDir);
 void DeleteRecord(string InputFileNameAndDir, unsigned long RowNumberToBeDeleted);
 bool IsTodayATradingDay(vector<alpaca::Date>& datesmarketisopen);
 void ResetVariables();
+HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen);
 
 int Init()
 {
@@ -254,10 +261,33 @@ void ResetVariables()
     HaveAlreadyPlacedOrders = false;
 }
 
+HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
+{
+    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+
+    HomeMadeTimeObj ret;
+
+    for (auto& date : datesmarketisopen)
+    {
+        if (date.date == TodaysDateAsString)
+        {
+            auto closingtime = duration_from_string(date.close);
+            auto timetobuy = closingtime - minutes(20);
+            string timetobuyasstring = to_simple_string(timetobuy);
+            ret.hours = stoi(timetobuyasstring.substr(0,1));
+            ret.minutes = stoi(timetobuyasstring.substr(3,4));
+            return ret;
+        }
+    }
+}
+
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
+
+
     //Run init() func. and check for errors
     if (int ret = Init(); ret != 0)
         return ret;
@@ -292,12 +322,17 @@ int main()
         if (IsTodayATradingDay(datesmarketisopen))
         {
             //if time is 340pm -- need to make sure our Market-On-Close (MOC) order is submited by 350
-            if (now.time_of_day().hours() == 15 && now.time_of_day().minutes() == 40)
+
+            HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
+            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
             {
                 ///TO DO's Start here
 
                 //Replace the times I recall api for assets with one call in INIT to a global variable
                 //to accomplish above will prolly have to test everything --> good news is raw data has been deleted
+                //Before i test everything tho also delete all unecessary "returns" and change to j a continue or smthg as
+                //best to have this program only stop if absolutely necessary. (I'm thinking mostly file scanning here
+                //and grabbing bars)
 
                 /**
                  * THE FOLLOWING NEEDS TO BE DONE VERY CAREFULLY, AS OTHER THAN COMPILING
@@ -314,6 +349,8 @@ int main()
                 //calculate todays sum volumes and compare to avg+8stdeviations using avg/stdev functions from backtestingVSEB
                 //but modifying to use new volumesinfo data struct. --> resetvariables function will also clear that data struct
 
+
+                //On aug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
                 HaveAlreadyPlacedOrders = true;
             }
 
@@ -321,16 +358,15 @@ int main()
             if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 30)
             {
                 Refresh(DIRECTORY);//This should take abt 15 mins depending on wifi speed...
+                HaveAlreadyRunRefreshToday = true;
             }
 
             //at midnight reset all variables .. doesn't matter if this is done (up to) 4 times during the min.
             if (now.time_of_day().hours() == 21 && now.time_of_day().minutes() == 59)
-            {
                 ResetVariables();
-            }
         }
 
-        cout << "Alog is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
+        cout << "Algo is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
         sleep(15);
     }
 
