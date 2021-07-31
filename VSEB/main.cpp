@@ -6,11 +6,17 @@
 #include <unistd.h>
 #include <sstream>
 #include <filesystem>
+#include <numeric>
 
+#include "csv.h"
 #include "alpaca/alpaca.h"
 
 using namespace std;
 
+
+/*Constants*/
+const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";
+const bool TWENTY_FIVE_K_PROTECTION = true;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -24,7 +30,7 @@ struct StockVolumeInformation
     string ticker;
     double avgvolume;
     double stdevofvolume;
-    double todaysvolume;
+    unsigned long long todaysvolume;
 };
 
 struct buyorder{
@@ -35,7 +41,6 @@ struct buyorder{
 
 
 
-string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
 
@@ -44,7 +49,8 @@ bool HaveAlreadyRunRefreshToday = false;
 bool HaveAlreadyPlacedOrders = false;
 
 
-//Forward declare all functions (*note that this is a one file program)
+//Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
+//Ik bad practice but oh well -- like i said this is a one file program...
 int Init(alpaca::Client& client);
 bool FirstRun();
 void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar);
@@ -58,7 +64,37 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen);
 int Sell(alpaca::Client& client);
 void Archive(string FileToBeArchived, vector<buyorder>& DataCurrentlyInFile, vector<string>& SellOrdersToAdd);
 string DateToSellGivenDateToBuy(string DateofBuy);
+double avg(const std::vector<double>& v);
+double Stdeviation(const vector<double>& v, double mean);
+vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client);
+string LastTradingDay();
+bool TickerHasGoneUpSinceLastTradingDay(string ticker);
+bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client);
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client);
+void RecordBuyOrders(string date, vector<buyorder>& buyorders);
 
+double Stdeviation(const vector<double>& v, double mean)
+{
+    vector<unsigned long long> squareofdifferencestomean;
+    for (int i = 0; i < v.size(); i++)
+    {
+        squareofdifferencestomean.push_back( (v[i] - mean)*(v[i] - mean) );
+    }
+    auto sumofsquares = std::accumulate(squareofdifferencestomean.begin(), squareofdifferencestomean.end(), 0.00);
+    unsigned long long variance = sumofsquares/squareofdifferencestomean.size();
+    return std::sqrt(variance);
+
+}
+
+double avg(const std::vector<double>& v)
+{
+    unsigned long long sum = 0;
+    for (int i = 0; i < v.size(); i++)
+    {
+        sum+=v[i];
+    }
+    return sum/v.size();
+}
 
 int Init(alpaca::Client& client)
 {
@@ -399,6 +435,261 @@ string DateToSellGivenDateToBuy(string DateofBuy)
     return to_iso_extended_string(SellDate);
 }
 
+vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
+{
+    vector<StockVolumeInformation> StockVolumeInfo;
+    for (auto iter = assets.begin(); iter!=assets.end(); iter++)
+    {
+        vector<double> ThisAssetsVolumes;
+
+        try
+        {
+            io::CSVReader<6> in( (DIRECTORY+"/RawData/"+(*iter).symbol+".csv").c_str() );
+            in.read_header(io::ignore_extra_column, "Date", "Open", "Close", "High", "Low", "Volume");
+            //could maybe add a guard here to c if file is too small/not enuf entries like i did in "backtestingVSEB"
+            //but also could low key be unecessary
+
+            std::string Date; double Open; double Close; double Low; double High; double Volume;
+            while(in.read_row(Date , Open, Close, Low, High, Volume))
+            {
+                ThisAssetsVolumes.push_back(Volume);
+            }
+
+            vector<double> ThisAssetsVolumeToday;
+
+
+            StockVolumeInformation ThisTickersInfo;
+            ThisTickersInfo.ticker = (*iter).symbol;
+            double avgvol = avg(ThisAssetsVolumes);
+            ThisTickersInfo.avgvolume = avgvol;
+            ThisTickersInfo.stdevofvolume = Stdeviation(ThisAssetsVolumes, avgvol);
+
+            boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+            std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+
+            auto bars_response = client.getBars({(*iter).symbol}, TodaysDateAsString+"T09:30:00-04:00", TodaysDateAsString+"T16:00:00-04:00", "", "", "1Min", 10000);
+            if (auto status = bars_response.first; !status.ok())
+            {
+                std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
+                iter--;//Try again --> hope this doesn't get stuck in an infinite loop lol
+                continue;
+            }
+
+            auto bars = bars_response.second.bars[(*iter).symbol];
+
+            unsigned long long todaysvol = 0;
+            for (auto iterator = bars.begin(); iterator!=bars.end(); iterator++)
+            {
+                todaysvol += (*iterator).volume;
+            }
+            ThisTickersInfo.todaysvolume = todaysvol;
+            StockVolumeInfo.push_back(ThisTickersInfo);
+
+            ThisAssetsVolumes.clear();//isn't really needed as it's redefined/declared every loop but whatever
+        }
+        catch(exception& e)
+        {
+            //hopefully there is no infinite loop --> this means there was a problem reading this file
+            //or the file doesn't exist -- idk it should never happen tbh
+            cout << "FetchTodaysVolInfo function couldn't read/do smthg for a specific ticker for some rzn... ticker was: " << (*iter).symbol << endl;
+            continue;
+        }
+    }
+
+    return StockVolumeInfo;
+}
+
+string LastTradingDay()
+{
+    int i = 0;
+    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+
+    for (; i < datesmarketisopen.size(); i++)
+    {
+        if (datesmarketisopen[i].date == TodaysDateAsString)
+        {
+            break;
+        }
+    }
+
+    return datesmarketisopen[i-1].date;
+}
+
+bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
+{
+    string LastTradingDayString = LastTradingDay();
+
+    auto bars_response = client.getBars(
+            {ticker},
+            LastTradingDayString+"T09:30:00-04:00",
+            LastTradingDayString+"T16:00:00-04:00",
+            "",
+            "",
+            "1Day",
+            10000
+            );
+
+    if (auto status = bars_response.first; status.ok() == false)
+    {
+        std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
+        return false;
+    }
+
+    auto bars = bars_response.second.bars[ticker];
+
+    auto closingprice = bars.back().close_price;
+
+    auto last_trade_response = client.getLastTrade(ticker);
+    if (auto status = last_trade_response.first; !status.ok()) {
+        std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
+        return false;
+    }
+
+    auto last_trade = last_trade_response.second;
+    auto currentprice = last_trade.trade.price;
+
+    if (currentprice > closingprice)
+        return true;
+    else
+        return false;
+
+}
+
+//returns double which is amnt to be invested and int which is how many tickers should be invested in
+//--- first return.second tickers in list should be invested in
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client)
+{
+    auto resp = client.getAccount();
+    auto account = resp.second;
+    stringstream cash_in_account(account.cash);
+    double cashinsideaccount;
+    cash_in_account >> cashinsideaccount;
+
+    double cash;
+    if (TWENTY_FIVE_K_PROTECTION == true)
+        cash = cashinsideaccount-25000;
+    else
+        cash = cashinsideaccount;
+
+    //Check to c if there is too little cash to split evenly amongst all tickers...
+    if (cash / tickers.size() < 25 )
+    {
+        int NumberOfTickers;
+        NumberOfTickers = cash/25;
+        double amnttobeinvested = cash/NumberOfTickers;
+
+        pair<double, int> ret;
+        ret.first = amnttobeinvested;
+        ret.second = NumberOfTickers;
+        return ret;
+    }
+    //check to c if there is too much cash -- so we j do 50k in each ticker...
+    if (cash/tickers.size() > 50000)
+    {
+        pair<double, int> ret;
+        ret.first = 50000;
+        ret.second = tickers.size();
+        return ret;
+    }
+
+    //otherwise we should have enuf j to divide evenly...
+    pair<double, int> ret;
+    ret.first = cash/tickers.size();
+    ret.second = tickers.size();
+    return ret;
+
+}
+
+int Buy(alpaca::Client& client)
+{
+    vector<StockVolumeInformation> TodaysVolInformation = FetchTodaysVolumeInfo(client);
+    vector<string> TickersToBeBought;
+    for (auto iter = TodaysVolInformation.begin(); iter!=TodaysVolInformation.end(); iter++)
+    {
+        if ( ((*iter).todaysvolume >= (*iter).avgvolume+8*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )
+        {
+            TickersToBeBought.push_back( (*iter).ticker );
+        }
+    }
+    pair<double, int> Amnt_Invested;
+    Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, client);
+    vector<string> temp_tickers_to_be_bought; //maybe could use some "slice" func. here instead idk -- but the vector shouldn't be that big anyway (tho technically is kind of slow)
+    for (int i = 0; i<Amnt_Invested.second; i++)
+    {
+        temp_tickers_to_be_bought.push_back(TickersToBeBought[i]);
+    }
+    //copy temp to actual...
+    TickersToBeBought.clear();
+    TickersToBeBought = temp_tickers_to_be_bought;
+    double AmntToInvest = Amnt_Invested.first;
+
+    vector<buyorder> BuyOrders;
+
+    for (auto Iterator = TickersToBeBought.begin(); Iterator!=TickersToBeBought.end(); Iterator++)
+    {
+        int qty;
+        auto last_trade_response = client.getLastTrade((*Iterator));
+        auto last_trade = last_trade_response.second;
+        auto price = last_trade.trade.price;
+        qty = AmntToInvest/price;
+
+
+        auto submit_order_response = client.submitOrder(
+                (*Iterator),
+                qty,
+                alpaca::OrderSide::Buy,
+                alpaca::OrderType::Market,
+                alpaca::OrderTimeInForce::CLS
+        );
+        if (auto status = submit_order_response.first; !status.ok()) {
+            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+            //some error buying this ticker...
+            continue;
+        }
+        auto order_response = submit_order_response.second;
+        string thisbuyid = order_response.id;
+
+        double limitprice = price*1.35;
+        auto submit_limit_order_response = client.submitOrder(
+                (*Iterator),
+                qty,
+                alpaca::OrderSide::Sell,
+                alpaca::OrderType::Limit,
+                alpaca::OrderTimeInForce::GoodUntilCanceled,
+                to_string(limitprice)
+        );
+        if (auto status = submit_limit_order_response.first; !status.ok()) {
+            std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
+            return 666;
+        }
+        auto limit_order_response = submit_limit_order_response.second;
+        string thislimid = limit_order_response.id;
+
+        buyorder ThisBuyOrder;
+        ThisBuyOrder.ticker = (*Iterator);
+        ThisBuyOrder.buyid = thisbuyid;
+        ThisBuyOrder.sell_lim_id = thislimid;
+        BuyOrders.push_back(ThisBuyOrder);
+    }
+    boost::gregorian::date DateToday = boost::gregorian::day_clock::local_day();
+    std::string DateTodayAsString = to_iso_extended_string(DateToday);
+    RecordBuyOrders(DateTodayAsString, BuyOrders);
+    return 0;
+}
+
+void RecordBuyOrders(string date, vector<buyorder>& buyorders)
+{
+    ofstream OutputFile(DIRECTORY+"/CurrentlyBought/"+date+".csv");
+    OutputFile << "ticker,buyid,sell_lim_id\n";
+    for (auto iter = buyorders.begin(); iter!=buyorders.end(); iter++)
+    {
+        OutputFile << (*iter).ticker << "," << (*iter).buyid << "," << (*iter).sell_lim_id << "\n";
+    }
+    OutputFile.close();
+
+}
+
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
@@ -456,7 +747,10 @@ int main()
 
                 if (NumberofFilesInCurrentlyBought == 0 || NumberofFilesInCurrentlyBought == 1)
                 {
-                    Buy(client);
+                    if (int buystatus = Buy(client); buystatus!=0)
+                    {
+                        return buystatus;
+                    }
                 }
                 else if (NumberofFilesInCurrentlyBought == 2)
                 {
@@ -464,41 +758,26 @@ int main()
                     if (Sell_Status_code != 0)
                     {
                         //Problems...
-                        ///eventually -- Make ALERT() function and place here
-                        return 7;
+                        ///eventually -- Make ALERT() function and place here -- potentially with Iftt
+                        return Sell_Status_code;
                     }
                     else
                     {
-                        Buy(client);
+                        if (int buystatus = Buy(client); buystatus!=0)
+                        {
+                            return buystatus;
+                        }
                     }
                 }
+                //else case should never happen
 
 
                 ///TO DO's Start here
-
-
-                /**
-                 * THE FOLLOWING NEEDS TO BE DONE VERY CAREFULLY, AS OTHER THAN COMPILING
-                 * NO TESTS WILL BE DONE BEYOND JUST RESETTING API KEYS TO PAPER ACCNT
-                 * AS THATS THE ONLY REAL WAY TO TEST IT
-                 */
-
-                //should prolly make a funciton that gets last trading day to compare last close price to price now...
-                //or maybe something in the api to get last close price
-                //or prolly using that said function above and then getting 1 day bar from that day and finding close
-
-                //FOR BUY FUNC. low-key described below rmb that i think we can j use normal order id's in the output csv file
-                //ALSO rmb to double check parameters of submit order func. with that listed on the github
-                //also prolly a good idea to make a seperate function co calculate how much money in each ticker
-                //calculate todays sum volumes and compare to avg+8stdeviations using avg/stdev ^(and ofc the fcat that price has to be higher than yest. closing)^ functions from backtestingVSEB
-                //but modifying to use new volumesinfo data struct. --> resetvariables function will also clear that data struct
-
-                /**
-                 * When you actually run the server for testing and for real make sure the directory its running
-                 * from has all permissions set to all for everyone everywhere (recursively as well)
-                 */
-
+                 //When you actually run the server for testing and for real make sure the directory its running
+                 // from has all permissions set to all for everyone everywhere (recursively as well)
                 //On aug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
+
+                ///And end here
 
                 HaveAlreadyPlacedOrders = true;
             }
