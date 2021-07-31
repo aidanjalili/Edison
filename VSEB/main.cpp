@@ -572,6 +572,9 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cli
     else
         cash = cashinsideaccount;
 
+    //Cash should be split into two -- cuz at any given time we have two seperate days worth of orders out...
+    cash = cash/2;
+
     //Check to c if there is too little cash to split evenly amongst all tickers...
     if (cash / tickers.size() < 25 )
     {
@@ -694,8 +697,8 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKLT0ZT8YQSKQNL1Q1CM", 1);
-    setenv("APCA_API_SECRET_KEY", "Grf0tl7aXs6qdt2EbmoEV8llmUAMeHTGLjk8JgJR", 1);
+    setenv("APCA_API_KEY_ID", "PKS3FN6WPXK83IFB5VM0", 1);
+    setenv("APCA_API_SECRET_KEY", "0omuPbyw17Tutd2JdVNQDZfSRpYDtl6EA7UWd6zj", 1);
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
 
