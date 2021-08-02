@@ -15,7 +15,7 @@ using namespace std;
 
 
 /*Constants*/
-const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";
+const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
 const bool TWENTY_FIVE_K_PROTECTION = true;
 
 /*Global variables and structs...*/
