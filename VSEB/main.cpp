@@ -653,6 +653,8 @@ int Buy(alpaca::Client& client)
         auto order_response = submit_order_response.second;
         string thisbuyid = order_response.id;
 
+        sleep(3);
+
         double limitprice = price*1.35;
         auto submit_limit_order_response = client.submitOrder(
                 (*Iterator),
@@ -668,6 +670,8 @@ int Buy(alpaca::Client& client)
         }
         auto limit_order_response = submit_limit_order_response.second;
         string thislimid = limit_order_response.id;
+
+        sleep(3)
 
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
