@@ -56,7 +56,7 @@ bool FirstRun();
 void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar);
 int GetData(string InputDir, string startdate, string enddate, alpaca::Client& client);
 int ExampleLastTradeCode(alpaca::Client& client);
-int Refresh(string InputDir, alpaca::Client& client);
+void Refresh(string InputDir, alpaca::Client& client);
 void DeleteRecord(string InputFileNameAndDir, unsigned long RowNumberToBeDeleted);
 bool IsGivenDayATradingDay(string GivenDate, vector<alpaca::Date>& datesmarketisopen);
 void ResetVariables();
@@ -243,8 +243,8 @@ void DeleteRecord(string InputFileNameAndDir, unsigned long RowNumberToBeDeleted
 }
 
 
-//Nightly refresh function
-int Refresh(string InputDir, alpaca::Client& client)
+//Nightly refresh function -- might change to type int later to throw a non 0 return if error
+void Refresh(string InputDir, alpaca::Client& client)
 {
     //Deletes first line and adds latest data
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
@@ -399,7 +399,7 @@ int Sell(alpaca::Client& client)
     }
 
     Archive(files[0],buyorders,sellorderids);
-
+    return 0;
 }
 
 //This function will FAIL if the two vector inputs are not the same size --> they are supposed to be and should be
