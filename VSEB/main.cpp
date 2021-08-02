@@ -43,6 +43,9 @@ struct buyorder{
 
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
+char* arr[] = {"DOLE"};
+vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
+
 
 //These varaibles are "reset" every day...
 bool HaveAlreadyRunRefreshToday = false;
@@ -440,6 +443,19 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
     vector<StockVolumeInformation> StockVolumeInfo;
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
+        bool stop = false;
+        for (auto j = bannedtickers.begin(); j!=bannedtickers.end(); j++)
+        {
+            if ( (*iter).symbol == (*j) )
+            {
+                stop = true;
+                break;
+            }
+        }
+        if (stop == true)
+            continue;
+
+
         vector<double> ThisAssetsVolumes;
 
         try
@@ -742,9 +758,8 @@ int main()
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
-            {
-                int NumberofFilesInCurrentlyBought;
+            if (now.time_of_day().hours() == 16)//BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
+            {int NumberofFilesInCurrentlyBought;
                 vector<string> files;
                 for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
                 {
@@ -754,6 +769,7 @@ int main()
 
                 if (NumberofFilesInCurrentlyBought == 0 || NumberofFilesInCurrentlyBought == 1)
                 {
+
                     if (int buystatus = Buy(client); buystatus!=0)
                     {
                         return buystatus;
