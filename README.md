@@ -10,7 +10,7 @@ and B) that you run it sometime in the morning before ~3pm.
 Finally, it might be a good idea to do a "hard" refresh of this program every three months or so
 or as the user desires to update its ticker list.
 
-###A couple real quick technical notes
+# A couple real quick technical notes
 
 The dates in the "CurrentlyBought" directory refer to the date that each of those
 assets were bought.
