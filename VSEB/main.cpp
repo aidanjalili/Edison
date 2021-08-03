@@ -183,18 +183,26 @@ int GetData(string InputDir, string startdate, string enddate, alpaca::Client& c
     /*Loops thru tickers here*/ //--> should put into a seperate function later
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
-        auto bars_response = client.getBars({(*iter).symbol}, startdate, enddate, "", "", "1Day", 10000);
-
-        if (auto status = bars_response.first; status.ok() == false)
+        try
         {
-            std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
-            //Just pray that this doesnt end up in a never ending loop --> originally designed to retry after rate limit has been reached
-            iter--;
+            auto bars_response = client.getBars({(*iter).symbol}, startdate, enddate, "", "", "1Day", 10000);
+
+            if (auto status = bars_response.first; status.ok() == false)
+            {
+                std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
+                //Just pray that this doesnt end up in a never ending loop --> originally designed to retry after rate limit has been reached
+                iter--;
+                continue;
+            }
+
+            auto bars = bars_response.second.bars[(*iter).symbol];
+        }
+        catch(exception& e)
+        {
+            //some error getting bars for this symbol... so we continue onto the next
+            cout << "problem getting historical daily data for: " << (*iter).symbol << endl;
             continue;
         }
-
-
-        auto bars = bars_response.second.bars[(*iter).symbol];
 
         WriteToCsvOutputs(InputDir+"/RawData/"+(*iter).symbol+".csv", bars, false);
 
@@ -772,7 +780,7 @@ int main()
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            if (now.time_of_day().hours() == 19)//== BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
+            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
             {
                 int NumberofFilesInCurrentlyBought;
                 vector<string> files;
