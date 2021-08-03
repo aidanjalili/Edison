@@ -196,6 +196,10 @@ int GetData(string InputDir, string startdate, string enddate, alpaca::Client& c
             }
 
             auto bars = bars_response.second.bars[(*iter).symbol];
+
+            WriteToCsvOutputs(InputDir+"/RawData/"+(*iter).symbol+".csv", bars, false);
+
+            cout << "******* Wrote " + (*iter).symbol + ".csv ********" << endl;
         }
         catch(exception& e)
         {
@@ -204,9 +208,6 @@ int GetData(string InputDir, string startdate, string enddate, alpaca::Client& c
             continue;
         }
 
-        WriteToCsvOutputs(InputDir+"/RawData/"+(*iter).symbol+".csv", bars, false);
-
-        cout << "******* Wrote " + (*iter).symbol + ".csv ********" << endl;
     }
 
     return 0;
