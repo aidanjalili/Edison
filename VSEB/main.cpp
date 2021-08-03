@@ -43,7 +43,7 @@ struct buyorder{
 
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
-char* arr[] = {"ABCDEFG"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
+char* arr[] = {"SMIH"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
 vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
 
 
@@ -125,8 +125,22 @@ int Init(alpaca::Client& client)
     //filter out inactive assets...
     for (int i = 0; i<assets.size(); i++)
     {
-        if (assets[i].status != "active")
+        if (assets[i].tradable != true)//if it's not tradable delete it
+        {
             assets.erase(assets.begin() + i);
+            continue;
+        }
+        else//go thru all the bannedtickers and c if it matches to this ticker.. if it does delete it
+        {
+            for (auto iterator = bannedtickers.begin(); iterator!=bannedtickers.end(); iterator++)
+            {
+                if (assets[i].symbol == (*iterator))
+                {
+                    assets.erase(assets.begin() + i);
+                    break;
+                }
+            }
+        }
     }
 
     return 0;
@@ -147,6 +161,7 @@ bool FirstRun()
 //For get Data func -- only works with bars that are recieved with api v2
 void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar, bool append)
 {
+
     if (append == true)
     {
         ofstream OutputFile(filename, ios::app);
@@ -186,7 +201,6 @@ int GetData(string InputDir, string startdate, string enddate, alpaca::Client& c
         try
         {
             auto bars_response = client.getBars({(*iter).symbol}, startdate, enddate, "", "", "1Day", 10000);
-
             if (auto status = bars_response.first; status.ok() == false)
             {
                 std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
@@ -196,12 +210,11 @@ int GetData(string InputDir, string startdate, string enddate, alpaca::Client& c
             }
 
             auto bars = bars_response.second.bars[(*iter).symbol];
-
             WriteToCsvOutputs(InputDir+"/RawData/"+(*iter).symbol+".csv", bars, false);
 
             cout << "******* Wrote " + (*iter).symbol + ".csv ********" << endl;
         }
-        catch(exception& e)
+        catch(...)
         {
             //some error getting bars for this symbol... so we continue onto the next
             cout << "problem getting historical daily data for: " << (*iter).symbol << endl;
@@ -323,7 +336,7 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(48);//subtract approx. 48 mins for algo to run so that it finishes before 350 to place MOC orders
+            auto timetobuy = closingtime - boost::posix_time::minutes(45);//subtract approx. 48 mins for algo to run so that it finishes before 350 to place MOC orders
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
@@ -461,18 +474,6 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
     vector<StockVolumeInformation> StockVolumeInfo;
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
-        bool stop = false;
-        for (auto j = bannedtickers.begin(); j!=bannedtickers.end(); j++)
-        {
-            if ( (*iter).symbol == (*j) )
-            {
-                stop = true;
-                break;
-            }
-        }
-        if (stop == true)
-            continue;
-
 
         vector<double> ThisAssetsVolumes;
 
@@ -522,7 +523,7 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
             ThisAssetsVolumes.clear();//isn't really needed as it's redefined/declared every loop but whatever
 
         }
-        catch(exception& e)
+        catch(...)
         {
             //hopefully there is no infinite loop --> this means there was a problem reading this file
             //or the file doesn't exist -- idk it should never happen tbh
