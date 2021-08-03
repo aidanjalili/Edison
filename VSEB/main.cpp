@@ -43,7 +43,7 @@ struct buyorder{
 
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
-char* arr[] = {"SMIH"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
+char* arr[] = {"ABCDEONETWOTHREE"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
 vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
 
 
@@ -198,14 +198,13 @@ int GetData(string InputDir, string startdate, string enddate, alpaca::Client& c
     /*Loops thru tickers here*/ //--> should put into a seperate function later
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
+        //this try catch is probably unecessary but ig it doesn't hurt...
         try
         {
             auto bars_response = client.getBars({(*iter).symbol}, startdate, enddate, "", "", "1Day", 10000);
             if (auto status = bars_response.first; status.ok() == false)
             {
                 std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
-                //Just pray that this doesnt end up in a never ending loop --> originally designed to retry after rate limit has been reached
-                iter--;
                 continue;
             }
 
