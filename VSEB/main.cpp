@@ -314,7 +314,7 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(30);
+            auto timetobuy = closingtime - boost::posix_time::minutes(48);//subtract approx. 48 mins for algo to run so that it finishes before 350 to place MOC orders
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
