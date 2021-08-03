@@ -43,7 +43,7 @@ struct buyorder{
 
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
-char* arr[] = {"DOLE"};
+char* arr[] = {"ABCDEFG"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
 vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
 
 
@@ -70,11 +70,11 @@ string DateToSellGivenDateToBuy(string DateofBuy);
 double avg(const std::vector<double>& v);
 double Stdeviation(const vector<double>& v, double mean);
 vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client);
-string LastTradingDay();
-bool TickerHasGoneUpSinceLastTradingDay(string ticker);
+string NTradingDaysAgo(int marketdaysago);
 bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client);
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client);
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, bool firstRun, alpaca::Client& client);
 void RecordBuyOrders(string date, vector<buyorder>& buyorders);
+int Buy(bool firstBuy, alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -83,7 +83,11 @@ double Stdeviation(const vector<double>& v, double mean)
     {
         squareofdifferencestomean.push_back( (v[i] - mean)*(v[i] - mean) );
     }
-    auto sumofsquares = std::accumulate(squareofdifferencestomean.begin(), squareofdifferencestomean.end(), 0.00);
+    unsigned long long sumofsquares = 0;
+    for (auto iter = squareofdifferencestomean.begin(); iter!= squareofdifferencestomean.end(); iter++)
+    {
+        sumofsquares+=(*iter);
+    }
     unsigned long long variance = sumofsquares/squareofdifferencestomean.size();
     return std::sqrt(variance);
 
@@ -118,7 +122,12 @@ int Init(alpaca::Client& client)
         return -1;//a -1 return means there was an error in getting the ticker list
     }
     assets = get_assets_response.second;
-
+    //filter out inactive assets...
+    for (int i = 0; i<assets.size(); i++)
+    {
+        if (assets[i].status != "active")
+            assets.erase(assets.begin() + i);
+    }
 
     return 0;
 }
@@ -305,10 +314,10 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(20);
+            auto timetobuy = closingtime - boost::posix_time::minutes(30);
             string timetobuyasstring = to_simple_string(timetobuy);
-            ret.hours = stoi(timetobuyasstring.substr(0,1));
-            ret.minutes = stoi(timetobuyasstring.substr(3,4));
+            ret.hours = stoi(timetobuyasstring.substr(0,2));
+            ret.minutes = stoi(timetobuyasstring.substr(3,2));
             return ret;
         }
     }
@@ -473,7 +482,6 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
 
             vector<double> ThisAssetsVolumeToday;
 
-
             StockVolumeInformation ThisTickersInfo;
             ThisTickersInfo.ticker = (*iter).symbol;
             double avgvol = avg(ThisAssetsVolumes);
@@ -492,6 +500,8 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
             }
 
             auto bars = bars_response.second.bars[(*iter).symbol];
+            if (bars.size() == 0)
+                continue;
 
             unsigned long long todaysvol = 0;
             for (auto iterator = bars.begin(); iterator!=bars.end(); iterator++)
@@ -500,8 +510,8 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
             }
             ThisTickersInfo.todaysvolume = todaysvol;
             StockVolumeInfo.push_back(ThisTickersInfo);
-
             ThisAssetsVolumes.clear();//isn't really needed as it's redefined/declared every loop but whatever
+
         }
         catch(exception& e)
         {
@@ -515,7 +525,7 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
     return StockVolumeInfo;
 }
 
-string LastTradingDay()
+string NTradingDaysAgo(int marketdaysago)
 {
     int i = 0;
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
@@ -528,18 +538,18 @@ string LastTradingDay()
             break;
         }
     }
-
-    return datesmarketisopen[i-1].date;
+    return datesmarketisopen[i-marketdaysago].date;
 }
 
 bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
 {
-    string LastTradingDayString = LastTradingDay();
+    string LastTradingDay = NTradingDaysAgo(1);
+    string DayBeforeLastTradingDay = NTradingDaysAgo(2);
 
     auto bars_response = client.getBars(
             {ticker},
-            LastTradingDayString+"T09:30:00-04:00",
-            LastTradingDayString+"T16:00:00-04:00",
+            LastTradingDay+"T09:30:00-04:00",
+            DayBeforeLastTradingDay+"T16:00:00-04:00",
             "",
             "",
             "1Day",
@@ -553,6 +563,9 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
     }
 
     auto bars = bars_response.second.bars[ticker];
+
+    if (bars.size() == 0)//rare and weird error to happen as if we can get minute data on a ticker usually u can get daily data as well, but j in case it returns empty
+        return false;
 
     auto closingprice = bars.back().close_price;
 
@@ -574,7 +587,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
 
 //returns double which is amnt to be invested and int which is how many tickers should be invested in
 //--- first return.second tickers in list should be invested in
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client)
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, bool firstRun, alpaca::Client& client)
 {
     auto resp = client.getAccount();
     auto account = resp.second;
@@ -588,8 +601,8 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cli
     else
         cash = cashinsideaccount;
 
-    //Cash should be split into two -- cuz at any given time we have two seperate days worth of orders out...
-    cash = cash/2;
+    if (firstRun == true)//Then cash should be split into two -- cuz at any given time we have two seperate days worth of orders out...
+        cash = cash/2;
 
     //Check to c if there is too little cash to split evenly amongst all tickers...
     if (cash / tickers.size() < 25 )
@@ -620,7 +633,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cli
 
 }
 
-int Buy(alpaca::Client& client)
+int Buy(bool firstBuy, alpaca::Client& client)
 {
     vector<StockVolumeInformation> TodaysVolInformation = FetchTodaysVolumeInfo(client);
     vector<string> TickersToBeBought;
@@ -632,7 +645,7 @@ int Buy(alpaca::Client& client)
         }
     }
     pair<double, int> Amnt_Invested;
-    Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, client);
+    Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, firstBuy, client);
     vector<string> temp_tickers_to_be_bought; //maybe could use some "slice" func. here instead idk -- but the vector shouldn't be that big anyway (tho technically is kind of slow)
     for (int i = 0; i<Amnt_Invested.second; i++)
     {
@@ -713,15 +726,16 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 
 }
 
+
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
     setenv("APCA_API_KEY_ID", "PKRQXQGQJO56MIVGKEXM", 1);
     setenv("APCA_API_SECRET_KEY", "AKx0QKlf0De8cbmSLE1ekfPpRVrwErOc5Da4GnRD", 1);
+
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
-
 
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
@@ -758,8 +772,9 @@ int main()
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            if (now.time_of_day().hours() == 16)//BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
-            {int NumberofFilesInCurrentlyBought;
+            if (now.time_of_day().hours() == 19)//== BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
+            {
+                int NumberofFilesInCurrentlyBought;
                 vector<string> files;
                 for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
                 {
@@ -767,10 +782,18 @@ int main()
                 }
                 NumberofFilesInCurrentlyBought = files.size();
 
-                if (NumberofFilesInCurrentlyBought == 0 || NumberofFilesInCurrentlyBought == 1)
+                if (NumberofFilesInCurrentlyBought == 0)
                 {
 
-                    if (int buystatus = Buy(client); buystatus!=0)
+                    if (int buystatus = Buy(true, client); buystatus!=0)
+                    {
+                        return buystatus;
+                    }
+                }
+                else if (NumberofFilesInCurrentlyBought == 1)
+                {
+
+                    if (int buystatus = Buy(false, client); buystatus!=0)
                     {
                         return buystatus;
                     }
@@ -786,7 +809,7 @@ int main()
                     }
                     else
                     {
-                        if (int buystatus = Buy(client); buystatus!=0)
+                        if (int buystatus = Buy(false, client); buystatus!=0)
                         {
                             return buystatus;
                         }
@@ -796,10 +819,7 @@ int main()
 
 
                 ///TO DO's Start here
-                 //When you actually run the server for testing and for real make sure the directory its running
-                 // from has all permissions set to all for everyone everywhere (recursively as well)
                 //On aug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
-
                 ///And end here
 
                 HaveAlreadyPlacedOrders = true;

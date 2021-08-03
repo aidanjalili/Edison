@@ -77,9 +77,9 @@
         <option name="Blaze.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -96,7 +96,9 @@
       <workItem from="1627243558900" duration="28000" />
       <workItem from="1627243636836" duration="63000" />
       <workItem from="1627243765938" duration="23199000" />
-      <workItem from="1627424335083" duration="51786000" />
+      <workItem from="1627424335083" duration="59843000" />
+      <workItem from="1627953438685" duration="20000" />
+      <workItem from="1627953547052" duration="1859000" />
     </task>
     <servers />
   </component>
