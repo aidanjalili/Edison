@@ -1,0 +1,24 @@
+TO DO:
+
+*current*--make VSEB as backtested in "BackTestingVSEB"v0.1
+--Next backtests should include stop loss (pretty easy to do even with v0.1)
+--Then: Make backtesting program all around better /re-write to be good
+--Do the same with RDF, maybe even before above
+--Rewrite VSEB based off of results from above, (above should be able to optimize for best values of stop loss, take profit, delay between buy/sell, etc.)
+
+*I* concurrent with above, make detailed docs and explanation of programs. (First with v1.0 of VSEB, then with the new backtester and RDF as well as eventually with the new trader) *I*
+
+--------------------------------------------------------------------------------
+
+IDEAS TO MAKE MORE MONEY
+
+--VSEB but on the way down as well with shorts
+--Buy if pre-market price skyrocketted (esp. with news of new earnings, etc.)
+
+--------------------------------------------------------------------------------
+
+IDEAS FOR FEATURES OF VSEBV1.0
+
+--make a function called AlertUser() or smthg that is sent when/if the algo is forced to stop
+--for whatever reason
+--it could like text me or smthg and include a message abt the currently purchased assets

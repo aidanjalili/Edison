@@ -335,7 +335,7 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(45);//subtract approx. 48 mins for algo to run so that it finishes before 350 to place MOC orders
+            auto timetobuy = closingtime - boost::posix_time::minutes(15);//subtract approx. 48 mins for algo to run so that it finishes before 350 to place MOC orders
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
@@ -504,7 +504,6 @@ vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
             if (auto status = bars_response.first; !status.ok())
             {
                 std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
-                iter--;//Try again --> hope this doesn't get stuck in an infinite loop lol
                 continue;
             }
 
@@ -557,8 +556,8 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
 
     auto bars_response = client.getBars(
             {ticker},
-            LastTradingDay+"T09:30:00-04:00",
-            DayBeforeLastTradingDay+"T16:00:00-04:00",
+            DayBeforeLastTradingDay+"T09:30:00-04:00",
+            LastTradingDay+"T16:00:00-04:00",
             "",
             "",
             "1Day",
@@ -681,7 +680,7 @@ int Buy(bool firstBuy, alpaca::Client& client)
                 qty,
                 alpaca::OrderSide::Buy,
                 alpaca::OrderType::Market,
-                alpaca::OrderTimeInForce::CLS
+                alpaca::OrderTimeInForce::Day
         );
         if (auto status = submit_order_response.first; !status.ok()) {
             std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -691,9 +690,10 @@ int Buy(bool firstBuy, alpaca::Client& client)
         auto order_response = submit_order_response.second;
         string thisbuyid = order_response.id;
 
-        sleep(3);
+        sleep(5);
 
         double limitprice = price*1.35;
+        //try next line
         auto submit_limit_order_response = client.submitOrder(
                 (*Iterator),
                 qty,
@@ -702,6 +702,7 @@ int Buy(bool firstBuy, alpaca::Client& client)
                 alpaca::OrderTimeInForce::GoodUntilCanceled,
                 to_string(limitprice)
         );
+        //catch get order status -- if it's
         if (auto status = submit_limit_order_response.first; !status.ok()) {
             std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
             return 666;
@@ -709,7 +710,7 @@ int Buy(bool firstBuy, alpaca::Client& client)
         auto limit_order_response = submit_limit_order_response.second;
         string thislimid = limit_order_response.id;
 
-        sleep(3);
+        sleep(5);
 
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
@@ -740,8 +741,8 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKRQXQGQJO56MIVGKEXM", 1);
-    setenv("APCA_API_SECRET_KEY", "AKx0QKlf0De8cbmSLE1ekfPpRVrwErOc5Da4GnRD", 1);
+    setenv("APCA_API_KEY_ID", "PKNN4CC2OEVCPBN2H60Z", 1);
+    setenv("APCA_API_SECRET_KEY", "coLvV756mSL6yQuTOwqteQ9RR6GRZvdYry2Mj7sI", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
@@ -828,7 +829,7 @@ int main()
 
 
                 ///TO DO's Start here
-                //On aug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
+                //Onaug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
                 ///And end here
 
                 HaveAlreadyPlacedOrders = true;
