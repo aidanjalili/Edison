@@ -27,8 +27,8 @@ vector<tuple<string, string, double, int>> Buys;
 
 void SetEnvironmentVariables()
 {
-    setenv("APCA_API_KEY_ID", "PKLT0ZT8YQSKQNL1Q1CM", 1);
-    setenv("APCA_API_SECRET_KEY", "Grf0tl7aXs6qdt2EbmoEV8llmUAMeHTGLjk8JgJR", 1);
+    setenv("APCA_API_KEY_ID", "PKNN4CC2OEVCPBN2H60Z", 1);
+    setenv("APCA_API_SECRET_KEY", "coLvV756mSL6yQuTOwqteQ9RR6GRZvdYry2Mj7sI", 1);
 }
 
 void Init()

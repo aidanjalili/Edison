@@ -20,7 +20,6 @@ using namespace std;
  */
 
 
-
 //The only data we care about is date, open, close, and volume
 void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar)
 {
@@ -32,7 +31,7 @@ void WriteToCsvOutputs(string filename, vector<alpaca::Bar>& InputBar)
     //Write the rows
     for(auto iter = InputBar.begin(); iter!=InputBar.end(); iter++)
     {
-        OutputFile << date::format("%F", chrono::sys_seconds{chrono::seconds( (*iter).time )} ) << "," << to_string((*iter).open_price) << "," << to_string((*iter).close_price) << "," << to_string((*iter).high_price) << "," << to_string((*iter).low_price) << "," << to_string((*iter).volume) << "\n";
+        OutputFile << (*iter).time  << "," << to_string((*iter).open_price) << "," << to_string((*iter).close_price) << "," << to_string((*iter).high_price) << "," << to_string((*iter).low_price) << "," << to_string((*iter).volume) << "\n";
     }
 
     OutputFile.close();
@@ -48,8 +47,8 @@ int main()
 
 
     /*Set environment variables*/
-    setenv("APCA_API_KEY_ID", "PKLT0ZT8YQSKQNL1Q1CM", 1);
-    setenv("APCA_API_SECRET_KEY", "Grf0tl7aXs6qdt2EbmoEV8llmUAMeHTGLjk8JgJR", 1);
+    setenv("APCA_API_KEY_ID", "PKNN4CC2OEVCPBN2H60Z", 1);
+    setenv("APCA_API_SECRET_KEY", "coLvV756mSL6yQuTOwqteQ9RR6GRZvdYry2Mj7sI", 1);
 
     /*Setting the env and client variables for the main func here... this needs to be done in the main func. for some reason*/
     auto env = alpaca::Environment();
@@ -79,7 +78,6 @@ int main()
         {
             std::cerr << "Error getting bars information: " << status.getMessage() << std::endl;
             //Just pray that this doesnt end up in a never ending loop --> originally designed to retry after rate limit has been reached
-            iter--;
             continue;
         }
 
