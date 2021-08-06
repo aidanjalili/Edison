@@ -23,12 +23,12 @@ vector<string> mastertickers;
 
 vector<double> volumes;
 //Date, ticker, buy price, row number
-vector<tuple<string, string, double, int>> Buys;
+vector<tuple<string, string, double, unsigned long long>> Buys;
 
 void SetEnvironmentVariables()
 {
-    setenv("APCA_API_KEY_ID", "PKNN4CC2OEVCPBN2H60Z", 1);
-    setenv("APCA_API_SECRET_KEY", "coLvV756mSL6yQuTOwqteQ9RR6GRZvdYry2Mj7sI", 1);
+    setenv("APCA_API_KEY_ID", "PKLT0ZT8YQSKQNL1Q1CM", 1);
+    setenv("APCA_API_SECRET_KEY", "Grf0tl7aXs6qdt2EbmoEV8llmUAMeHTGLjk8JgJR", 1);
 }
 
 void Init()
@@ -92,7 +92,7 @@ int main()
     }
     auto assets = get_assets_response.second;
     /*Loops thru tickers here*/ //--> should put into a seperate function later
-
+    unsigned long long index;
     for (const auto& currentticker : assets)
     {
 //        io::CSVReader<6> in("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/RawData/" + currentticker.symbol + ".csv");
@@ -112,7 +112,7 @@ int main()
 
         //starts here shit
         bool DoneCountingAvgVolumes = false;
-        int index =0;
+        index = 0;
         int currentbuyorder = 0;
         double yesterdaysclose = 0;
         double yesterdaysclosetemp=0;
@@ -121,7 +121,9 @@ int main()
         volumes.clear();
         volumes.shrink_to_fit();
 
-        try {io::CSVReader<6> in( ("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/RawData/" + currentticker.symbol + ".csv").c_str() );
+        try
+        {io::CSVReader<6> in( ("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/RawData/" + currentticker.symbol + ".csv").c_str() );
+
         in.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
         std::string Date; double Open; double Close; double Low; double High; double Volume;
 
@@ -163,17 +165,19 @@ int main()
                 averagevolume = avg(volumes);
                 stdev = Stdeviation(volumes, averagevolume);
                 //cout << averagevolume << "   " << stdev << endl;
-
-                if (Buys.size() != 0)
+                if (Buys.size() != 0 && (currentbuyorder == Buys.size()-1 || currentbuyorder == Buys.size()-2))
                 {
                     //check for sells
                     tuple<string, string, double, int> currentbuy ;
                     currentbuy = make_tuple(get<0>(Buys[currentbuyorder]), get<1>(Buys[currentbuyorder]), get<2>(Buys[currentbuyorder]), get<3>(Buys[currentbuyorder]));
-                    if (index <= get<3>(currentbuy)+2)
+                    //if (index <= get<3>(currentbuy)+2)
+                    if (index == get<3>(currentbuy)+1 || index == get<3>(currentbuy)+2)
                     {
-                        if (High > 1.35*get<2>(currentbuy))
+                      // cout << "Index is: " << index << endl;
+                      // cout << "Current buy index is: " << get<3>(currentbuy) << endl;
+                        if (High > 1.1*get<2>(currentbuy))
                         {
-                            percentreturns.push_back(0.35);
+                            percentreturns.push_back(0.1);
                             datez.push_back(Date);
                             mastertickers.push_back(currentticker.symbol);
                             currentbuyorder++;
@@ -202,8 +206,13 @@ int main()
             volumes.push_back(Volume);
             index++;
         }}
-        catch(exception& e){continue;}//catches if the file doesn't exist/some other error reading it...
-
+        catch(exception& e)
+        {
+          if (typeid(e).name() == "io::error::can_not_open_file code")
+          continue;
+          else if (typeid(e).name() == "std::bad_alloc")
+          continue;
+        }
         cout << "just finished looking at: " + currentticker.symbol << endl;
         cout << "Number of trades currently is: " << to_string(percentreturns.size()) << endl;
         //Comment line below when using "currentticker.symbol"
