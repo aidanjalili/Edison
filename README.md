@@ -7,6 +7,8 @@ This program should only be run the morning of the first day you'd like to make 
 A) the market is open today
 and B) that you run it sometime in the morning before ~3pm.
 
+Also after you pull you need to create your own two directories "CurrentlyBought" and "RawData" (the latter only if it's your first run) inside of VSEB.
+
 Finally, it might be a good idea to do a "hard" refresh of this program every three months or so
 or as the user desires to update its ticker list.
 
