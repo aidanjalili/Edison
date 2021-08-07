@@ -470,7 +470,7 @@ string DateToSellGivenDateToBuy(string DateofBuy)
             break;
         }
     }
-    string SellDate = datesmarketisopen[i+5].date
+    string SellDate = datesmarketisopen[i+5].date;
     return SellDate;
 }
 
