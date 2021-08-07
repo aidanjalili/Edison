@@ -470,8 +470,8 @@ string DateToSellGivenDateToBuy(string DateofBuy)
             break;
         }
     }
-    string SellDate = datesmarketisopen[i+5].date;
-    return SellDate;
+    string ret = datesmarketisopen[i+5].date;
+    return ret;
 }
 
 vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
