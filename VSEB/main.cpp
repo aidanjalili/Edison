@@ -815,8 +815,8 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PK79IPR80TSVA4WMS2Y8", 1);
-    setenv("APCA_API_SECRET_KEY", "oYVySwg0kD3wA2x8wMiUW5ArNJY7eYrMLx6dk17h", 1);
+    setenv("APCA_API_KEY_ID", "PKANEBDNLZE72F8NK8IM", 1);
+    setenv("APCA_API_SECRET_KEY", "B3zQJTIcJDX0hpzX6JFloApsCBJt5fNPabIcJm01", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
