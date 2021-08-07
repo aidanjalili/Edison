@@ -1,6 +1,6 @@
 /*
  * ALGO DOES THE FOLLOWING....
- * Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 and days later = 5 and stop loss at half a percent
+ * Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 and days later = 5 and stop loss at 1 percent
  */
 
 #include <iostream>
@@ -460,18 +460,18 @@ string DateToSellGivenDateToBuy(string DateofBuy)
 {
     boost::gregorian::date BuyDate = boost::gregorian::from_simple_string(DateofBuy);
     boost::gregorian::date SellDate;
-    int i = 2;
-    while (true)
-    {
-        boost::gregorian::days daystoadd(i);
-        SellDate = BuyDate + daystoadd;
-        if (IsGivenDayATradingDay(to_iso_extended_string(SellDate), datesmarketisopen))
-            break;
-        else
-            i++;
-    }
 
-    return to_iso_extended_string(SellDate);
+    string BuyDateAsString = to_iso_extended_string(SellDate);
+    int i = 0;
+    for (; i< datesmarketisopen.size(); i++)
+    {
+        if (datesmarketisopen[i].date == BuyDateAsString)
+        {
+            break;
+        }
+    }
+    string SellDate = datesmarketisopen[i+5]
+    return SellDate;
 }
 
 vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
@@ -641,11 +641,11 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         ret.second = NumberOfTickers;
         return ret;
     }
-    //check to c if there is too much cash -- so we j do 50k in each ticker...
-    else if (cash/tickers.size() > 50000)
+    //check to c if there is too much cash -- so we j do 75k in each ticker...
+    else if (cash/tickers.size() > 75000)
     {
         pair<double, int> ret;
-        ret.first = 50000;
+        ret.first = 75000;
         ret.second = tickers.size();
         return ret;
     }
@@ -673,6 +673,10 @@ int Buy(int RunNumber, alpaca::Client& client)
             TickersToBeBought.push_back( (*iter).ticker );
         }
     }
+
+    if (TickersToBeBought.size() == 0)
+        return 0;
+
     pair<double, int> Amnt_Invested;
     Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, RunNumber, client);
     vector<string> temp_tickers_to_be_bought; //maybe could use some "slice" func. here instead idk -- but the vector shouldn't be that big anyway (tho technically is kind of slow)
@@ -719,7 +723,7 @@ int Buy(int RunNumber, alpaca::Client& client)
         string thisbuyid = order_response.id;
 
         sleep(8);//wait for buy order to go thru before you sell...
-        double limitprice = price*1.005;
+        double limitprice = price*1.01;
 
         auto submit_limit_order_response = client.submitOrder(
                 (*Iterator),

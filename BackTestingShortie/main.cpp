@@ -234,7 +234,7 @@ int main()
                     /*Percent returns are calculated as if it were a buy... in results you need to multiply all percent_returns by -1*/
                     cout << "high currently si: " << Hightwo << "$" << endl;
                     cout << "But we shorted at: " << currentshort.price_at_short << "$"<< endl;
-                    if (Hightwo >= 1.005*currentshort.price_at_short) //stop loss
+                    if (Hightwo >= 1.01*currentshort.price_at_short) //stop loss
                     {
                         cout << "current date in doc: " << Datetwo << endl;
                         cout << "date of short: " << currentshort.date << endl;
@@ -242,7 +242,7 @@ int main()
                         LineOfOutput ThisLineOfOutput;
                         ThisLineOfOutput.date = Datetwo;
                         ThisLineOfOutput.ticker = currentshort.ticker;
-                        ThisLineOfOutput.percent_return = 0.005;
+                        ThisLineOfOutput.percent_return = 0.01;
                         Outputs.push_back(ThisLineOfOutput);
                         INDEX++;//tho this doesn't rly do much as it's reset
                         break;
