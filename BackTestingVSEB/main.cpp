@@ -55,6 +55,10 @@ double Stdeviation(const vector<double>& v, double mean)
 
 }
 
+inline const char * const BoolToString(bool b)
+{
+    return b ? "true" : "false";
+}
 
 double avg(const std::vector<double>& v)
 {
@@ -79,6 +83,20 @@ int main()
         return status.getCode();
     }
     auto client = alpaca::Client(env);
+    char* arr[] = {"AAPL", "MSFT", "GOOG", "AMZN", "FB", "TSLA", "TSMC", "TCEHY", "BABA", "NVDA", "PYPL", "ASML", "ADBE", "ORCL", "NFLX", "CRM", "CSCO", "INTC", "AVGO"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
+    vector<string> listoftechcompanies(arr, arr + sizeof(arr)/sizeof(arr[0]));
+
+//    auto get_calendar_response = client.getCalendar("2019-11-04", "2020-01-03");
+//    if (auto status = get_calendar_response.first; !status.ok()) {
+//        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+//        return status.getCode();
+//    }
+//    auto datesmarketisopen = get_calendar_response.second;
+//    for (auto& date : datesmarketisopen)
+//    {
+//        cout << date.date << "T05:00:00Z" << endl;
+//    }
+//    exit(0);
 
     //end init
 
@@ -165,27 +183,40 @@ int main()
                 averagevolume = avg(volumes);
                 stdev = Stdeviation(volumes, averagevolume);
                 //cout << averagevolume << "   " << stdev << endl;
-                if (Buys.size() != 0 && (currentbuyorder == Buys.size()-1 || currentbuyorder == Buys.size()-2))
+                if (Buys.size() != 0 && (currentbuyorder <= Buys.size()))
                 {
                     //check for sells
                     tuple<string, string, double, int> currentbuy ;
                     currentbuy = make_tuple(get<0>(Buys[currentbuyorder]), get<1>(Buys[currentbuyorder]), get<2>(Buys[currentbuyorder]), get<3>(Buys[currentbuyorder]));
+
+                    cout << "index is: " << index << endl;
+                    cout << "current buy\'s index is: " << get<3>(currentbuy) << endl;
+
+                    int dayslater = 10;
                     //if (index <= get<3>(currentbuy)+2)
-                    if (index == get<3>(currentbuy)+1 || index == get<3>(currentbuy)+2)
+                    if (index >= get<3>(currentbuy)+1 &&index <= get<3>(currentbuy)+dayslater )
                     {
                       // cout << "Index is: " << index << endl;
                       // cout << "Current buy index is: " << get<3>(currentbuy) << endl;
-                        if (High > 1.1*get<2>(currentbuy))
+                      if (High >= 1.01*get<2>(currentbuy))//stop loss
                         {
-                            percentreturns.push_back(0.1);
+                            percentreturns.push_back(0.01);
                             datez.push_back(Date);
                             mastertickers.push_back(currentticker.symbol);
                             currentbuyorder++;
                         }
-                        else if (index == get<3>(currentbuy)+2)
+                        else if (index == get<3>(currentbuy)+dayslater)
                         {
                             double currentpercentreturn;
                             currentpercentreturn = (Close-get<2>(currentbuy)) /get<2>(currentbuy);
+                            if (currentpercentreturn == 0)
+                            {
+                                currentbuyorder++;//doesn't rly matter as it's set back to zero... but
+                                volumes.erase(volumes.begin());
+                                volumes.push_back(Volume);
+                                index++;
+                                break;
+                            }
                             percentreturns.push_back(currentpercentreturn);
                             datez.push_back(Date);
                             mastertickers.push_back(currentticker.symbol);
@@ -194,11 +225,22 @@ int main()
                     }
 
                 }
-                if (Volume >= averagevolume+ (8*stdev) && Close > yesterdaysclose)
-                {
-                    //buys
-                    Buys.push_back(make_tuple(Date, currentticker.symbol, Close, index));
-                }
+//                for (auto& x : listoftechcompanies)
+//                {
+//                    if (currentticker.symbol == x)
+//                    {
+//                        Buys.push_back(make_tuple(Date, currentticker.symbol, Close, index));
+//                    }
+//                }
+//                if (Volume >= averagevolume + (8*stdev))//&& Close > yesterdaysclose)
+//                {
+//                    //buys
+//                    Buys.push_back(make_tuple(Date, currentticker.symbol, Close, index));
+//                }
+                  if (Open < 3 && currentticker.easy_to_borrow == true)
+                  {
+                      Buys.push_back(make_tuple(Date, currentticker.symbol, Close, index));
+                  }
 
             }
 

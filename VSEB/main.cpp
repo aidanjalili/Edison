@@ -1,3 +1,8 @@
+/*
+ * ALGO DOES THE FOLLOWING....
+ * Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 and days later = 5 and stop loss at half a percent
+ */
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -72,9 +77,9 @@ double Stdeviation(const vector<double>& v, double mean);
 vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client);
 string NTradingDaysAgo(int marketdaysago);
 bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client);
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, bool firstRun, alpaca::Client& client);
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumber, alpaca::Client& client);
 void RecordBuyOrders(string date, vector<buyorder>& buyorders);
-int Buy(bool firstBuy, alpaca::Client& client);
+int Buy(int RunNumber, alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -125,7 +130,7 @@ int Init(alpaca::Client& client)
     //filter out inactive assets...
     for (int i = 0; i<assets.size(); i++)
     {
-        if (assets[i].tradable != true)//if it's not tradable delete it
+        if (assets[i].tradable != true || assets[i].easy_to_borrow == false)//if it's not tradable and shortable delete it
         {
             assets.erase(assets.begin() + i);
             continue;
@@ -144,6 +149,7 @@ int Init(alpaca::Client& client)
     }
 
     return 0;
+
 }
 
 bool FirstRun()
@@ -404,7 +410,7 @@ int Sell(alpaca::Client& client)
         {
             //then we'll fill it ourselves...
             client.cancelOrder(order.id);
-            sleep(1);
+            sleep(2);
 
             //need to cast order.qty as int as all(/most) order object members are strings ig...
             stringstream qty(order.qty);
@@ -414,7 +420,7 @@ int Sell(alpaca::Client& client)
             auto submit_order_response = client.submitOrder(
                     order.symbol,
                     orderquantity,
-                    alpaca::OrderSide::Sell,
+                    alpaca::OrderSide::Buy,
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::CLS
             );
@@ -549,7 +555,7 @@ string NTradingDaysAgo(int marketdaysago)
     return datesmarketisopen[i-marketdaysago].date;
 }
 
-bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
+bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)//has morphed into a function that just checks specific conditions that r required by this algo... not re-usable generally
 {
     string LastTradingDay = NTradingDaysAgo(1);
     string DayBeforeLastTradingDay = NTradingDaysAgo(2);
@@ -586,7 +592,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
     auto last_trade = last_trade_response.second;
     auto currentprice = last_trade.trade.price;
 
-    if (currentprice > closingprice)
+    if (currentprice > 1.2*closingprice && currentprice <= 20)
         return true;
     else
         return false;
@@ -595,7 +601,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)
 
 //returns double which is amnt to be invested and int which is how many tickers should be invested in
 //--- first return.second tickers in list should be invested in
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, bool firstRun, alpaca::Client& client)
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumber, alpaca::Client& client)
 {
     auto resp = client.getAccount();
     auto account = resp.second;
@@ -609,11 +615,22 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, bool firstR
     else
         cash = cashinsideaccount;
 
-    if (firstRun == true)//Then cash should be split into two -- cuz at any given time we have two seperate days worth of orders out...
-        cash = cash/2;
+    if (RunNumber != 0)//Then cash should be split into two -- cuz at any given time we have two seperate days worth of orders out...
+    {
+        if (RunNumber == 1)
+            cash = cash/5;
+        else if (RunNumber == 2)
+            cash = cash/4;
+        else if (RunNumber == 3)
+            cash = cash/3;
+        else if (RunNumber == 4)
+            cash = cash/2;
+        else
+            cash = cash;//do nothing...
+    }
 
     //Check to c if there is too little cash to split evenly amongst all tickers...
-    if (cash / tickers.size() < 25 )
+    if (cash / tickers.size() < 20 )
     {
         int NumberOfTickers;
         NumberOfTickers = cash/25;
@@ -644,19 +661,20 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, bool firstR
 
 }
 
-int Buy(bool firstBuy, alpaca::Client& client)
+int Buy(int RunNumber, alpaca::Client& client)
 {
     vector<StockVolumeInformation> TodaysVolInformation = FetchTodaysVolumeInfo(client);
     vector<string> TickersToBeBought;
     for (auto iter = TodaysVolInformation.begin(); iter!=TodaysVolInformation.end(); iter++)
     {
-        if ( ((*iter).todaysvolume >= (*iter).avgvolume+8*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )
+        //to check if price is less than or equal to 20...
+        if ( ((*iter).todaysvolume >= (*iter).avgvolume+3*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )
         {
             TickersToBeBought.push_back( (*iter).ticker );
         }
     }
     pair<double, int> Amnt_Invested;
-    Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, firstBuy, client);
+    Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, RunNumber, client);
     vector<string> temp_tickers_to_be_bought; //maybe could use some "slice" func. here instead idk -- but the vector shouldn't be that big anyway (tho technically is kind of slow)
     for (int i = 0; i<Amnt_Invested.second; i++)
     {
@@ -688,7 +706,7 @@ int Buy(bool firstBuy, alpaca::Client& client)
         auto submit_order_response = client.submitOrder(
                 (*Iterator),
                 qty,
-                alpaca::OrderSide::Buy,
+                alpaca::OrderSide::Sell,
                 alpaca::OrderType::Market,
                 alpaca::OrderTimeInForce::Day
         );
@@ -700,13 +718,13 @@ int Buy(bool firstBuy, alpaca::Client& client)
         auto order_response = submit_order_response.second;
         string thisbuyid = order_response.id;
 
-        sleep(5);//wait for buy order to go thru before you sell...
-        double limitprice = price*1.35;
+        sleep(8);//wait for buy order to go thru before you sell...
+        double limitprice = price*1.005;
 
         auto submit_limit_order_response = client.submitOrder(
                 (*Iterator),
                 qty,
-                alpaca::OrderSide::Sell,
+                alpaca::OrderSide::Buy,
                 alpaca::OrderType::Limit,
                 alpaca::OrderTimeInForce::GoodUntilCanceled,
                 to_string(limitprice)
@@ -766,7 +784,7 @@ int Buy(bool firstBuy, alpaca::Client& client)
             thislimid = limit_order_response.id;
         }
 
-        sleep(1);//wait for lim sell order to be submitted...
+        sleep(2);//wait for lim sell order to be submitted...
 
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
@@ -851,7 +869,7 @@ int main()
                 if (NumberofFilesInCurrentlyBought == 0)
                 {
 
-                    if (int buystatus = Buy(true, client); buystatus!=0)
+                    if (int buystatus = Buy(1, client); buystatus!=0)
                     {
                         return buystatus;
                     }
@@ -859,12 +877,33 @@ int main()
                 else if (NumberofFilesInCurrentlyBought == 1)
                 {
 
-                    if (int buystatus = Buy(false, client); buystatus!=0)
+                    if (int buystatus = Buy(2, client); buystatus!=0)
                     {
                         return buystatus;
                     }
                 }
                 else if (NumberofFilesInCurrentlyBought == 2)
+                {
+                    if (int buystatus = Buy(3, client); buystatus!=0)
+                    {
+                        return buystatus;
+                    }
+                }
+                else if (NumberofFilesInCurrentlyBought == 3)
+                {
+                    if (int buystatus = Buy(4, client); buystatus!=0)
+                    {
+                        return buystatus;
+                    }
+                }
+                else if (NumberofFilesInCurrentlyBought == 4)
+                {
+                    if (int buystatus = Buy(5, client); buystatus!=0)
+                    {
+                        return buystatus;
+                    }
+                }
+                else if (NumberofFilesInCurrentlyBought == 5)
                 {
                     int Sell_Status_code = Sell(client);
                     if (Sell_Status_code != 0)
@@ -875,7 +914,7 @@ int main()
                     }
                     else
                     {
-                        if (int buystatus = Buy(false, client); buystatus!=0)
+                        if (int buystatus = Buy(0, client); buystatus!=0)
                         {
                             return buystatus;
                         }
@@ -883,8 +922,8 @@ int main()
                 }
                 //else case should never happen
 
-
                 ///TO DO's Start here
+
                 //Onaug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
                 ///And end here
 

@@ -47,8 +47,8 @@ int main()
 
 
     /*Set environment variables*/
-    setenv("APCA_API_KEY_ID", "PKNN4CC2OEVCPBN2H60Z", 1);
-    setenv("APCA_API_SECRET_KEY", "coLvV756mSL6yQuTOwqteQ9RR6GRZvdYry2Mj7sI", 1);
+    setenv("APCA_API_KEY_ID", "PK79IPR80TSVA4WMS2Y8", 1);
+    setenv("APCA_API_SECRET_KEY", "oYVySwg0kD3wA2x8wMiUW5ArNJY7eYrMLx6dk17h", 1);
 
     /*Setting the env and client variables for the main func here... this needs to be done in the main func. for some reason*/
     auto env = alpaca::Environment();
@@ -72,7 +72,7 @@ int main()
     /*Loops thru tickers here*/ //--> should put into a seperate function later
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
-        auto bars_response = client.getBars({(*iter).symbol}, "2018-01-01T09:30:00-04:00", "2020-01-03T09:30:00-04:00", "", "", "1Day", 1000);
+        auto bars_response = client.getBars({(*iter).symbol}, "2018-01-01T09:30:00-04:00", "2021-08-06T09:30:00-04:00", "", "", "1Day", 1000);
         //NEED TO REMOVE "[]" characters for json IsArray() to work
         if (auto status = bars_response.first; !status.ok())
         {
