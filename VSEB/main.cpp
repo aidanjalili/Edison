@@ -80,6 +80,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client);
 pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumber, alpaca::Client& client);
 void RecordBuyOrders(string date, vector<buyorder>& buyorders);
 int Buy(int RunNumber, alpaca::Client& client);
+void UpdateAssets(alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -119,6 +120,14 @@ int Init(alpaca::Client& client)
     }
     datesmarketisopen = get_calendar_response.second;
 
+   UpdateAssets(client);
+
+    return 0;
+
+}
+
+void UpdateAssets(alpaca::Client& client)
+{
     /*Tickers*/
     auto get_assets_response = client.getAssets();
     if (auto status = get_assets_response.first; status.ok() == false)
@@ -147,9 +156,6 @@ int Init(alpaca::Client& client)
             }
         }
     }
-
-    return 0;
-
 }
 
 bool FirstRun()
@@ -306,7 +312,12 @@ void Refresh(string InputDir, alpaca::Client& client)
 
         auto bars = bars_response.second.bars[(*iter).symbol];
         WriteToCsvOutputs(InputDir+"/RawData/"+(*iter).symbol+".csv", bars, true);
+
+        //TO DO: If any stocks that I currently bought have changed from easy to borrow
+        //To hard to borrow... and then do something to like idk cover as soon as possible
     }
+
+    UpdateAssets(client);
 
 }
 
