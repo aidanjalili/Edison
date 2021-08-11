@@ -82,6 +82,7 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders);
 int Buy(int RunNumber, alpaca::Client& client);
 void UpdateAssets(alpaca::Client& client);
 int PlaceLimSellOrders(alpaca::Client& client);
+void Log(string InputFile, string Message);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -629,7 +630,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     else
         cash = cashinsideaccount;
 
-    if (RunNumber != 0)//Then cash should be split into two -- cuz at any given time we have two seperate days worth of orders out...
+    if (RunNumber != 0)
     {
         if (RunNumber == 1)
             cash = cash/5;
@@ -763,6 +764,14 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 
 }
 
+void Log(string InputFile, string Message)
+{
+    ofstream OutputFile;
+    OutputFile.open(InputFile, ios_base::app);
+    OutputFile << Message << "\n";
+    OutputFile.close();
+}
+
 int PlaceLimSellOrders(alpaca::Client& client)
 {
 
@@ -793,7 +802,6 @@ int PlaceLimSellOrders(alpaca::Client& client)
         auto order_response = get_order_response.second;
         double price = stod(order_response.filled_avg_price);
         double limitprice = price*1.01;
-        bool checksecondlimitsell = false;
 
         int qty = stoi(order_response.qty);
 
@@ -806,61 +814,28 @@ int PlaceLimSellOrders(alpaca::Client& client)
                 to_string(limitprice)
         );
 
-        std::pair<alpaca::Status, alpaca::Order> submit_order_again;
-
         if (auto status = submit_limit_order_response.first; !status.ok())
         {
-            if (status.getMessage() != "asset " + order_response.symbol + " cannot be sold short")//cuz this happens a lot for some rzn...
-            {
-                std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
-                return 666;
-            }
-            else
-            {
-                checksecondlimitsell = true;
-                while (true)
-                {
-                    sleep(1);
-
-
-                    auto submit_limit_order_response = client.submitOrder(
-                            (order_response.symbol),
-                            qty,
-                            alpaca::OrderSide::Buy,
-                            alpaca::OrderType::Limit,
-                            alpaca::OrderTimeInForce::GoodUntilCanceled,
-                            to_string(limitprice)
-                    );
-
-                    auto status = submit_order_again.first;
-                    if (status.ok())
-                    {
-                        break;
-                    }
-
-                    if (!status.ok() && status.getMessage() == "asset " + order_response.symbol + " cannot be sold short")
-                    {
-                        continue;
-                    }
-                    else if (!status.ok())
-                    {
-                        std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
-                        return 666;
-                    }
-                }
-            }
+            std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
+            //so now we put in a buy order for market open...
+            auto emergency_buy_order = client.submitOrder(
+                    (order_response.symbol),
+                    qty,
+                    alpaca::OrderSide::Buy,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::OPG,
+                    to_string(limitprice)
+            );
+            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + "on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+            Log(DIRECTORY+"/Emergency_Buy_Log.txt", Message);
+            sleep(2);//wait for order to be put in...
+            continue;
         }
+
+        //so if there was no error putting in the limit sell...
         string thislimid;
-        if (checksecondlimitsell == false)
-        {
-            auto limit_order_response = submit_limit_order_response.second;
-            thislimid = limit_order_response.id;
-        }
-        else
-        {
-            auto limit_order_response = submit_order_again.second;
-            thislimid = limit_order_response.id;
-        }
+        auto limit_order_response = submit_limit_order_response.second;
+        thislimid = limit_order_response.id;
 
 
         string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
@@ -999,8 +974,8 @@ int main()
                 HaveAlreadyPlacedOrders = true;
             }
 
-            //If time is 1130 -- run Refresh()
-            if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 30)
+            //If time is 1100pm -- run Refresh()
+            if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0)
             {
                 Refresh(DIRECTORY, client);//This should take abt 15 mins depending on wifi speed...
                 HaveAlreadyRunRefreshToday = true;

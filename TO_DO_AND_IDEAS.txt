@@ -22,3 +22,4 @@ IDEAS FOR FEATURES OF VSEBV1.0
 --make a function called AlertUser() or smthg that is sent when/if the algo is forced to stop
 --for whatever reason
 --it could like text me or smthg and include a message abt the currently purchased assets
+		--- This will be in a separate file, and make the worst type of error defined to also send an email/phone call, but also automatically sells everything.
