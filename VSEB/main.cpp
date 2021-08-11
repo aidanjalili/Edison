@@ -356,7 +356,7 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(15);//subtract approx. 48 mins for algo to run so that it finishes before 350 to place MOC orders
+            auto timetobuy = closingtime - boost::posix_time::minutes(25);//subtract 25 mins to allow ample time to place orders before 3:50
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
@@ -736,7 +736,7 @@ int Buy(int RunNumber, alpaca::Client& client)
         auto order_response = submit_order_response.second;
         string thisbuyid = order_response.id;
 
-        sleep(8);//wait for buy order to go thru before you place next one...
+        sleep(2);//wait for buy order to go thru before you place next one...
 
         string thislimid = "NOT_YET_PLACED";//"N/A" for now as it will be placed later with REFRESH function...
 
