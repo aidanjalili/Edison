@@ -784,6 +784,8 @@ int PlaceLimSellOrders(alpaca::Client& client)
     {
         files.push_back(file.path());
     }
+    if (files.size() == 0)
+        return 0;
     sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
 
     string newfilename = files[-1].substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
@@ -826,7 +828,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
                     alpaca::OrderTimeInForce::OPG,
                     to_string(limitprice)
             );
-            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + "on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " status.getMessage();
+            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + "on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " + status.getMessage();
             Log(DIRECTORY+"/Emergency_Buy_Log.txt", Message);
             sleep(2);//wait for order to be put in...
             continue;
@@ -851,6 +853,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
     rename( newfilename.c_str(), files[-1].c_str() );
 
     newFile.close();
+    return 0;
 
 
 }
