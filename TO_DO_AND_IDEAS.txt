@@ -1,19 +1,14 @@
 TO DO:
 
-*current*--make VSEB as backtested in "BackTestingVSEB"v0.1
---Next backtests should include stop loss (pretty easy to do even with v0.1)
---Then: Make backtesting program all around better /re-write to be good
---Do the same with RDF, maybe even before above
---Rewrite VSEB based off of results from above, (above should be able to optimize for best values of stop loss, take profit, delay between buy/sell, etc.)
-
-*I* concurrent with above, make detailed docs and explanation of programs. (First with v1.0 of VSEB, then with the new backtester and RDF as well as eventually with the new trader) *I*
+--Lmao low key remake everything
 
 --------------------------------------------------------------------------------
 
-IDEAS TO MAKE MORE MONEY
+IDEAS TO MAKE MORE MONEY^*
 
---VSEB but on the way down as well with shorts
 --Buy if pre-market price skyrocketted (esp. with news of new earnings, etc.)
+--Short but daily, early in day if it's spiked, and sell at end of day or tmrw or two days ltr or something
+--perhaps buy after I've covered my short from shortie...
 
 --------------------------------------------------------------------------------
 
@@ -23,3 +18,4 @@ IDEAS FOR FEATURES OF VSEBV1.0
 --for whatever reason
 --it could like text me or smthg and include a message abt the currently purchased assets
 		--- This will be in a separate file, and make the worst type of error defined to also send an email/phone call, but also automatically sells everything.
+--Once we start running things in parallel we r going to have to split up the money... prolly w/ a communal file that updates with how much money is needed for other things, and each can have its own simulated cash by subtracting the cash needed for other things

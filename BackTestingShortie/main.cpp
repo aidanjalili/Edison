@@ -190,7 +190,7 @@ int main()
                 stdev = Stdeviation(volumes, averagevolume);
             }
 
-            if (Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 && DoneCountingAvgVolumes == true)
+            if (Volume >= averagevolume+ 2*stdev && Close > 1.2*yesterdaysclose && Open <= 20 && DoneCountingAvgVolumes == true)
             {
                 for (auto& x : assets)//checks to c if it's easy to borrow
                 {
