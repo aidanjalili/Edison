@@ -692,8 +692,10 @@ int Buy(int RunNumber, alpaca::Client& client)
     }
 
     if (TickersToBeBought.size() == 0)
+    {
         NoLimitSellsToday = true;
         return 0;
+    }
 
     pair<double, int> Amnt_Invested;
     Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, RunNumber, client);
