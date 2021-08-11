@@ -777,11 +777,12 @@ int PlaceLimSellOrders(alpaca::Client& client)
     }
     sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
 
-    string newfilename = files[0].substr(DIRECTORY.size()+17, 10)+"-new.csv";
+    string newfilename = files[-1].substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
+    newfilename = DIRECTORY+"/CurrentlyBought/" + newfilename;
     std::ofstream newFile(newfilename);
     newFile << "ticker,buyid,sell_lim_id\n";
 
-    io::CSVReader<3> in( (files[0]).c_str() );
+    io::CSVReader<3> in( (files[-1]).c_str() );
     in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
 
     std::string ticker, buyid, sell_lim_id;
@@ -869,10 +870,10 @@ int PlaceLimSellOrders(alpaca::Client& client)
 
     }
     // removing the existing file
-    remove( (files[0]).c_str());
+    remove( (files[-1]).c_str());
 
     // renaming the new file with the existing file name
-    rename( newfilename.c_str(), files[0].c_str() );
+    rename( newfilename.c_str(), files[-1].c_str() );
 
     newFile.close();
 
