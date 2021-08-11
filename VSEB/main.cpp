@@ -81,6 +81,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 void RecordBuyOrders(string date, vector<buyorder>& buyorders);
 int Buy(int RunNumber, alpaca::Client& client);
 void UpdateAssets(alpaca::Client& client);
+int PlaceLimSellOrders(alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -133,7 +134,7 @@ void UpdateAssets(alpaca::Client& client)
     if (auto status = get_assets_response.first; status.ok() == false)
     {
         std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-        return -1;//a -1 return means there was an error in getting the ticker list
+       //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
     }
     assets = get_assets_response.second;
     //filter out inactive assets...
@@ -318,6 +319,8 @@ void Refresh(string InputDir, alpaca::Client& client)
     }
 
     UpdateAssets(client);
+
+    PlaceLimSellOrders(client);//note that its return value is discarded...
 
 }
 
@@ -704,7 +707,6 @@ int Buy(int RunNumber, alpaca::Client& client)
 
     for (auto Iterator = TickersToBeBought.begin(); Iterator!=TickersToBeBought.end(); Iterator++)
     {
-        bool checksecondlimitsell = false;
 
         int qty;
         auto last_trade_response = client.getLastTrade((*Iterator));
@@ -723,7 +725,7 @@ int Buy(int RunNumber, alpaca::Client& client)
                 qty,
                 alpaca::OrderSide::Sell,
                 alpaca::OrderType::Market,
-                alpaca::OrderTimeInForce::Day
+                alpaca::OrderTimeInForce::CLS
         );
         if (auto status = submit_order_response.first; !status.ok()) {
             std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -733,73 +735,9 @@ int Buy(int RunNumber, alpaca::Client& client)
         auto order_response = submit_order_response.second;
         string thisbuyid = order_response.id;
 
-        sleep(8);//wait for buy order to go thru before you sell...
-        double limitprice = price*1.01;
+        sleep(8);//wait for buy order to go thru before you place next one...
 
-        auto submit_limit_order_response = client.submitOrder(
-                (*Iterator),
-                qty,
-                alpaca::OrderSide::Buy,
-                alpaca::OrderType::Limit,
-                alpaca::OrderTimeInForce::GoodUntilCanceled,
-                to_string(limitprice)
-        );
-
-        std::pair<alpaca::Status, alpaca::Order> submit_order_again;
-
-        if (auto status = submit_limit_order_response.first; !status.ok())
-        {
-            if (status.getMessage() != "asset " + (*Iterator) + " cannot be sold short")//cuz this happens a lot for some rzn...
-            {
-                std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
-                return 666;
-            }
-            else
-            {
-                checksecondlimitsell = true;
-                while (true)
-                {
-                    sleep(1);
-                    submit_order_again = client.submitOrder(
-                            (*Iterator),
-                            qty,
-                            alpaca::OrderSide::Sell,
-                            alpaca::OrderType::Limit,
-                            alpaca::OrderTimeInForce::GoodUntilCanceled,
-                            to_string(limitprice)
-                    );
-
-                    auto status = submit_order_again.first;
-                    if (status.ok())
-                    {
-                        break;
-                    }
-
-                    if (!status.ok() && status.getMessage() == "asset " + (*Iterator) + " cannot be sold short")
-                    {
-                        continue;
-                    }
-                    else if (!status.ok())
-                    {
-                        std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
-                        return 666;
-                    }
-                }
-            }
-        }
-        string thislimid;
-        if (checksecondlimitsell == false)
-        {
-            auto limit_order_response = submit_limit_order_response.second;
-            thislimid = limit_order_response.id;
-        }
-        else
-        {
-            auto limit_order_response = submit_order_again.second;
-            thislimid = limit_order_response.id;
-        }
-
-        sleep(2);//wait for lim sell order to be submitted...
+        string thislimid = "NOT_YET_PLACED";//"N/A" for now as it will be placed later with REFRESH function...
 
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
@@ -825,13 +763,128 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 
 }
 
+int PlaceLimSellOrders(alpaca::Client& client)
+{
+
+    //go thru currently bought, get ticker from their id and price shorted at, then change set double var "price" to that
+    //after submitting limit buy order here (after sleep(2)) change the "NOT_YET_PLACED" to the limid
+    //also change func. to void
+
+    vector<string> files;
+    for (auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+    {
+        files.push_back(file.path());
+    }
+    sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
+
+    string newfilename = files[0].substr(DIRECTORY.size()+17, 10)+"-new.csv";
+    std::ofstream newFile(newfilename);
+    newFile << "ticker,buyid,sell_lim_id\n";
+
+    io::CSVReader<3> in( (files[0]).c_str() );
+    in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+
+    std::string ticker, buyid, sell_lim_id;
+    while(in.read_row(ticker , buyid, sell_lim_id))
+    {
+
+        auto get_order_response = client.getOrder(buyid);
+        auto order_response = get_order_response.second;
+        double price = stod(order_response.filled_avg_price);
+        double limitprice = price*1.01;
+        bool checksecondlimitsell = false;
+
+        int qty = stoi(order_response.qty);
+
+        auto submit_limit_order_response = client.submitOrder(
+                (order_response.symbol),
+                qty,
+                alpaca::OrderSide::Buy,
+                alpaca::OrderType::Limit,
+                alpaca::OrderTimeInForce::GoodUntilCanceled,
+                to_string(limitprice)
+        );
+
+        std::pair<alpaca::Status, alpaca::Order> submit_order_again;
+
+        if (auto status = submit_limit_order_response.first; !status.ok())
+        {
+            if (status.getMessage() != "asset " + order_response.symbol + " cannot be sold short")//cuz this happens a lot for some rzn...
+            {
+                std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
+                return 666;
+            }
+            else
+            {
+                checksecondlimitsell = true;
+                while (true)
+                {
+                    sleep(1);
+
+
+                    auto submit_limit_order_response = client.submitOrder(
+                            (order_response.symbol),
+                            qty,
+                            alpaca::OrderSide::Buy,
+                            alpaca::OrderType::Limit,
+                            alpaca::OrderTimeInForce::GoodUntilCanceled,
+                            to_string(limitprice)
+                    );
+
+                    auto status = submit_order_again.first;
+                    if (status.ok())
+                    {
+                        break;
+                    }
+
+                    if (!status.ok() && status.getMessage() == "asset " + order_response.symbol + " cannot be sold short")
+                    {
+                        continue;
+                    }
+                    else if (!status.ok())
+                    {
+                        std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
+                        return 666;
+                    }
+                }
+            }
+        }
+        string thislimid;
+        if (checksecondlimitsell == false)
+        {
+            auto limit_order_response = submit_limit_order_response.second;
+            thislimid = limit_order_response.id;
+        }
+        else
+        {
+            auto limit_order_response = submit_order_again.second;
+            thislimid = limit_order_response.id;
+        }
+
+
+        string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+        newFile << newline + "\n";
+
+        sleep(2);//wait for lim sell order to be submitted before submitting another one...
+
+    }
+    // removing the existing file
+    remove( (files[0]).c_str());
+
+    // renaming the new file with the existing file name
+    rename( newfilename.c_str(), files[0].c_str() );
+
+    newFile.close();
+
+
+}
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKANEBDNLZE72F8NK8IM", 1);
-    setenv("APCA_API_SECRET_KEY", "B3zQJTIcJDX0hpzX6JFloApsCBJt5fNPabIcJm01", 1);
+    setenv("APCA_API_KEY_ID", "PKNPM7HFBCX963JDQY7H", 1);
+    setenv("APCA_API_SECRET_KEY", "Hu0wQlwPrbEUTOO0EHmAdLD7lQkpWz3UD7rsynMy", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
