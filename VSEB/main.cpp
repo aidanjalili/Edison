@@ -55,6 +55,7 @@ vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
 //These varaibles are "reset" every day...
 bool HaveAlreadyRunRefreshToday = false;
 bool HaveAlreadyPlacedOrders = false;
+bool NoLimitSellsToday = false;
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -342,6 +343,7 @@ void ResetVariables()
 {
     HaveAlreadyRunRefreshToday = false;
     HaveAlreadyPlacedOrders = false;
+    NoLimitSellsToday = false;
 }
 
 HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
@@ -690,6 +692,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     }
 
     if (TickersToBeBought.size() == 0)
+        NoLimitSellsToday = true;
         return 0;
 
     pair<double, int> Amnt_Invested;
@@ -784,7 +787,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
     {
         files.push_back(file.path());
     }
-    if (files.size() == 0)
+    if (NoLimitSellsToday == true)
         return 0;
     sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
 
