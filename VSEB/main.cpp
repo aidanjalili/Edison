@@ -826,7 +826,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
                     alpaca::OrderTimeInForce::OPG,
                     to_string(limitprice)
             );
-            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + "on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time() + " Error message was: " status.getMessage());
+            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + "on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " status.getMessage();
             Log(DIRECTORY+"/Emergency_Buy_Log.txt", Message);
             sleep(2);//wait for order to be put in...
             continue;
