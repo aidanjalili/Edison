@@ -93,8 +93,8 @@ void PrintDates(alpaca::Client& client)
 int main()
 {
     /*INIT*/
-    setenv("APCA_API_KEY_ID", "PK79IPR80TSVA4WMS2Y8", 1);
-    setenv("APCA_API_SECRET_KEY", "oYVySwg0kD3wA2x8wMiUW5ArNJY7eYrMLx6dk17h", 1);
+    setenv("APCA_API_KEY_ID", "PKNPM7HFBCX963JDQY7H", 1);
+    setenv("APCA_API_SECRET_KEY", "Hu0wQlwPrbEUTOO0EHmAdLD7lQkpWz3UD7rsynMy", 1);
     auto env = alpaca::Environment();
     if (auto status = env.parse(); !status.ok())
     {
@@ -190,7 +190,7 @@ int main()
                 stdev = Stdeviation(volumes, averagevolume);
             }
 
-            if (Volume >= averagevolume+ 2*stdev && Close > 1.2*yesterdaysclose && Open <= 20 && DoneCountingAvgVolumes == true)
+            if (Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 && DoneCountingAvgVolumes == true)
             {
                 for (auto& x : assets)//checks to c if it's easy to borrow
                 {

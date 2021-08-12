@@ -84,6 +84,7 @@ int Buy(int RunNumber, alpaca::Client& client);
 void UpdateAssets(alpaca::Client& client);
 int PlaceLimSellOrders(alpaca::Client& client);
 void Log(string InputFile, string Message);
+bool FilterAssets(alpaca::Asset& asset);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -129,6 +130,21 @@ int Init(alpaca::Client& client)
 
 }
 
+bool FilterAssets(alpaca::Asset& asset)
+{
+    if (asset.tradable == false || asset.easy_to_borrow == false)
+        return true;
+    else
+    {
+        for (auto iterator = bannedtickers.begin(); iterator!=bannedtickers.end(); iterator++)
+        {
+            if (asset.symbol == (*iterator))
+                return true;
+        }
+    }
+    return false;
+}
+
 void UpdateAssets(alpaca::Client& client)
 {
     /*Tickers*/
@@ -139,26 +155,9 @@ void UpdateAssets(alpaca::Client& client)
        //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
     }
     assets = get_assets_response.second;
-    //filter out inactive assets...
-    for (int i = 0; i<assets.size(); i++)
-    {
-        if (assets[i].tradable != true || assets[i].easy_to_borrow == false)//if it's not tradable and shortable delete it
-        {
-            assets.erase(assets.begin() + i);
-            continue;
-        }
-        else//go thru all the bannedtickers and c if it matches to this ticker.. if it does delete it
-        {
-            for (auto iterator = bannedtickers.begin(); iterator!=bannedtickers.end(); iterator++)
-            {
-                if (assets[i].symbol == (*iterator))
-                {
-                    assets.erase(assets.begin() + i);
-                    break;
-                }
-            }
-        }
-    }
+    //filter assets...
+    assets.erase(remove_if(assets.begin(), assets.end(), FilterAssets), assets.end());
+
 }
 
 bool FirstRun()

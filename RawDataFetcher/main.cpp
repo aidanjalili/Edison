@@ -47,8 +47,8 @@ int main()
 
 
     /*Set environment variables*/
-    setenv("APCA_API_KEY_ID", "PK79IPR80TSVA4WMS2Y8", 1);
-    setenv("APCA_API_SECRET_KEY", "oYVySwg0kD3wA2x8wMiUW5ArNJY7eYrMLx6dk17h", 1);
+    setenv("APCA_API_KEY_ID", "PKNPM7HFBCX963JDQY7H", 1);
+    setenv("APCA_API_SECRET_KEY", "Hu0wQlwPrbEUTOO0EHmAdLD7lQkpWz3UD7rsynMy", 1);
 
     /*Setting the env and client variables for the main func here... this needs to be done in the main func. for some reason*/
     auto env = alpaca::Environment();
