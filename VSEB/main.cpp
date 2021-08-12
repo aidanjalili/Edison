@@ -156,7 +156,7 @@ void UpdateAssets(alpaca::Client& client)
     }
     assets = get_assets_response.second;
     //filter assets...
-    assets.erase(remove_if(assets.begin(), assets.end(), FilterAssets), assets.end());
+    erase_if(assets, FilterAssets);
 
 }
 
@@ -318,8 +318,6 @@ void Refresh(string InputDir, alpaca::Client& client)
         //TO DO: If any stocks that I currently bought have changed from easy to borrow
         //To hard to borrow... and then do something to like idk cover as soon as possible
     }
-
-    UpdateAssets(client);
 
     PlaceLimSellOrders(client);//note that its return value is discarded...
 
@@ -694,6 +692,39 @@ int Buy(int RunNumber, alpaca::Client& client)
     {
         NoLimitSellsToday = true;
         return 0;
+    }
+
+    //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
+    //for now, don't question making the new variavle tempassets to do this, for reasons it is necessary...
+    auto get_assets_response = client.getAssets();
+    if (auto status = get_assets_response.first; status.ok() == false)
+    {
+        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+        //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
+    }
+    auto tempassets = get_assets_response.second;
+    bool foundone = false;
+    erase_if(tempassets, FilterAssets);
+    for (auto iter = TickersToBeBought.begin(); iter!=TickersToBeBought.end(); iter++)
+    {
+        for (auto& x : tempassets)
+        {
+            //should always find the matching symbol in the tempassets list
+            if ((*iter) == x.symbol)
+            {
+                foundone = true;
+                break;
+            }
+        }
+
+        //if that didn't happen then the stock for some reason is not in the list and should be removed from the to_be_bought list
+        if (foundone == false)
+        {
+            TickersToBeBought.erase(iter);
+        }
+
+        //reset foundone
+        foundone = false;
     }
 
     pair<double, int> Amnt_Invested;
