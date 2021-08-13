@@ -916,8 +916,7 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
-    Refresh(DIRECTORY, client);
-    exit(0);
+
     if (FirstRun())
     {
         //Get yesterday's date
