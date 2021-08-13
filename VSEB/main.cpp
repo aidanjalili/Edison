@@ -301,10 +301,10 @@ void Refresh(string InputDir, alpaca::Client& client)
     //Deletes first line and adds latest data
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
-        //the following is the fastest way to merely check if a file exists in c++... (that I know of)
+        //the following is the one way to merely check if a file exists in c++... (that I know of)
         //but in general/next time we will j loop thru files as opposed to assets, this way is stupid.
-        struct stat buffer;
-        if ( stat((InputDir+"/RawData/"+(*iter).symbol).c_str(), &buffer) != 0)//if the file doesn't exist
+
+        if (!filesystem::exists(InputDir+"/RawData/"+(*iter).symbol))
             continue;
         DeleteRecord(InputDir+"/RawData/"+(*iter).symbol, 1);
 
