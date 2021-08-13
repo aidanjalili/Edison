@@ -3,6 +3,10 @@
  * Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 and days later = 5 and stop loss at 1 percent
  */
 
+/*
+ * next time loop thru files as opposed to assets... this way is kinda stupid ngl... (makes it necessary for a lot of try catches)
+ */
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -12,6 +16,7 @@
 #include <sstream>
 #include <filesystem>
 #include <numeric>
+#include <sys/stat.h>
 
 #include "csv.h"
 #include "alpaca/alpaca.h"
@@ -296,6 +301,11 @@ void Refresh(string InputDir, alpaca::Client& client)
     //Deletes first line and adds latest data
     for (auto iter = assets.begin(); iter!=assets.end(); iter++)
     {
+        //the following is the fastest way to merely check if a file exists in c++... (that I know of)
+        //but in general/next time we will j loop thru files as opposed to assets, this way is stupid.
+        struct stat buffer;
+        if (stat (InputDir+"/RawData/"+(*iter).symbol, &buffer) != 0)//if the file doesn't exist
+            continue;
         DeleteRecord(InputDir+"/RawData/"+(*iter).symbol, 1);
 
         //Then add today's data
@@ -303,7 +313,6 @@ void Refresh(string InputDir, alpaca::Client& client)
         std::string TodayAsString = to_iso_extended_string(Today);
 
         auto bars_response = client.getBars({(*iter).symbol}, TodayAsString, TodayAsString, "", "", "1Day");
-        //NEED TO REMOVE "[]" characters for json IsArray() to work
         if (auto status = bars_response.first; !status.ok())
         {
             cout << "PROBLEM!" << endl;
