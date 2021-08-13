@@ -304,8 +304,9 @@ void Refresh(string InputDir, alpaca::Client& client)
         //the following is the one way to merely check if a file exists in c++... (that I know of)
         //but in general/next time we will j loop thru files as opposed to assets, this way is stupid.
 
-        if (!filesystem::exists(InputDir+"/RawData/"+(*iter).symbol))
+        if (!filesystem::exists(InputDir+"/RawData/"+(*iter).symbol+".csv"))
             continue;
+
         DeleteRecord(InputDir+"/RawData/"+(*iter).symbol, 1);
 
         //Then add today's data
@@ -915,7 +916,8 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
-
+    Refresh(DIRECTORY, client);
+    exit(0);
     if (FirstRun())
     {
         //Get yesterday's date
