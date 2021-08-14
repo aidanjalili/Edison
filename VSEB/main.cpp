@@ -995,8 +995,8 @@ int PlaceLimSellOrders(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKNPM7HFBCX963JDQY7H", 1);
-    setenv("APCA_API_SECRET_KEY", "Hu0wQlwPrbEUTOO0EHmAdLD7lQkpWz3UD7rsynMy", 1);
+    setenv("APCA_API_KEY_ID", "PKOJGHWWZ582PRR0CBN0", 1);
+    setenv("APCA_API_SECRET_KEY", "Chxu5m2AFU0hcwSGIoGEzdUv5I7huxjhAlvPd14y", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
