@@ -27,6 +27,7 @@ using namespace std;
 /*Constants*/
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
 const bool TWENTY_FIVE_K_PROTECTION = true;
+const double LIMIT_AMOUNT = 26000.00;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -92,6 +93,7 @@ int PlaceLimSellOrders(alpaca::Client& client);
 void Log(string InputFile, string Message);
 bool FilterAssets(alpaca::Asset& asset);
 HomeMadeTimeObj FetchTimeToPlaceLimitOrders(vector<alpaca::Date>& datesmarketisopen);
+void EmergencyAbort(alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -666,11 +668,11 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     /* FOR SHORTING STARTS HERE */
     //We can ignore runnumber (except for 1st) when shorting...
 
-    double EmergencyTrigger = 2.0; //^That 17.5% mentioned above
-    EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
+    double EmergencyTrigger = 1.1; //^That 17.5% mentioned above
+    //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
-        double SafeAmountToInvest = cash/(1+0.03+EmergencyTrigger/tickers.size());
+        double SafeAmountToInvest = cash/(1+0.01+EmergencyTrigger/tickers.size());
         cash = SafeAmountToInvest;//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
 
     }
@@ -712,7 +714,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
         for (auto& money : moneysrecievedfromshorts)
         {
-            cashcoushion+=money*1.03;
+            cashcoushion+=money*1.01;
         }
 
         sort(moneysrecievedfromshorts.begin(),moneysrecievedfromshorts.end() );
@@ -991,6 +993,26 @@ int PlaceLimSellOrders(alpaca::Client& client)
 
 }
 
+
+void EmergencyAbort(alpaca::Client& client)
+{
+    //cancels all open orders...
+    auto cancel_orders_response = client.cancelOrders();
+    if (auto status = cancel_orders_response.first; !status.ok()) {
+        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+        exit(status.getCode());
+    }
+
+    //Liquidates everything...
+    auto close_positions_response = client.closePositions();
+    if (auto status = close_positions_response.first; !status.ok()) {
+        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+        exit(status.getCode());
+    }
+
+    exit(42069);
+}
+
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
@@ -1027,6 +1049,13 @@ int main()
     //Seperate what we do at three different times below
     while (true)
     {
+        //check to see if we need an emergencyabort()
+        auto account_response = client.getAccount();
+        auto account = account_response.second;
+
+        if (stod(account.equity) <= LIMIT_AMOUNT)
+            EmergencyAbort(client);
+
         boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
 
         //If today is a day that the market was/is open
