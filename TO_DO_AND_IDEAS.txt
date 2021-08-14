@@ -14,6 +14,7 @@ IDEAS TO MAKE MORE MONEY^*
 
 IDEAS FOR FEATURES OF VSEBV1.0
 
+--DEF. USE POLYGON for backtesting
 --make a function called AlertUser() or smthg that is sent when/if the algo is forced to stop
 --for whatever reason
 --it could like text me or smthg and include a message abt the currently purchased assets

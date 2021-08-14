@@ -61,6 +61,7 @@ vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
 bool HaveAlreadyRunRefreshToday = false;
 bool HaveAlreadyPlacedOrders = false;
 bool NoLimitSellsToday = false;
+bool HavePlacedLimitOrders = false;
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -90,6 +91,7 @@ void UpdateAssets(alpaca::Client& client);
 int PlaceLimSellOrders(alpaca::Client& client);
 void Log(string InputFile, string Message);
 bool FilterAssets(alpaca::Asset& asset);
+HomeMadeTimeObj FetchTimeToPlaceLimitOrders(vector<alpaca::Date>& datesmarketisopen);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -123,7 +125,8 @@ int Init(alpaca::Client& client)
 
     /*Market Dates*/
     auto get_calendar_response = client.getCalendar("2020-01-01", "2028-12-31");
-    if (auto status = get_calendar_response.first; !status.ok()) {
+    if (auto status = get_calendar_response.first; !status.ok())
+    {
         std::cerr << "Error calling API: " << status.getMessage() << std::endl;
         return status.getCode();
     }
@@ -329,8 +332,6 @@ void Refresh(string InputDir, alpaca::Client& client)
         //To hard to borrow... and then do something to like idk cover as soon as possible
     }
 
-    PlaceLimSellOrders(client);//note that its return value is discarded...
-
 }
 
 bool IsGivenDayATradingDay(string GivenDate, vector<alpaca::Date>& datesmarketisopen)
@@ -351,6 +352,7 @@ void ResetVariables()
     HaveAlreadyRunRefreshToday = false;
     HaveAlreadyPlacedOrders = false;
     NoLimitSellsToday = false;
+    HavePlacedLimitOrders = false;
 }
 
 HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
@@ -366,6 +368,27 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
             auto timetobuy = closingtime - boost::posix_time::minutes(25);//subtract 25 mins to allow ample time to place orders before 3:50
+            string timetobuyasstring = to_simple_string(timetobuy);
+            ret.hours = stoi(timetobuyasstring.substr(0,2));
+            ret.minutes = stoi(timetobuyasstring.substr(3,2));
+            return ret;
+        }
+    }
+}
+
+HomeMadeTimeObj FetchTimeToPlaceLimitOrders(vector<alpaca::Date>& datesmarketisopen)
+{
+    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+
+    HomeMadeTimeObj ret;
+
+    for (auto& date : datesmarketisopen)
+    {
+        if (date.date == TodaysDateAsString)
+        {
+            auto closingtime = boost::posix_time::duration_from_string(date.close);
+            auto timetobuy = closingtime + boost::posix_time::minutes(5);
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
@@ -639,19 +662,84 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     else
         cash = cashinsideaccount;
 
-    if (RunNumber != 0)
+
+    /* FOR SHORTING STARTS HERE */
+    //We can ignore runnumber (except for 1st) when shorting...
+
+    double EmergencyTrigger = 2.0; //^That 17.5% mentioned above
+    EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
+    if (RunNumber == 1)
     {
-        if (RunNumber == 1)
-            cash = cash/5;
-        else if (RunNumber == 2)
-            cash = cash/4;
-        else if (RunNumber == 3)
-            cash = cash/3;
-        else if (RunNumber == 4)
-            cash = cash/2;
-        else
-            cash = cash;//do nothing...
+        double SafeAmountToInvest = cash/(1+0.03+EmergencyTrigger/tickers.size());
+        cash = SafeAmountToInvest;//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
+
     }
+    else
+    {
+        double cashcoushion = 0;//Cash coushion = 17.5% of money recieved from most expensive ticker shorted, + 101% of money recieved from every other ticker shorted
+
+        //loop thru files in currently bought...
+        vector<string> files;
+        for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+        {
+            files.push_back(file.path());
+        }
+        vector <double> moneysrecievedfromshorts;
+        for (auto& dir : files)
+        {
+            io::CSVReader<3> in(dir);
+            in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+            //could maybe add a guard here to c if file is too small/not enuf entries like i did in "backtestingVSEB"
+            //but also could low key be unecessary
+
+            std::string ticker, buyid, sell_lim_id;
+            while(in.read_row(ticker, buyid, sell_lim_id))
+            {
+                auto get_lim_order_response = client.getOrder(sell_lim_id);
+                auto lim_order = get_lim_order_response.second;
+                if (lim_order.status == "filled")
+                    continue;
+                else
+                {
+                    auto get_buy_order_response = client.getOrder(buyid);
+                    auto buy_order = get_buy_order_response.second;
+                    double moneyrecieved = stod(buy_order.filled_avg_price)*stoi(buy_order.filled_qty);
+                    moneysrecievedfromshorts.push_back( moneyrecieved );
+                }
+
+            }
+        }
+
+        for (auto& money : moneysrecievedfromshorts)
+        {
+            cashcoushion+=money*1.03;
+        }
+
+        sort(moneysrecievedfromshorts.begin(),moneysrecievedfromshorts.end() );
+        cashcoushion+=moneysrecievedfromshorts.back()*(1+EmergencyTrigger);
+        cash -= cashcoushion;
+    }
+
+
+    /* AND ENDS HERE */
+
+
+    /*FOR BUYING STARTS HERE*/
+//    if (RunNumber != 0)
+//    {
+//        if (RunNumber == 1)
+//            cash = cash/5;
+//        else if (RunNumber == 2)
+//            cash = cash/4;
+//        else if (RunNumber == 3)
+//            cash = cash/3;
+//        else if (RunNumber == 4)
+//            cash = cash/2;
+//        else
+//            cash = cash;//do nothing...
+//    }
+
+    /*AND ENDS HERE */
 
     //Check to c if there is too little cash to split evenly amongst all tickers...
     if (cash / tickers.size() < 20 )
@@ -833,12 +921,12 @@ int PlaceLimSellOrders(alpaca::Client& client)
         return 0;
     sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
 
-    string newfilename = files[-1].substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
+    string newfilename = files.back().substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
     newfilename = DIRECTORY+"/CurrentlyBought/" + newfilename;
     std::ofstream newFile(newfilename);
     newFile << "ticker,buyid,sell_lim_id\n";
 
-    io::CSVReader<3> in( (files[-1]).c_str() );
+    io::CSVReader<3> in( (files.back()).c_str() );
     in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
 
     std::string ticker, buyid, sell_lim_id;
@@ -892,10 +980,10 @@ int PlaceLimSellOrders(alpaca::Client& client)
 
     }
     // removing the existing file
-    remove( (files[-1]).c_str());
+    remove( (files.back()).c_str());
 
     // renaming the new file with the existing file name
-    rename( newfilename.c_str(), files[-1].c_str() );
+    rename( newfilename.c_str(), files.back().c_str() );
 
     newFile.close();
     return 0;
@@ -948,7 +1036,8 @@ int main()
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes)
+            HomeMadeTimeObj LimitOrderTime = FetchTimeToPlaceLimitOrders(datesmarketisopen);
+            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes && HaveAlreadyPlacedOrders == false)
             {
                 int NumberofFilesInCurrentlyBought;
                 vector<string> files;
@@ -1022,8 +1111,14 @@ int main()
                 HaveAlreadyPlacedOrders = true;
             }
 
-            //If time is 1100pm -- run Refresh()
-            if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0)
+            if (now.time_of_day().hours() == LimitOrderTime.hours && now.time_of_day().minutes() == LimitOrderTime.minutes && HavePlacedLimitOrders == false)
+            {
+                PlaceLimSellOrders(client);//note its return value is discarded
+                HavePlacedLimitOrders = true;
+            }
+
+                //If time is 1100pm -- run Refresh()
+            if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0 && HaveAlreadyRunRefreshToday==false)
             {
                 Refresh(DIRECTORY, client);//This should take abt 15 mins depending on wifi speed...
                 HaveAlreadyRunRefreshToday = true;

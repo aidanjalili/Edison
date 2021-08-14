@@ -223,8 +223,19 @@ int main()
 
             io::CSVReader<6> intwo( DIR+"/"+currentshort.ticker+".csv" );
             intwo.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
+            double yesterdaysclose, yesterdaysclosetemp;
             while (intwo.read_row(Datetwo, Opentwo, Closetwo, Lowtwo, Hightwo, Volumetwo))
             {
+                if(INDEX == 0)
+                    yesterdaysclosetemp = Close;
+                else
+                {
+                    yesterdaysclose = yesterdaysclosetemp;
+                    yesterdaysclosetemp = Close;
+                }
+
+
+
                 if (INDEX >= currentshort.index+1  &&  INDEX <= currentshort.index+DAYSLATER)
                 {
 
@@ -234,6 +245,28 @@ int main()
                     /*Percent returns are calculated as if it were a buy... in results you need to multiply all percent_returns by -1*/
                     cout << "high currently si: " << Hightwo << "$" << endl;
                     cout << "But we shorted at: " << currentshort.price_at_short << "$"<< endl;
+                    //make sure it didn't move more than 1% up from where we bought it during pre/after hours and if it did
+                    //push back percent return of diff...
+                    if (Opentwo > 1.01*yesterdaysclose)
+                    {
+                        double percent_return = (Opentwo-yesterdaysclose)/yesterdaysclose;
+                        if (percent_return != 0)
+                        {
+                            LineOfOutput ThisLineOfOutput;
+                            ThisLineOfOutput.date = Datetwo;
+                            ThisLineOfOutput.ticker = currentshort.ticker;
+                            ThisLineOfOutput.percent_return = percent_return;
+                            Outputs.push_back(ThisLineOfOutput);
+                            INDEX++;//tho this doesn't rly do much as it's reset
+                            break;
+                        }
+                        else
+                        {
+                            INDEX++;//again tho, this is unecessary
+                            break;
+                        }
+                    }
+                    //assumign it didn't move more than 1% over night at any pt, one of the following will run...
                     if (Hightwo >= 1.01*currentshort.price_at_short) //stop loss
                     {
                         cout << "current date in doc: " << Datetwo << endl;

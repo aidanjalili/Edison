@@ -21,6 +21,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/Results/percent_returns.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/Results/percent_returns.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/percent_returns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/percent_returns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/RawData/AAPL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../../RawDataFetcher/RawData/AAPL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../TO_DO_AND_IDEAS.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../TO_DO_AND_IDEAS.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
     </list>
@@ -105,7 +110,7 @@
       <workItem from="1628259817479" duration="523000" />
       <workItem from="1628285172524" duration="611000" />
       <workItem from="1628296883145" duration="575000" />
-      <workItem from="1628301547006" duration="38187000" />
+      <workItem from="1628301547006" duration="46864000" />
     </task>
     <servers />
   </component>
