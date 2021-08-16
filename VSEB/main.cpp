@@ -668,7 +668,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     /* FOR SHORTING STARTS HERE */
     //We can ignore runnumber (except for 1st) when shorting...
 
-    double EmergencyTrigger = 1.1; //^That 17.5% mentioned above
+    double EmergencyTrigger = 1.1; //the extra .1 cuz im nerotic and rly wanna make sure i'll always have enuf cash
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
@@ -1017,8 +1017,8 @@ void EmergencyAbort(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKOJGHWWZ582PRR0CBN0", 1);
-    setenv("APCA_API_SECRET_KEY", "Chxu5m2AFU0hcwSGIoGEzdUv5I7huxjhAlvPd14y", 1);
+    setenv("APCA_API_KEY_ID", "PKUJXFOKIQSNCA5RI4X4", 1);
+    setenv("APCA_API_SECRET_KEY", "HgKZtnrD1jDvQ3guMjRCnW2dXoKDOOXiCbmAVg39", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
