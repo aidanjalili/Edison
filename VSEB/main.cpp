@@ -407,12 +407,12 @@ int Sell(alpaca::Client& client)
         files.push_back(file.path());
     }
     sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
-
     //Double check today is correct DateToSell...
     string DateofBuy = files[0].substr (DIRECTORY.size()+17, 10);//Date of buy in iso format e.g. 1900-12-30
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
     std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
-    if (DateToSellGivenDateToBuy(TodaysDateAsString) != TodaysDateAsString)
+    cout << DateofBuy << endl;
+    if (DateToSellGivenDateToBuy(DateofBuy) != TodaysDateAsString)
         return 69;
 
     std::ifstream InputFile(files[0]);
@@ -443,7 +443,6 @@ int Sell(alpaca::Client& client)
         buyorders.push_back(currentbuyorder);
     }
     InputFile.close();
-
     vector<string> sellorderids;
 
     for (int i = 0; i < buyorders.size(); i++)
@@ -507,14 +506,10 @@ void Archive(string FileToBeArchived, vector<buyorder>& DataCurrentlyInFile, vec
 
 string DateToSellGivenDateToBuy(string DateofBuy)
 {
-    boost::gregorian::date BuyDate = boost::gregorian::from_simple_string(DateofBuy);
-    boost::gregorian::date SellDate;
-
-    string BuyDateAsString = to_iso_extended_string(SellDate);
     int i = 0;
     for (; i< datesmarketisopen.size(); i++)
     {
-        if (datesmarketisopen[i].date == BuyDateAsString)
+        if (datesmarketisopen[i].date == DateofBuy)
         {
             break;
         }
@@ -1017,8 +1012,8 @@ void EmergencyAbort(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKUJXFOKIQSNCA5RI4X4", 1);
-    setenv("APCA_API_SECRET_KEY", "HgKZtnrD1jDvQ3guMjRCnW2dXoKDOOXiCbmAVg39", 1);
+    setenv("APCA_API_KEY_ID", "PKX5V65TMIC5Z0YPJ89V", 1);
+    setenv("APCA_API_SECRET_KEY", "IFe8RvnvQ1fjiVBckIiW0bYHMnqaiEOXpUIN4RJp", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
