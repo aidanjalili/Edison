@@ -1051,6 +1051,12 @@ int main()
     {
         //check to see if we need an emergencyabort()
         auto account_response = client.getAccount();
+        if (auto status = account_response.first; !status.ok())
+        {
+            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+            sleep(15);
+            continue;
+        }
         auto account = account_response.second;
 
         if (stod(account.equity) <= LIMIT_AMOUNT)
