@@ -705,7 +705,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                 {
                     auto get_buy_order_response = client.getOrder(buyid);
                     auto buy_order = get_buy_order_response.second;
-                    double moneyrecieved = stod(buy_order.filled_avg_price)*stoi(buy_order.filled_qty);
+                    double moneyrecieved = stod(buy_order.filled_avg_price)*stod(buy_order.filled_qty);
                     moneysrecievedfromshorts.push_back( moneyrecieved );
                 }
 
