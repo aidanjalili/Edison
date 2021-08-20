@@ -1085,63 +1085,60 @@ int main()
 
                 if (NumberofFilesInCurrentlyBought == 0)
                 {
-
                     if (int buystatus = Buy(1, client); buystatus!=0)
                     {
                         return buystatus;
                     }
-                }
-                else if (NumberofFilesInCurrentlyBought == 1)
-                {
 
-                    if (int buystatus = Buy(2, client); buystatus!=0)
-                    {
-                        return buystatus;
-                    }
                 }
-                else if (NumberofFilesInCurrentlyBought == 2)
+                else
                 {
-                    if (int buystatus = Buy(3, client); buystatus!=0)
+                    int sellstatus = Sell(client);
+                    if (sellstatus != 0 && sellstatus !=69)
+                        return sellstatus;
+
+
+                    if (NumberofFilesInCurrentlyBought == 1)
                     {
-                        return buystatus;
+                        if (int buystatus = Buy(2, client); buystatus!=0)
+                        {
+                            return buystatus;
+                        }
                     }
-                }
-                else if (NumberofFilesInCurrentlyBought == 3)
-                {
-                    if (int buystatus = Buy(4, client); buystatus!=0)
+                    else if (NumberofFilesInCurrentlyBought == 2)
                     {
-                        return buystatus;
+                        if (int buystatus = Buy(3, client); buystatus!=0)
+                        {
+                            return buystatus;
+                        }
                     }
-                }
-                else if (NumberofFilesInCurrentlyBought == 4)
-                {
-                    if (int buystatus = Buy(5, client); buystatus!=0)
+                    else if (NumberofFilesInCurrentlyBought == 3)
                     {
-                        return buystatus;
+                        if (int buystatus = Buy(4, client); buystatus!=0)
+                        {
+                            return buystatus;
+                        }
                     }
-                }
-                else if (NumberofFilesInCurrentlyBought == 5)
-                {
-                    int Sell_Status_code = Sell(client);
-                    if (Sell_Status_code != 0)
+                    else if (NumberofFilesInCurrentlyBought == 4)
                     {
-                        //Problems...
-                        ///eventually -- Make ALERT() function and place here -- potentially with Iftt
-                        return Sell_Status_code;
+                        if (int buystatus = Buy(5, client); buystatus!=0)
+                        {
+                            return buystatus;
+                        }
                     }
-                    else
+                    else if (NumberofFilesInCurrentlyBought == 5)
                     {
                         if (int buystatus = Buy(0, client); buystatus!=0)
                         {
                             return buystatus;
                         }
                     }
+                    //else case should never happen
+                    
                 }
-                //else case should never happen
 
                 ///TO DO's Start here
 
-                //Onaug. 23rd -- add to 18th bday list or whatever, ensure PDT protection is on for "both"
                 ///And end here
 
                 HaveAlreadyPlacedOrders = true;
