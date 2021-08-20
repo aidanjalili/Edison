@@ -1090,12 +1090,20 @@ int main()
                         return buystatus;
                     }
 
+
                 }
                 else
                 {
                     int sellstatus = Sell(client);
                     if (sellstatus != 0 && sellstatus !=69)
                         return sellstatus;
+
+                    files.clear();
+                    for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+                    {
+                        files.push_back(file.path());
+                    }
+                    NumberofFilesInCurrentlyBought = files.size();
 
                     if (NumberofFilesInCurrentlyBought == 0)
                     {
