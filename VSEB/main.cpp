@@ -1017,8 +1017,8 @@ void EmergencyAbort(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", API_PUBLIC_KEY, 1);
-    setenv("APCA_API_SECRET_KEY", API_PRIVATE_KEY, 1);
+    setenv("APCA_API_KEY_ID", API_PUBLIC_KEY.c_str(), 1);
+    setenv("APCA_API_SECRET_KEY", API_PRIVATE_KEY.c_str(), 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
