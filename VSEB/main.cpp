@@ -663,7 +663,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     /* FOR SHORTING STARTS HERE */
     //We can ignore runnumber (except for 1st) when shorting...
 
-    double EmergencyTrigger = 1.25; //the extra .1 cuz im nerotic and rly wanna make sure i'll always have enuf cash
+    double EmergencyTrigger = 1.25; //the extra .25 cuz im nerotic and rly wanna make sure i'll always have enuf cash
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
@@ -844,6 +844,8 @@ int Buy(int RunNumber, alpaca::Client& client)
         auto last_trade = last_trade_response.second;
         auto price = last_trade.trade.price;
         qty = AmntToInvest/price;
+
+        qty-=1;//in case price goes up by 1 share price
         if (qty == 0)//should never happn but alwyas good to check
         {
             cout << "qty was 0 for some rzn" << endl;
@@ -941,8 +943,9 @@ int PlaceLimSellOrders(alpaca::Client& client)
                 (order_response.symbol),
                 qty,
                 alpaca::OrderSide::Buy,
-                alpaca::OrderType::Limit,
+                alpaca::OrderType::Stop,
                 alpaca::OrderTimeInForce::GoodUntilCanceled,
+                "",
                 to_string(limitprice)
         );
 
@@ -1021,6 +1024,7 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
+
 
     if (FirstRun())
     {
