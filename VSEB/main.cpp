@@ -24,10 +24,12 @@
 using namespace std;
 
 
-/*Constants*/
+/*Constants to modify as necessary by the user*/
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
 const bool TWENTY_FIVE_K_PROTECTION = true;
 const double LIMIT_AMOUNT = 26000.00;
+const string API_PUBLIC_KEY = "PKO68RJV3PFP94DUGX8P";
+const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2"
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -1015,8 +1017,8 @@ void EmergencyAbort(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-    setenv("APCA_API_KEY_ID", "PKX5V65TMIC5Z0YPJ89V", 1);
-    setenv("APCA_API_SECRET_KEY", "IFe8RvnvQ1fjiVBckIiW0bYHMnqaiEOXpUIN4RJp", 1);
+    setenv("APCA_API_KEY_ID", API_PUBLIC_KEY, 1);
+    setenv("APCA_API_SECRET_KEY", API_PRIVATE_KEY, 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
