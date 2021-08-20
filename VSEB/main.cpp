@@ -663,7 +663,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     /* FOR SHORTING STARTS HERE */
     //We can ignore runnumber (except for 1st) when shorting...
 
-    double EmergencyTrigger = 1.1; //the extra .1 cuz im nerotic and rly wanna make sure i'll always have enuf cash
+    double EmergencyTrigger = 1.25; //the extra .1 cuz im nerotic and rly wanna make sure i'll always have enuf cash
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
