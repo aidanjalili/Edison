@@ -29,7 +29,7 @@ const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eve
 const bool TWENTY_FIVE_K_PROTECTION = true;
 const double LIMIT_AMOUNT = 26000.00;
 const string API_PUBLIC_KEY = "PKO68RJV3PFP94DUGX8P";
-const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2"
+const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2";
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
