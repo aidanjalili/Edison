@@ -1097,8 +1097,15 @@ int main()
                     if (sellstatus != 0 && sellstatus !=69)
                         return sellstatus;
 
+                    if (NumberofFilesInCurrentlyBought == 0)
+                    {
+                        if (int buystatus = Buy(1, client); buystatus!=0)
+                        {
+                            return buystatus;
+                        }
 
-                    if (NumberofFilesInCurrentlyBought == 1)
+                    }
+                    else if (NumberofFilesInCurrentlyBought == 1)
                     {
                         if (int buystatus = Buy(2, client); buystatus!=0)
                         {
