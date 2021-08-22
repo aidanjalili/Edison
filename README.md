@@ -21,3 +21,8 @@ The dates in the "Archives"
 directory refer to the date archived (which sometimes is the date sold in the case of a manual sell at closing.
 If the asset was sold through a limit sell it is simply the date archived/the date the asset it would have been 
 sold had the limit order not been filled).
+
+## What to do when rich/if this actually starts to work
+
+There isn't much. First figure out how much (either as a func. of market cap, or outstanding shares, etc.) Go thru my backtesting, find the max number of tickers invested in in a week. Add 2 (j for securituy). then go thru each ticker listed their, find their market cap/outstanding shares, or whatever it is AT THAT TIME of the hypothetical trade. Make a list of those, avg it out, use that and multiply by max number of tickers in a weeek found earlier + 2. Can also double check that hopefully the stdev of the market caps/outstanding shares or whatever isn't too high. Every amnt of money I have in my accnt after that i can trasfer to a savings accnt. (Update the 75000 if-statement in code to reflect the avg market cap/whatever * acceptable proportion.)
+
