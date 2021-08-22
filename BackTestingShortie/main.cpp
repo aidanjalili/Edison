@@ -255,7 +255,7 @@ int main()
                             LineOfOutput ThisLineOfOutput;
                             ThisLineOfOutput.date = Datetwo;
                             ThisLineOfOutput.ticker = currentshort.ticker;
-                            ThisLineOfOutput.percent_return = percent_return;
+                            ThisLineOfOutput.percent_return = 1.01;//percent_return;
                             Outputs.push_back(ThisLineOfOutput);
                             INDEX++;//tho this doesn't rly do much as it's reset
                             break;

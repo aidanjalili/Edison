@@ -7,6 +7,10 @@
  * next time loop thru files as opposed to assets... this way is kinda stupid ngl... (makes it necessary for a lot of try catches)
  */
 
+/*
+ * Current version is unstobable/shouldn't (hopefully) stop for shit
+ */
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>
@@ -26,8 +30,9 @@ using namespace std;
 
 /*Constants to modify as necessary by the user*/
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
-const bool TWENTY_FIVE_K_PROTECTION = true;
-const double LIMIT_AMOUNT = 26000.00;
+const bool TWENTY_FIVE_K_PROTECTION = true;//simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
+const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500;//rn it's actually much less than 25k lol
+const double LIMIT_AMOUNT = 500.00;
 const string API_PUBLIC_KEY = "PKO68RJV3PFP94DUGX8P";
 const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2";
 
@@ -657,7 +662,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
     double cash;
     if (TWENTY_FIVE_K_PROTECTION == true)
-        cash = cashinsideaccount-25000;
+        cash = cashinsideaccount-TWENTY_FIVE_K_PROTECTION_AMOUNT;
     else
         cash = cashinsideaccount;
 
@@ -669,14 +674,11 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
-        double SafeAmountToInvest = cash/(1+0.01+EmergencyTrigger/tickers.size());
-        cash = SafeAmountToInvest;//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
+        cash = (cash)/(5*1.01+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
 
     }
     else
     {
-        double cashcoushion = 0;//Cash coushion = 17.5% of money recieved from most expensive ticker shorted, + 101% of money recieved from every other ticker shorted
-
         //loop thru files in currently bought...
         vector<string> files;
         for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
@@ -709,14 +711,16 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
             }
         }
 
-        for (auto& money : moneysrecievedfromshorts)
+        //sum moneyrecieved vector
+        double totalmoneyrecieved = 0;
+        for (auto iter = moneysrecievedfromshorts.begin(); iter!=moneysrecievedfromshorts.end(); iter++)
         {
-            cashcoushion+=money*1.01;
+            totalmoneyrecieved+=(*iter);
         }
 
-        sort(moneysrecievedfromshorts.begin(),moneysrecievedfromshorts.end() );
-        cashcoushion+=moneysrecievedfromshorts.back()*(1+EmergencyTrigger);
-        cash -= cashcoushion;
+        cash = cash - totalmoneyrecieved;
+        cash = (cash)/(5*1.01+EmergencyTrigger-5);
+
     }
 
 
