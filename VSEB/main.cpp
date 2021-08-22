@@ -28,11 +28,11 @@
 using namespace std;
 
 
-/*Constants to modify as necessary by the user*/
+/*Constants to modify as necessary by the user*/ //(in green is what to do when ur giving dad bak his 1,500)
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
-const bool TWENTY_FIVE_K_PROTECTION = true;//simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
+const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
 const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500;//rn it's actually much less than 25k lol
-const double LIMIT_AMOUNT = 500.00;
+const double LIMIT_AMOUNT = 2000.00;///change this back to 500 (subtravt 1,500 from it)
 const string API_PUBLIC_KEY = "PKO68RJV3PFP94DUGX8P";
 const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2";
 
