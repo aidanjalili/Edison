@@ -35,6 +35,7 @@ const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500;//rn it's actually much less th
 const double LIMIT_AMOUNT = 2000.00;///change this back to 500 (subtravt 1,500 from it)
 const string API_PUBLIC_KEY = "PKO68RJV3PFP94DUGX8P";
 const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2";
+const bool IS_LIVE = false;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -1014,6 +1015,9 @@ int main()
 {
     setenv("APCA_API_KEY_ID", API_PUBLIC_KEY.c_str(), 1);
     setenv("APCA_API_SECRET_KEY", API_PRIVATE_KEY.c_str(), 1);
+
+    if (IS_LIVE == true)
+        setenv("APCA_API_BASE_URL", "api.alpaca.markets".c_str(), 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
