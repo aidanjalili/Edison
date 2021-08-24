@@ -1017,7 +1017,7 @@ int main()
     setenv("APCA_API_SECRET_KEY", API_PRIVATE_KEY.c_str(), 1);
 
     if (IS_LIVE == true)
-        setenv("APCA_API_BASE_URL", "api.alpaca.markets".c_str(), 1);
+        setenv("APCA_API_BASE_URL", "api.alpaca.markets", 1);
 
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
