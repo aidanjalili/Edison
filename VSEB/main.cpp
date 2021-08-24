@@ -387,23 +387,11 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
 
 HomeMadeTimeObj FetchTimeToPlaceLimitOrders(vector<alpaca::Date>& datesmarketisopen)
 {
-    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
-    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
 
     HomeMadeTimeObj ret;
-
-    for (auto& date : datesmarketisopen)
-    {
-        if (date.date == TodaysDateAsString)
-        {
-            auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime + boost::posix_time::minutes(5);
-            string timetobuyasstring = to_simple_string(timetobuy);
-            ret.hours = stoi(timetobuyasstring.substr(0,2));
-            ret.minutes = stoi(timetobuyasstring.substr(3,2));
-            return ret;
-        }
-    }
+    ret.hours = 0;
+    ret.minutes = 5;
+    return ret;//returns 12:05am
 }
 
 int Sell(alpaca::Client& client)
@@ -803,29 +791,32 @@ int Buy(int RunNumber, alpaca::Client& client)
         std::cerr << "Error calling API: " << status.getMessage() << std::endl;
         //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
     }
-    auto tempassets = get_assets_response.second;
-    bool foundone = false;
-    erase_if(tempassets, FilterAssets);
-    for (auto iter = TickersToBeBought.begin(); iter!=TickersToBeBought.end(); iter++)
+    else
     {
-        for (auto& x : tempassets)
+        auto tempassets = get_assets_response.second;
+        bool foundone = false;
+        erase_if(tempassets, FilterAssets);
+        for (auto iter = TickersToBeBought.begin(); iter!=TickersToBeBought.end(); iter++)
         {
-            //should always find the matching symbol in the tempassets list
-            if ((*iter) == x.symbol)
+            for (auto& x : tempassets)
             {
-                foundone = true;
-                break;
+                //should always find the matching symbol in the tempassets list
+                if ((*iter) == x.symbol)
+                {
+                    foundone = true;
+                    break;
+                }
             }
-        }
 
-        //if that didn't happen then the stock for some reason is not in the list and should be removed from the to_be_bought list
-        if (foundone == false)
-        {
-            TickersToBeBought.erase(iter);
-        }
+            //if that didn't happen then the stock for some reason is not in the list and should be removed from the to_be_bought list
+            if (foundone == false)
+            {
+                TickersToBeBought.erase(iter);
+            }
 
-        //reset foundone
-        foundone = false;
+            //reset foundone
+            foundone = false;
+        }
     }
 
     pair<double, int> Amnt_Invested;
@@ -922,9 +913,9 @@ int PlaceLimSellOrders(alpaca::Client& client)
     {
         files.push_back(file.path());
     }
-    if (NoLimitSellsToday == true)
+    if (NoLimitSellsToday == true || files.size() == 0)//ii think either side of the or is saying the same thing hopefully
         return 0;
-    sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
+    sort(files.begin(), files.end());//Now we only work the most recent one -- so the last one in the vector
 
     string newfilename = files.back().substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
     newfilename = DIRECTORY+"/CurrentlyBought/" + newfilename;
@@ -967,7 +958,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
                     alpaca::OrderTimeInForce::OPG,
                     to_string(limitprice)
             );
-            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + "on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " + status.getMessage();
+            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " + status.getMessage();
             Log(DIRECTORY+"/Emergency_Buy_Log.txt", Message);
             sleep(2);//wait for order to be put in...
             continue;

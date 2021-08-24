@@ -22,6 +22,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/Results/percent_returns.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/Results/percent_returns.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/Results/~$percent_returns.xlsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
     </list>
@@ -78,9 +79,9 @@
         <option name="Blaze.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -109,7 +110,8 @@
       <workItem from="1628301547006" duration="58033000" />
       <workItem from="1629467449648" duration="1488000" />
       <workItem from="1629497332694" duration="2085000" />
-      <workItem from="1629568236060" duration="8179000" />
+      <workItem from="1629568236060" duration="9686000" />
+      <workItem from="1629810244805" duration="1783000" />
     </task>
     <servers />
   </component>
