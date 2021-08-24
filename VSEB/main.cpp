@@ -1172,7 +1172,7 @@ int main()
             }
 
             //at midnight reset all variables .. doesn't matter if this is done (up to) 4 times during the min.
-            if (now.time_of_day().hours() == 21 && now.time_of_day().minutes() == 59)
+            if (now.time_of_day().hours() == 1 && now.time_of_day().minutes() == 0)
                 ResetVariables();
         }
 
