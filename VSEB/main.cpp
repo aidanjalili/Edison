@@ -33,9 +33,9 @@ const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eve
 const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
 const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500;//rn it's actually much less than 25k lol
 const double LIMIT_AMOUNT = 2000.00;///change this back to 500 (subtravt 1,500 from it)
-const string API_PUBLIC_KEY = "PKO68RJV3PFP94DUGX8P";
-const string API_PRIVATE_KEY = "KSQVu4caJH0AOK9UewYHm5VGvxsORmjqiHWWtBa2";
-const bool IS_LIVE = false;
+const string API_PUBLIC_KEY = "AKREAKNZ96R2ESJPM0RD";
+const string API_PRIVATE_KEY = "M0FjKNKzCu21XplkO62klooS0kQgGFHQRWtLX0Vt";
+const bool IS_LIVE = true;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -71,6 +71,7 @@ bool HaveAlreadyRunRefreshToday = false;
 bool HaveAlreadyPlacedOrders = false;
 bool NoLimitSellsToday = false;
 bool HavePlacedLimitOrders = false;
+bool SomethingWasCoveredToday = false;//this one is reset right after use
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -482,6 +483,7 @@ int Sell(alpaca::Client& client)
     }
 
     Archive(files[0],buyorders,sellorderids);
+    SomethingWasCoveredToday = true;
     return 0;
 }
 
@@ -655,6 +657,47 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     else
         cash = cashinsideaccount;
 
+    //If we just placed some covers today we want to change the cash amnt to roughly what it will be
+    //after I pay to cover...
+    if (SomethingWasCoveredToday)//this if statement is ineffecient at doing what it's supposed to do but oh well
+    {
+        vector<string> files;
+        for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/Archives"))
+        {
+            files.push_back(file.path());
+        }
+        sort(files.begin(), files.end());
+        string CurrentCoverFile = files.back();
+        io::CSVReader<4> in(CurrentCoverFile);
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "sellid");
+
+        std::string ticker, buyid, sell_lim_id, sellid;
+        while(in.read_row(ticker, buyid, sell_lim_id, sellid))
+        {
+            //trying to find out abt how much this cover day will cost me...
+            if (sellid != "N/A")
+            {
+                auto get_sell_response = client.getOrder(sellid);
+                auto sell_order = get_sell_response.second;
+                int qty = stoi(sell_order.qty);
+                string symbol = sell_order.symbol;
+                //should prolly assert that this equals ticker but whatever...
+
+                //now get the last trade price of this symbol...
+                auto last_trade_response = client.getLastTrade(symbol);
+                auto last_trade = last_trade_response.second;
+                auto price = last_trade.trade.price;
+                //increase by 10% in case it does do that in the last few mins of trading here...
+                price = 1.1*price;
+
+                //calculate money needed to cover...
+                double MoneyNeededToCover = qty*price;
+                cash -= MoneyNeededToCover;
+
+            }
+        }
+        SomethingWasCoveredToday = false;
+    }
 
     /* FOR SHORTING STARTS HERE */
     //We can ignore runnumber (except for 1st) when shorting...
