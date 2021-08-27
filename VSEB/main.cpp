@@ -672,6 +672,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "sellid");
 
         std::string ticker, buyid, sell_lim_id, sellid;
+        vector<double> Costs;
         while(in.read_row(ticker, buyid, sell_lim_id, sellid))
         {
             //trying to find out abt how much this cover day will cost me...
@@ -687,15 +688,19 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                 auto last_trade_response = client.getLastTrade(symbol);
                 auto last_trade = last_trade_response.second;
                 auto price = last_trade.trade.price;
-                //increase by 10% in case it does do that in the last few mins of trading here...
-                price = 1.1*price;
+                //increase by 7.5% in case it does do that in the last few mins of trading here...
+                price = 1.075*price;
 
                 //calculate money needed to cover...
                 double MoneyNeededToCover = qty*price;
-                cash -= MoneyNeededToCover;
+                Costs.push_back(MoneyNeededToCover);
 
             }
         }
+        double Sum = 0;
+        for (auto iter = Costs.begin(); iter != Costs.end(); iter++)
+            Sum+=(*iter);
+        cash-=Sum;
         SomethingWasCoveredToday = false;
     }
 
