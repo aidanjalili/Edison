@@ -72,6 +72,7 @@ bool HaveAlreadyPlacedOrders = false;
 bool NoLimitSellsToday = false;
 bool HavePlacedLimitOrders = false;
 bool SomethingWasCoveredToday = false;//this one is reset right after use
+bool NeedToPlaceLimOrders = false;//same for this one
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -927,6 +928,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     boost::gregorian::date DateToday = boost::gregorian::day_clock::local_day();
     std::string DateTodayAsString = to_iso_extended_string(DateToday);
     RecordBuyOrders(DateTodayAsString, BuyOrders);
+    NeedToPlaceLimOrders = true;
     return 0;
 }
 
@@ -1032,6 +1034,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
     rename( newfilename.c_str(), files.back().c_str() );
 
     newFile.close();
+    NeedToPlaceLimOrders = false;
     return 0;
 
 
@@ -1112,14 +1115,27 @@ int main()
 
         boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
 
+        //regardless of everything else... everyday at 1 am we resetvariables
+        if (now.time_of_day().hours() == 1 && now.time_of_day().minutes() == 0)//it's ok if this happens (up to) 4 times in the minute
+            ResetVariables();
+
         //If today is a day that the market was/is open
         boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
         std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
 
+        if (NeedToPlaceLimOrders == true)
+        {
+            HomeMadeTimeObj LimitOrderTime = FetchTimeToPlaceLimitOrders(datesmarketisopen);//rn is j 1205 am
+            if (now.time_of_day().hours() == LimitOrderTime.hours && now.time_of_day().minutes() == LimitOrderTime.minutes && HavePlacedLimitOrders == false)
+            {
+                PlaceLimSellOrders(client);//note its return value is discarded
+                HavePlacedLimitOrders = true;
+            }
+        }
+
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            HomeMadeTimeObj LimitOrderTime = FetchTimeToPlaceLimitOrders(datesmarketisopen);
             if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes && HaveAlreadyPlacedOrders == false)
             {
                 int NumberofFilesInCurrentlyBought;
@@ -1206,11 +1222,6 @@ int main()
                 HaveAlreadyPlacedOrders = true;
             }
 
-            if (now.time_of_day().hours() == LimitOrderTime.hours && now.time_of_day().minutes() == LimitOrderTime.minutes && HavePlacedLimitOrders == false)
-            {
-                PlaceLimSellOrders(client);//note its return value is discarded
-                HavePlacedLimitOrders = true;
-            }
 
                 //If time is 1100pm -- run Refresh()
             if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0 && HaveAlreadyRunRefreshToday==false)
@@ -1218,10 +1229,6 @@ int main()
                 Refresh(DIRECTORY, client);//This should take abt 15 mins depending on wifi speed...
                 HaveAlreadyRunRefreshToday = true;
             }
-
-            //at midnight reset all variables .. doesn't matter if this is done (up to) 4 times during the min.
-            if (now.time_of_day().hours() == 1 && now.time_of_day().minutes() == 0)
-                ResetVariables();
         }
 
         cout << "Algo is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
