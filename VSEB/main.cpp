@@ -21,6 +21,7 @@
 #include <filesystem>
 #include <numeric>
 #include <sys/stat.h>
+#include <cstdlib>
 
 #include "csv.h"
 #include "alpaca/alpaca.h"
@@ -88,6 +89,7 @@ bool IsGivenDayATradingDay(string GivenDate, vector<alpaca::Date>& datesmarketis
 void ResetVariables();
 HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen);
 int Sell(alpaca::Client& client);
+void ExitWarningSystem();
 void Archive(string FileToBeArchived, vector<buyorder>& DataCurrentlyInFile, vector<string>& SellOrdersToAdd);
 string DateToSellGivenDateToBuy(string DateofBuy);
 double avg(const std::vector<double>& v);
@@ -515,6 +517,11 @@ string DateToSellGivenDateToBuy(string DateofBuy)
     }
     string ret = datesmarketisopen[i+5].date;
     return ret;
+}
+
+void ExitWarningSystem()
+{
+    Log(DIRECTORY+"/Emergency_Buy_Log.txt", "SYSTEM_HAD_TO_EXIT! THIS HAPPENED AT: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + "\n");
 }
 
 vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client)
@@ -1064,6 +1071,8 @@ void EmergencyAbort(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
+    atexit(ExitWarningSystem);
+
     setenv("APCA_API_KEY_ID", API_PUBLIC_KEY.c_str(), 1);
     setenv("APCA_API_SECRET_KEY", API_PRIVATE_KEY.c_str(), 1);
 
