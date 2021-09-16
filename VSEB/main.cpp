@@ -445,7 +445,7 @@ int Sell(alpaca::Client& client)
 
     for (int i = 0; i < buyorders.size(); i++)
     {
-
+        sleep(1);
         auto get_order_response = client.getOrder(buyorders[i].sell_lim_id);
         if (auto status = get_order_response.first; !status.ok()) {
             std::cerr << "Error calling API: " << status.getMessage() << std::endl;
