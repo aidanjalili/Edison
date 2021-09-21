@@ -146,7 +146,7 @@ int Init(alpaca::Client& client)
     }
     datesmarketisopen = get_calendar_response.second;
 
-   UpdateAssets(client);
+    UpdateAssets(client);
 
     return 0;
 
@@ -174,7 +174,7 @@ void UpdateAssets(alpaca::Client& client)
     if (auto status = get_assets_response.first; status.ok() == false)
     {
         std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-       //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
+        //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
     }
     assets = get_assets_response.second;
     //filter assets...
@@ -618,7 +618,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)//
             "",
             "1Day",
             10000
-            );
+    );
 
     if (auto status = bars_response.first; status.ok() == false)
     {
@@ -801,7 +801,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         ret.second = NumberOfTickers;
         return ret;
     }
-    //check to c if there is too much cash -- so we j do 75k in each ticker...
+        //check to c if there is too much cash -- so we j do 75k in each ticker...
     else if (cash/tickers.size() > 75000)
     {
         pair<double, int> ret;
@@ -852,13 +852,14 @@ int Buy(int RunNumber, alpaca::Client& client)
     {
         auto tempassets = get_assets_response.second;
         bool foundone = false;
-        erase_if(tempassets, FilterAssets);
-        for (auto iter = TickersToBeBought.begin(); iter!=TickersToBeBought.end(); iter++)
+        erase_if(tempassets, FilterAssets);//filters them down to ETB assets
+        vector<int> indexestobedeleted;
+        for (int i = 0; i<TickersToBeBought.size(); i++)
         {
             for (auto& x : tempassets)
             {
                 //should always find the matching symbol in the tempassets list
-                if ((*iter) == x.symbol)
+                if (TickersToBeBought[i] == x.symbol)
                 {
                     foundone = true;
                     break;
@@ -868,11 +869,17 @@ int Buy(int RunNumber, alpaca::Client& client)
             //if that didn't happen then the stock for some reason is not in the list and should be removed from the to_be_bought list
             if (foundone == false)
             {
-                TickersToBeBought.erase(iter);
+                indexestobedeleted.push_back(i);
             }
 
             //reset foundone
             foundone = false;
+        }
+
+        if (indexestobedeleted.size() != 0)
+        {
+            for (int& i : indexestobedeleted)
+                TickersToBeBought.erase(TickersToBeBought.begin() + i);
         }
     }
 
@@ -1232,7 +1239,7 @@ int main()
             }
 
 
-                //If time is 1100pm -- run Refresh()
+            //If time is 1100pm -- run Refresh()
             if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0 && HaveAlreadyRunRefreshToday==false)
             {
                 Refresh(DIRECTORY, client);//This should take abt 15 mins depending on wifi speed...
