@@ -536,7 +536,7 @@ int SellTwo(alpaca::Client& client)
             if (limsell.status == "new")
             {
                 client.cancelOrder(sell_lim_id);
-                sleep(2);
+                sleep(1);
             }
             else//then its already been sold
             {
@@ -1424,6 +1424,7 @@ int main()
 
                 for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, fuck optimizing memory or runtime amiright or amiright?
                 {
+                    sleep(1);
                     //make sure this shit's status isn't new, which means its for today...
                     io::CSVReader<3> in( files[i].c_str() );
                     in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
@@ -1452,7 +1453,8 @@ int main()
 
                     if (SkipThisOne)
                         continue;
-
+                    //done checking
+                    PlaceLimSellOrders(client, files[i]);
 
                 }
 
