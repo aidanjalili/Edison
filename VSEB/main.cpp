@@ -65,6 +65,7 @@ vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
 char* arr[] = {"ABCDEONETWOTHREE"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
 vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
+vector<string> LateLimSellsToday;
 
 
 //These varaibles are "reset" every day...
@@ -74,6 +75,9 @@ bool NoLimitSellsToday = false;
 bool HavePlacedLimitOrders = false;
 bool SomethingWasCoveredToday = false;//this one is reset right after use
 bool NeedToPlaceLimOrders = false;//same for this one
+bool HasShitGoneDown = false;
+bool TodaysDailyLimSellsPlaced = false;
+bool WeveDoneThisOnce = false;
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -101,11 +105,13 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 void RecordBuyOrders(string date, vector<buyorder>& buyorders);
 int Buy(int RunNumber, alpaca::Client& client);
 void UpdateAssets(alpaca::Client& client);
-int PlaceLimSellOrders(alpaca::Client& client);
+int PlaceLimSellOrders(alpaca::Client& client, string FILENAME);
 void Log(string InputFile, string Message);
 bool FilterAssets(alpaca::Asset& asset);
 HomeMadeTimeObj FetchTimeToPlaceLimitOrders(vector<alpaca::Date>& datesmarketisopen);
 void EmergencyAbort(alpaca::Client& client);
+int ChangeUpTheFiles(alpaca::Client& client);
+int SellTwo(alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -367,6 +373,11 @@ void ResetVariables()
     HaveAlreadyPlacedOrders = false;
     NoLimitSellsToday = false;
     HavePlacedLimitOrders = false;
+    HasShitGoneDown = false;
+    TodaysDailyLimSellsPlaced = false;
+    LateLimSellsToday.clear();
+    WeveDoneThisOnce = false;
+
 }
 
 HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
@@ -487,7 +498,76 @@ int Sell(alpaca::Client& client)
 
     Archive(files[0],buyorders,sellorderids);
     SomethingWasCoveredToday = true;
+
+
+    //This will now "sell" all the rest of the shit in currently bought...
+    if (int ret = SellTwo(client); ret!=0)
+        return ret;
     return 0;
+}
+
+int SellTwo(alpaca::Client& client)
+{
+    vector<string> files;
+    for (auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+    {
+        files.push_back(file.path());
+    }
+
+    //for every file, put in a MOC sell order...
+    for (int i = 0; i < files.size(); i++)//technically could be an iterator again...
+    {
+        io::CSVReader<3> in( files.back().c_str() );
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+        string ticker, buyid, sell_lim_id;
+
+
+        while(in.read_row(ticker, buyid, sell_lim_id))
+        {
+            //altho the limit sells will just naturally cancel by end of day if they're not executed
+            //best to go thru them all and cancel them now
+            auto get_order_response_two = client.getOrder(sell_lim_id);
+            if (auto status = get_order_response_two.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                return status.getCode();
+            }
+            auto limsell = get_order_response_two.second;
+            if (limsell.status == "new")
+            {
+                client.cancelOrder(sell_lim_id);
+                sleep(2);
+            }
+            else//then its already been sold
+            {
+                continue;
+            }
+
+            //now time to sell these shits
+            auto get_order_response_three = client.getOrder(buyid);
+            if (auto status = get_order_response_three.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                return status.getCode();
+            }
+            auto buyorder = get_order_response_three.second;
+            stringstream thing(buyorder.qty);
+            int  buyorderqtyasint = 0;
+            thing >> buyorderqtyasint;
+            auto submit_order_response = client.submitOrder(
+                    buyorder.symbol,
+                    buyorderqtyasint,
+                    alpaca::OrderSide::Buy,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::CLS
+            );
+            if (auto status = submit_order_response.first; !status.ok()) {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                return status.getCode();
+            }
+        }
+
+    }
 }
 
 //This function will FAIL if the two vector inputs are not the same size --> they are supposed to be and should be
@@ -913,29 +993,11 @@ int Buy(int RunNumber, alpaca::Client& client)
             continue;
         }
 
-
-        auto submit_order_response = client.submitOrder(
-                (*Iterator),
-                qty,
-                alpaca::OrderSide::Sell,
-                alpaca::OrderType::Market,
-                alpaca::OrderTimeInForce::CLS
-        );
-        if (auto status = submit_order_response.first; !status.ok()) {
-            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-            //some error buying this ticker...
-            continue;
-        }
-        auto order_response = submit_order_response.second;
-        string thisbuyid = order_response.id;
-
-        sleep(2);//wait for buy order to go thru before you place next one...
-
         string thislimid = "NOT_YET_PLACED";//"N/A" for now as it will be placed later with REFRESH function...
 
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
-        ThisBuyOrder.buyid = thisbuyid;
+        ThisBuyOrder.buyid = to_string(qty);
         ThisBuyOrder.sell_lim_id = thislimid;
         BuyOrders.push_back(ThisBuyOrder);
     }
@@ -966,28 +1028,20 @@ void Log(string InputFile, string Message)
     OutputFile.close();
 }
 
-int PlaceLimSellOrders(alpaca::Client& client)
+int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 {
 
     //go thru currently bought, get ticker from their id and price shorted at, then change set double var "price" to that
     //after submitting limit buy order here (after sleep(2)) change the "NOT_YET_PLACED" to the limid
     //also change func. to void
 
-    vector<string> files;
-    for (auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
-    {
-        files.push_back(file.path());
-    }
-    if (NoLimitSellsToday == true || files.size() == 0)//ii think either side of the or is saying the same thing hopefully
-        return 0;
-    sort(files.begin(), files.end());//Now we only work the most recent one -- so the last one in the vector
 
-    string newfilename = files.back().substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
+    string newfilename = FILENAME.substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
     newfilename = DIRECTORY+"/CurrentlyBought/" + newfilename;
     std::ofstream newFile(newfilename);
     newFile << "ticker,buyid,sell_lim_id\n";
 
-    io::CSVReader<3> in( (files.back()).c_str() );
+    io::CSVReader<3> in( (FILENAME).c_str() );
     in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
 
     std::string ticker, buyid, sell_lim_id;
@@ -1006,7 +1060,7 @@ int PlaceLimSellOrders(alpaca::Client& client)
                 qty,
                 alpaca::OrderSide::Buy,
                 alpaca::OrderType::Stop,
-                alpaca::OrderTimeInForce::GoodUntilCanceled,
+                alpaca::OrderTimeInForce::Day,
                 "",
                 to_string(limitprice)
         );
@@ -1014,15 +1068,6 @@ int PlaceLimSellOrders(alpaca::Client& client)
         if (auto status = submit_limit_order_response.first; !status.ok())
         {
             std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
-            //so now we put in a buy order for market open...
-            auto emergency_buy_order = client.submitOrder(
-                    (order_response.symbol),
-                    qty,
-                    alpaca::OrderSide::Buy,
-                    alpaca::OrderType::Market,
-                    alpaca::OrderTimeInForce::OPG,
-                    to_string(limitprice)
-            );
             string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " + status.getMessage();
             Log(DIRECTORY+"/Emergency_Buy_Log.txt", Message);
             sleep(2);//wait for order to be put in...
@@ -1042,10 +1087,10 @@ int PlaceLimSellOrders(alpaca::Client& client)
 
     }
     // removing the existing file
-    remove( (files.back()).c_str());
+    remove( (FILENAME).c_str());
 
     // renaming the new file with the existing file name
-    rename( newfilename.c_str(), files.back().c_str() );
+    rename( newfilename.c_str(), FILENAME.c_str() );
 
     newFile.close();
     NeedToPlaceLimOrders = false;
@@ -1072,6 +1117,128 @@ void EmergencyAbort(alpaca::Client& client)
     }
 
     exit(42069);
+}
+
+/*Description of ChangeUpTheFiles Func (four part func. that should prolly honestly be divided into four seperate functions but oh well)
+ *
+ * This function
+ * A)
+ *** finds the temp. fake-buy record placed earlier today if it exists
+ *** and changes it to a real one with a MOO order
+ * B)
+ *** changes already pre-existing buy records with MOO orders for tmrw
+ *** note this doesn't change the actual record-record which will always remain as its original
+ */
+
+int ChangeUpTheFiles(alpaca::Client& client)
+{
+    /*
+     * PART A)
+     */
+    vector<string> files;
+    for (auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+    {
+        files.push_back(file.path());
+    }
+    sort(files.begin(), files.end());
+    //Most recent file in here will be files.back();
+    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+
+    if (files.back().substr(DIRECTORY.size()+17, 10) == TodaysDateAsString)//check for the existence mentioned in A)
+    {
+        io::CSVReader<3> in( files.back().c_str() );
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+
+        string ticker, qty, sell_lim_id;
+        vector<buyorder> ListofBuyOrders;
+        while(in.read_row(ticker, qty, sell_lim_id))
+        {
+            assert(sell_lim_id == "NOT_YET_PLACED");
+
+            stringstream thing(qty);
+            int  qtyasint = 0;
+            thing >> qtyasint;
+            auto submit_order_response = client.submitOrder(
+                    ticker,
+                    qtyasint,
+                    alpaca::OrderSide::Sell,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::OPG
+            );
+            if (auto status = submit_order_response.first; !status.ok()) {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                return status.getCode();
+            }
+            sleep(2); //to let the order go thru
+
+            buyorder currentBuyOrder;
+            currentBuyOrder.ticker = ticker;
+            currentBuyOrder.buyid = submit_order_response.second.id;
+            currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
+            ListofBuyOrders.push_back(currentBuyOrder);
+        }
+
+        RecordBuyOrders(TodaysDateAsString, ListofBuyOrders);
+
+        //since now we've already updated this record, delete file.back();
+        files.erase(files.end());
+
+    }
+
+    /*
+     * PART B)
+     */
+
+    for (int i = 0; i < files.size(); i++)//could use an iterator but whatever
+    {
+        vector<buyorder> ListofBuyOrders;
+        string ThisFilesDate = files[i].substr(DIRECTORY.size()+17, 10);
+
+        io::CSVReader<3> in( files.back().c_str() );
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+        string ticker, buyid, sell_lim_id;
+        while(in.read_row(ticker, buyid, sell_lim_id))
+        {
+            auto get_order_response = client.getOrder(buyid);
+            if (auto status = get_order_response.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                return status.getCode();
+            }
+            auto oldbuyorder = get_order_response.second;
+            string oldbuyordersticker = oldbuyorder.symbol;
+            string oldbuyordersqty = oldbuyorder.qty;
+            stringstream thing(oldbuyordersqty);
+            int  oldbuyordersqtyasint = 0;
+            thing >> oldbuyordersqtyasint;
+
+            auto submit_order_response = client.submitOrder(
+                    oldbuyordersticker,
+                    oldbuyordersqtyasint,
+                    alpaca::OrderSide::Sell,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::OPG
+            );
+            if (auto status = submit_order_response.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                return status.getCode();
+            }
+            buyorder currentBuyOrder;
+            currentBuyOrder.ticker = oldbuyordersticker;
+            currentBuyOrder.buyid = oldbuyorder.id;
+            currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
+            ListofBuyOrders.push_back(currentBuyOrder);
+
+            sleep(2); //to let the order go thru...
+
+        }
+
+        RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
+    }
+
+
 }
 
 #pragma clang diagnostic push
@@ -1139,15 +1306,6 @@ int main()
         boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
         std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
 
-        if (NeedToPlaceLimOrders == true)
-        {
-            HomeMadeTimeObj LimitOrderTime = FetchTimeToPlaceLimitOrders(datesmarketisopen);//rn is j 1205 am
-            if (now.time_of_day().hours() == LimitOrderTime.hours && now.time_of_day().minutes() == LimitOrderTime.minutes && HavePlacedLimitOrders == false)
-            {
-                PlaceLimSellOrders(client);//note its return value is discarded
-                HavePlacedLimitOrders = true;
-            }
-        }
 
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
@@ -1245,6 +1403,71 @@ int main()
                 Refresh(DIRECTORY, client);//This should take abt 15 mins depending on wifi speed...
                 HaveAlreadyRunRefreshToday = true;
             }
+
+
+            //shit here is to avoid margin calls --> implements the constant intraday trading on MOO and MOC
+            if (now.time_of_day().hours() == 22 && now.time_of_day().minutes() == 30 && HasShitGoneDown == false)//shit goes down
+            {
+                if (int i = ChangeUpTheFiles(client); i != 0)
+                    return (i);
+
+                HasShitGoneDown = true;
+            }
+
+            if (now.time_of_day().hours() == 7 && now.time_of_day().minutes() == 0 && TodaysDailyLimSellsPlaced == false)
+            {
+                vector<string> files;
+                for (auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+                {
+                    files.push_back(file.path());
+                }
+
+                for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, fuck optimizing memory or runtime amiright or amiright?
+                {
+                    //make sure this shit's status isn't new, which means its for today...
+                    io::CSVReader<3> in( files[i].c_str() );
+                    in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+                    string ticker, buyid, sell_lim_id;
+                    bool SkipThisOne = false;
+
+                    while(in.read_row(ticker, buyid, sell_lim_id))
+                    {
+                        auto get_order_response = client.getOrder(sell_lim_id);
+                        if (auto status = get_order_response.first; !status.ok()) {
+                            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                            return status.getCode();
+                        }
+                        auto order = get_order_response.second;
+                        if (order.status == "new")//which means its for today
+                        {
+                            SkipThisOne = true;
+                            LateLimSellsToday.push_back(files[i]);
+                            break;
+                        }
+                        else//j have to check once, no point wasting time so we break if its not new
+                        {
+                            break;
+                        }
+                    }
+
+                    if (SkipThisOne)
+                        continue;
+
+
+                }
+
+                TodaysDailyLimSellsPlaced = true;
+            }
+
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && LateLimSellsToday.size() != 0 && WeveDoneThisOnce == false)//im so done with these trigger variables, so at this pt whats another one gonan do?
+            {
+                assert(LateLimSellsToday.size() == 1);
+                PlaceLimSellOrders(client, LateLimSellsToday[0]);
+                WeveDoneThisOnce = true;
+
+            }
+
+
         }
 
         cout << "Algo is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
