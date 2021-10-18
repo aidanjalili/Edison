@@ -32,11 +32,11 @@ using namespace std;
 /*Constants to modify as necessary by the user*/ //(in green is what to do when ur giving dad bak his 1,500)
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
 const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
-const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500;//rn it's actually much less than 25k lol
-const double LIMIT_AMOUNT = 2000.00;///change this back to 500 (subtravt 1,500 from it)
-const string API_PUBLIC_KEY = "AKREAKNZ96R2ESJPM0RD";
-const string API_PRIVATE_KEY = "M0FjKNKzCu21XplkO62klooS0kQgGFHQRWtLX0Vt";
-const bool IS_LIVE = true;
+const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500+25000;//rn it's actually much less than 25k lol
+const double LIMIT_AMOUNT = 27000.00;///change this back to 500 (subtravt 1,500 from it)
+const string API_PUBLIC_KEY = "PKXIJ43X8HND0SHNUSK1";
+const string API_PRIVATE_KEY = "GWpJJYGSGK47XDzmwwDGgiOThvQopbYXBPd3caiX";
+const bool IS_LIVE = false;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -795,7 +795,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     /* FOR SHORTING STARTS HERE */
     //We can ignore runnumber (except for 1st) when shorting...
 
-    double EmergencyTrigger = 1.25; //the extra .25 cuz im nerotic and rly wanna make sure i'll always have enuf cash
+    double EmergencyTrigger = 1.00; //the extra .25 cuz im nerotic and rly wanna make sure i'll always have enuf cash //update 2: changed it to 1.00 since we r only trading within the day...
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
