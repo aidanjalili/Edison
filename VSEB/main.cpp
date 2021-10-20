@@ -1182,7 +1182,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
         RecordBuyOrders(TodaysDateAsString, ListofBuyOrders);
 
         //since now we've already updated this record, delete file.back();
-        files.erase(files.end());
+        files.erase(files.end() - 1);//or could use files.pop_back();
 
     }
 
