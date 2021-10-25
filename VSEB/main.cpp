@@ -34,8 +34,8 @@ const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eve
 const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
 const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 1500+25000;//rn it's actually much less than 25k lol
 const double LIMIT_AMOUNT = 27000.00;///change this back to 500 (subtravt 1,500 from it)
-const string API_PUBLIC_KEY = "PKXYWBCT5A7YAVM70RIG";
-const string API_PRIVATE_KEY = "fiLcncpzx4vuq097GyMtLbtzMLOPQviEYct0PEVR";
+const string API_PUBLIC_KEY = "AKUL7PSSDDM0UW4BXKH8";
+const string API_PRIVATE_KEY = "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s";
 const bool IS_LIVE = true;
 
 /*Global variables and structs...*/
