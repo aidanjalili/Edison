@@ -568,6 +568,7 @@ int SellTwo(alpaca::Client& client)
         }
 
     }
+    return 0;
 }
 
 //This function will FAIL if the two vector inputs are not the same size --> they are supposed to be and should be
