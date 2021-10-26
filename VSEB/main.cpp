@@ -1238,7 +1238,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
         RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
     }
 
-
+    return 0;
 }
 
 #pragma clang diagnostic push
