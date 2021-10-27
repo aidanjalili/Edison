@@ -1141,6 +1141,10 @@ int ChangeUpTheFiles(alpaca::Client& client)
     {
         files.push_back(file.path());
     }
+
+    if (files.size() == 0)
+        return 0;
+
     sort(files.begin(), files.end());
     //Most recent file in here will be files.back();
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
