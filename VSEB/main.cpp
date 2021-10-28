@@ -77,7 +77,7 @@ bool SomethingWasCoveredToday = false;//this one is reset right after use
 bool NeedToPlaceLimOrders = false;//same for this one
 bool HasShitGoneDown = false;
 bool TodaysDailyLimSellsPlaced = false;
-bool WeveDoneThisOnce = false;
+bool WeveDoneThisOnce = false;//never used outside refresh function and deprecated now...
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -800,7 +800,9 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
-        cash = (cash)/(5*1.01+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
+        cash = (cash)/(5*1.015+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
+        //Note i changed 1.01 to 1.015 to accnt for a possible increase in an astounding 50% of the asset before we short
+        //so that even in that extreme case we'd be able to cover the extra 1/2% of losses
 
     }
     else
@@ -845,7 +847,8 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         }
 
         cash = cash - totalmoneyrecieved;
-        cash = (cash)/(5*1.01+EmergencyTrigger-5);
+        cash = (cash)/(5*1.015+EmergencyTrigger-5);
+
 
     }
 
@@ -1419,8 +1422,12 @@ int main()
                 HasShitGoneDown = true;
             }
 
-            if (now.time_of_day().hours() == 7 && now.time_of_day().minutes() == 0 && TodaysDailyLimSellsPlaced == false)
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && TodaysDailyLimSellsPlaced == false)
             {
+                /*
+                 * Places all Lim. sell orders for everything, in whateever order files is read from CurrentlyBought dir
+                 * Some other random variable like hasthishappened once or whatever is deprecated now lol
+                 */
                 vector<string> files;
                 for (auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
                 {
@@ -1429,36 +1436,6 @@ int main()
 
                 for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, fuck optimizing memory or runtime amiright or amiright?
                 {
-                    sleep(1);
-                    //make sure this shit's status isn't new, which means its for today...
-                    io::CSVReader<3> in( files[i].c_str() );
-                    in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
-                    string ticker, buyid, sell_lim_id;
-                    bool SkipThisOne = false;
-
-                    while(in.read_row(ticker, buyid, sell_lim_id))
-                    {
-                        auto get_order_response = client.getOrder(sell_lim_id);
-                        if (auto status = get_order_response.first; !status.ok()) {
-                            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-                            return status.getCode();
-                        }
-                        auto order = get_order_response.second;
-                        if (order.status == "new")//which means its for today
-                        {
-                            SkipThisOne = true;
-                            LateLimSellsToday.push_back(files[i]);
-                            break;
-                        }
-                        else//j have to check once, no point wasting time so we break if its not new
-                        {
-                            break;
-                        }
-                    }
-
-                    if (SkipThisOne)
-                        continue;
-                    //done checking
                     PlaceLimSellOrders(client, files[i]);
 
                 }
@@ -1466,13 +1443,6 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
-            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && LateLimSellsToday.size() != 0 && WeveDoneThisOnce == false)//im so done with these trigger variables, so at this pt whats another one gonan do?
-            {
-                assert(LateLimSellsToday.size() == 1);
-                PlaceLimSellOrders(client, LateLimSellsToday[0]);
-                WeveDoneThisOnce = true;
-
-            }
 
 
         }
