@@ -1122,6 +1122,15 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                                  to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
                                  " Error message was: " + status.getMessage();
                 Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+
+                auto submit_limit_order_response_two = client.submitOrder(
+                        (order_response.symbol),
+                        qty,
+                        alpaca::OrderSide::Buy,
+                        alpaca::OrderType::Market,
+                        alpaca::OrderTimeInForce::Day
+                );
+
                 sleep(2);//wait for order to be put in...
                 continue;
             }
