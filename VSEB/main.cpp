@@ -1035,6 +1035,7 @@ void Log(string InputFile, string Message)
 int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 {
 
+
     //go thru currently bought, get ticker from their id and price shorted at, then change set double var "price" to that
     //after submitting limit buy order here (after sleep(2)) change the "NOT_YET_PLACED" to the limid
     //also change func. to void
@@ -1054,40 +1055,89 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
         auto get_order_response = client.getOrder(buyid);
         auto order_response = get_order_response.second;
-        double price = stod(order_response.filled_avg_price);
-        double limitprice = price*1.01;
 
+        //we get last trade price
+        auto last_trade_response = client.getLastTrade(order_response.symbol);
+        if (auto status = last_trade_response.first; !status.ok())
+        {
+            std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
+            return status.getCode();
+        }
+        auto last_trade = last_trade_response.second;
+        auto priceofstonk = last_trade.trade.price;
+
+        double price = stod(order_response.filled_avg_price);//price order filled at
+        double limitprice = price*1.01;
         int qty = stoi(order_response.qty);
 
-        auto submit_limit_order_response = client.submitOrder(
-                (order_response.symbol),
-                qty,
-                alpaca::OrderSide::Buy,
-                alpaca::OrderType::Stop,
-                alpaca::OrderTimeInForce::Day,
-                "",
-                to_string(limitprice)
-        );
-
-        if (auto status = submit_limit_order_response.first; !status.ok())
+        if (last_trade.trade.price >= limitprice)
         {
-            std::cerr << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: " << status.getMessage() << std::endl;
-            string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " + to_iso_extended_string(boost::posix_time::second_clock::local_time()) + " Error message was: " + status.getMessage();
-            Log(DIRECTORY+"/Emergency_Buy_Log.txt", Message);
-            sleep(2);//wait for order to be put in...
-            continue;
+            auto submit_limit_order_response = client.submitOrder(
+                    (order_response.symbol),
+                    qty,
+                    alpaca::OrderSide::Buy,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::Day
+            );
+            if (auto status = submit_limit_order_response.first; !status.ok()) {
+                std::cerr
+                        << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
+                        << status.getMessage() << std::endl;
+                string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " +
+                                 to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
+                                 " Error message was: " + status.getMessage();
+                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                sleep(2);//wait for order to be put in...
+                continue;
+            }
+
+            //so if there was no error putting in the limit sell...
+            string thislimid;
+            auto limit_order_response = submit_limit_order_response.second;
+            thislimid = limit_order_response.id;
+
+
+            string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+            newFile << newline + "\n";
+
+            sleep(2);//wait for lim sell order to be submitted before submitting another one...
+        }
+        else
+        {
+
+            auto submit_limit_order_response = client.submitOrder(
+                    (order_response.symbol),
+                    qty,
+                    alpaca::OrderSide::Buy,
+                    alpaca::OrderType::Stop,
+                    alpaca::OrderTimeInForce::Day,
+                    "",
+                    to_string(limitprice)
+            );
+            if (auto status = submit_limit_order_response.first; !status.ok()) {
+                std::cerr
+                        << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
+                        << status.getMessage() << std::endl;
+                string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " +
+                                 to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
+                                 " Error message was: " + status.getMessage();
+                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                sleep(2);//wait for order to be put in...
+                continue;
+            }
+
+            //so if there was no error putting in the limit sell...
+            string thislimid;
+            auto limit_order_response = submit_limit_order_response.second;
+            thislimid = limit_order_response.id;
+
+
+            string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+            newFile << newline + "\n";
+
+            sleep(2);//wait for lim sell order to be submitted before submitting another one...
         }
 
-        //so if there was no error putting in the limit sell...
-        string thislimid;
-        auto limit_order_response = submit_limit_order_response.second;
-        thislimid = limit_order_response.id;
-
-
-        string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
-        newFile << newline + "\n";
-
-        sleep(2);//wait for lim sell order to be submitted before submitting another one...
 
     }
     // removing the existing file
