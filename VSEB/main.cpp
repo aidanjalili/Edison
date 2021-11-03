@@ -424,7 +424,11 @@ int Sell(alpaca::Client& client)
     std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
     cout << DateofBuy << endl;
     if (DateToSellGivenDateToBuy(DateofBuy) != TodaysDateAsString)
+    {
+        SellTwo(client);
         return 69;
+    }
+    //above if statement saves us some work... otherwise we'd do all the following to actually sell some shit for no reason...
 
     std::ifstream InputFile(files[0]);
     string line, word;
@@ -1079,15 +1083,18 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::Day
             );
-            if (auto status = submit_limit_order_response.first; !status.ok()) {
+
+            sleep(2);//wait for lim sell order to be submitted
+
+            if (auto status = submit_limit_order_response.first; !status.ok())
+            {
                 std::cerr
                         << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
                         << status.getMessage() << std::endl;
-                string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " +
+                string Message = "YOUR SCREWED SOMEHOW THERE IS NO COVER METHOD FOR: " + order_response.symbol + " BECAUSE PRICE>LIMPRICE AND DAY BUY DIDN\'T GO THRU... THIS WAS ON: "  +
                                  to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
-                                 " Error message was: " + status.getMessage();
+                                 " Error message of buy order was: " + status.getMessage();
                 Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
-                sleep(2);//wait for order to be put in...
                 continue;
             }
 
@@ -1100,7 +1107,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
             newFile << newline + "\n";
 
-            sleep(2);//wait for lim sell order to be submitted before submitting another one...
         }
         else
         {
@@ -1114,13 +1120,17 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     "",
                     to_string(limitprice)
             );
-            if (auto status = submit_limit_order_response.first; !status.ok()) {
+
+            sleep(2);//wait for lim sell order to be submitted
+
+            if (auto status = submit_limit_order_response.first; !status.ok())
+            {
                 std::cerr
                         << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
                         << status.getMessage() << std::endl;
                 string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " +
                                  to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
-                                 " Error message was: " + status.getMessage();
+                                 " Error message of lim sell was: " + status.getMessage();
                 Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
 
                 auto submit_limit_order_response_two = client.submitOrder(
@@ -1130,6 +1140,14 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                         alpaca::OrderType::Market,
                         alpaca::OrderTimeInForce::Day
                 );
+
+                string thislimid;
+                auto limit_order_response = submit_limit_order_response_two.second;
+                thislimid = limit_order_response.id;
+
+
+                string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+                newFile << newline + "\n";
 
                 sleep(2);//wait for order to be put in...
                 continue;
@@ -1144,7 +1162,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
             newFile << newline + "\n";
 
-            sleep(2);//wait for lim sell order to be submitted before submitting another one...
         }
 
 
@@ -1273,6 +1290,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
             }
+
             auto oldbuyorder = get_order_response.second;
             string oldbuyordersticker = oldbuyorder.symbol;
             string oldbuyordersqty = oldbuyorder.qty;
@@ -1287,6 +1305,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::OPG
             );
+            sleep(2); //to let the order go thru...
             if (auto status = submit_order_response.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -1298,11 +1317,10 @@ int ChangeUpTheFiles(alpaca::Client& client)
             currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
             ListofBuyOrders.push_back(currentBuyOrder);
 
-            sleep(2); //to let the order go thru...
 
         }
 
-        RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
+        RecordBuyOrders(ThisFilesDate, ListofBuyOrders);//unecessary as they haven't changed but whatever -- will fix in next commit
     }
 
     return 0;
