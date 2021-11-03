@@ -1060,6 +1060,12 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         auto get_order_response = client.getOrder(buyid);
         auto order_response = get_order_response.second;
 
+        //makes sure this morning order is actually placed...
+        if (order_response.status == "new" || order_response.status == "partially_filled")
+        {
+            sleep(45);//hopefully this'll give it enuf time to fill...
+        }
+
         //we get last trade price
         auto last_trade_response = client.getLastTrade(order_response.symbol);
         if (auto status = last_trade_response.first; !status.ok())
@@ -1067,9 +1073,9 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
             return status.getCode();
         }
+
         auto last_trade = last_trade_response.second;
         auto priceofstonk = last_trade.trade.price;
-
         double price = stod(order_response.filled_avg_price);//price order filled at
         double limitprice = price*1.01;
         int qty = stoi(order_response.qty);
@@ -1173,7 +1179,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
     rename( newfilename.c_str(), FILENAME.c_str() );
 
     newFile.close();
-    NeedToPlaceLimOrders = false;
+    NeedToPlaceLimOrders = false;//deprecated, however
     return 0;
 
 
@@ -1311,6 +1317,11 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
             }
+
+            //I do this anyway here tho you'll notice that most values are the same as what they were before,
+            //so slightly innefficent but idk other option would be to only change the lim sell id back to
+            //"NOT_YET_PLACED" -> j using the RecordBuyOrders func. with a buyorder obj. that has only that change
+            //isn't that much more innefficent i suppose
             buyorder currentBuyOrder;
             currentBuyOrder.ticker = oldbuyordersticker;
             currentBuyOrder.buyid = oldbuyorder.id;
@@ -1320,7 +1331,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
 
         }
 
-        RecordBuyOrders(ThisFilesDate, ListofBuyOrders);//unecessary as they haven't changed but whatever -- will fix in next commit
+        RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
     }
 
     return 0;
@@ -1499,8 +1510,17 @@ int main()
                 HasShitGoneDown = true;
             }
 
-            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && TodaysDailyLimSellsPlaced == false)
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 35 && TodaysDailyLimSellsPlaced == false)
             {
+
+                /*
+                 * Lets wait until all the open orders have been filled (in case it takes more than a min to place all of them,
+                 * which is very possible -- or not that's a good idea but i'm lazy, we'll j wait till 35 and catch the exception
+                 * in placelimsell orders and wait there if need be...
+                 */
+
+
+
                 /*
                  * Places all Lim. sell orders for everything, in whateever order files is read from CurrentlyBought dir
                  * Some other random variable like hasthishappened once or whatever is deprecated now lol
