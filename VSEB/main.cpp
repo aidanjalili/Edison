@@ -1068,6 +1068,12 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             sleep(45);//hopefully this'll give it enuf time to fill...
         }
 
+        if (order_response.status == "canceled")
+        {
+            //this line won't be copied into the new file and so will be deleted from the file subsequently...
+            continue;
+        }
+
         //we get last trade price
         auto last_trade_response = client.getLastTrade(order_response.symbol);
         if (auto status = last_trade_response.first; !status.ok())
