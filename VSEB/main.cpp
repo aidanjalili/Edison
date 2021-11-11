@@ -469,6 +469,16 @@ int Sell(alpaca::Client& client)
             return status.getCode();
         }
         auto order = get_order_response.second;
+
+        auto get_buy_order_shit_response = client.getOrder(buyorders[i].buyid);
+        auto buy_order = get_buy_order_shit_response.second;//assuming no error fetching api...
+
+        if (buy_order.status == "canceled")
+        {
+            sellorderids.push_back("N/A");
+            continue;
+        }
+
         if (order.status == "new")//which means it hasn't been filled yet
         {
             //then we'll fill it ourselves...
@@ -507,6 +517,7 @@ int Sell(alpaca::Client& client)
     //This will now "sell" all the rest of the shit in currently bought...
     if (int ret = SellTwo(client); ret!=0)
         return ret;
+
     return 0;
 }
 
@@ -528,9 +539,15 @@ int SellTwo(alpaca::Client& client)
 
         while(in.read_row(ticker, buyid, sell_lim_id))
         {
+            //j cuz im a little ocnfused tbh and not sure if this case would ever happen and if it does it should be treated this way...
+            if (sell_lim_id == "NOT_YET_PLACED")
+                continue;
+
             //altho the limit sells will just naturally cancel by end of day if they're not executed
             //best to go thru them all and cancel them now
             auto get_order_response_two = client.getOrder(sell_lim_id);
+            auto get_order_response_three = client.getOrder(buyid);
+
             if (auto status = get_order_response_two.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -548,13 +565,16 @@ int SellTwo(alpaca::Client& client)
             }
 
             //now time to sell these shits
-            auto get_order_response_three = client.getOrder(buyid);
             if (auto status = get_order_response_three.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
             }
             auto buyorder = get_order_response_three.second;
+
+            if (buyorder.status == "canceled")//since its never been bought in the first place then...
+                continue;
+
             stringstream thing(buyorder.qty);
             int  buyorderqtyasint = 0;
             thing >> buyorderqtyasint;
@@ -882,7 +902,6 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     {
         int NumberOfTickers;
         NumberOfTickers = cash/25;
-        //double amnttobeinvested = cash/NumberOfTickers;
         double amnttobeinvested = cash/NumberOfTickers;
 
         pair<double, int> ret;
@@ -902,8 +921,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     {
         //otherwise we should have enuf j to divide evenly...
         pair<double, int> ret;
-        //ret.first = cash/tickers.size();
-        ret.first = cash;
+        ret.first = cash/tickers.size();
         ret.second = tickers.size();
         return ret;
     }
@@ -1062,6 +1080,19 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         auto get_order_response = client.getOrder(buyid);
         auto order_response = get_order_response.second;
 
+
+        //first things first... make sure this current stop buy in place hasn't been filled already...
+        auto currentstopbuyorder_order_response = client.getOrder(sell_lim_id);
+        //asssuming no error with that again cuz i rly hope/thing there should not be...
+        auto currentstopbuyorder = currentstopbuyorder_order_response.second;
+        if (currentstopbuyorder.status == "filled")
+        {
+            //then leave this line alone...
+            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id;
+            newFile << newline + "\n";
+            continue;
+        }
+
         //makes sure this morning order is actually placed...
         if (order_response.status == "new" || order_response.status == "partially_filled")
         {
@@ -1098,12 +1129,12 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     alpaca::OrderTimeInForce::Day
             );
 
-            sleep(2);//wait for lim sell order to be submitted
+            sleep(2);//wait for lim sell order to be submitted (or in this case j a full blown cover)
 
             if (auto status = submit_limit_order_response.first; !status.ok())
             {
                 std::cerr
-                        << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
+                        << "SOMEHOW THE BUY ORDER (SHORT) COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
                         << status.getMessage() << std::endl;
                 string Message = "YOUR SCREWED SOMEHOW THERE IS NO COVER METHOD FOR: " + order_response.symbol + " BECAUSE PRICE>LIMPRICE AND DAY BUY DIDN\'T GO THRU... THIS WAS ON: "  +
                                  to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
@@ -1156,8 +1187,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 );
 
                 string thislimid;
-                auto limit_order_response = submit_limit_order_response_two.second;
-                thislimid = limit_order_response.id;
+                auto limit_order_response_two = submit_limit_order_response_two.second;
+                thislimid = limit_order_response_two.id;
 
 
                 string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
@@ -1222,6 +1253,8 @@ void EmergencyAbort(alpaca::Client& client)
  * B)
  *** changes already pre-existing buy records with MOO orders for tmrw
  *** note this doesn't change the actual record-record which will always remain as its original
+ *** But y do we do that... y not update to new
+ *** ok thats what were doing now lol
  */
 
 int ChangeUpTheFiles(alpaca::Client& client)
@@ -1312,6 +1345,26 @@ int ChangeUpTheFiles(alpaca::Client& client)
             int  oldbuyordersqtyasint = 0;
             thing >> oldbuyordersqtyasint;
 
+            /*
+             * Some guards...
+             */
+
+            //make sure stop buy hasn't already been filled...
+            auto get_limit_order_response = client.getOrder(sell_lim_id);
+            //assuming theres no error with get_limit_order_response.first
+            auto stopbuy = get_limit_order_response.second;
+            if (stopbuy.status == "filled" || oldbuyorder.status == "canceled")
+            {
+                //shit stays the same...
+                buyorder currentBuyOrder;
+                currentBuyOrder.ticker = oldbuyordersticker;
+                currentBuyOrder.buyid = oldbuyorder.id;
+                currentBuyOrder.sell_lim_id = stopbuy.id;
+                ListofBuyOrders.push_back(currentBuyOrder);
+                continue;
+            }
+            //else case effectivley below
+
             auto submit_order_response = client.submitOrder(
                     oldbuyordersticker,
                     oldbuyordersqtyasint,
@@ -1326,13 +1379,17 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 return status.getCode();
             }
 
+            auto newbuyorder = submit_order_response.second;
+
             //I do this anyway here tho you'll notice that most values are the same as what they were before,
             //so slightly innefficent but idk other option would be to only change the lim sell id back to
             //"NOT_YET_PLACED" -> j using the RecordBuyOrders func. with a buyorder obj. that has only that change
             //isn't that much more innefficent i suppose
+
+            //comment above no longer rly applicable...
             buyorder currentBuyOrder;
             currentBuyOrder.ticker = oldbuyordersticker;
-            currentBuyOrder.buyid = oldbuyorder.id;
+            currentBuyOrder.buyid = newbuyorder.id;
             currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
             ListofBuyOrders.push_back(currentBuyOrder);
 
@@ -1433,7 +1490,7 @@ int main()
 
 
                 }
-                else
+                else//greater than 0
                 {
                     int sellstatus = Sell(client);
                     if (sellstatus != 0 && sellstatus !=69)
