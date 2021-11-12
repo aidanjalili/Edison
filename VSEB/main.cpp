@@ -921,7 +921,8 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     {
         //otherwise we should have enuf j to divide evenly...
         pair<double, int> ret;
-        ret.first = cash/tickers.size();
+        ret.first = cash;
+        //ret.first = cash/tickers.size();
         ret.second = tickers.size();
         return ret;
     }
