@@ -1033,7 +1033,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     boost::gregorian::date DateToday = boost::gregorian::day_clock::local_day();
     std::string DateTodayAsString = to_iso_extended_string(DateToday);
     RecordBuyOrders(DateTodayAsString, BuyOrders);
-    NeedToPlaceLimOrders = true;
+    //NeedToPlaceLimOrders = true;
     return 0;
 }
 
@@ -1081,19 +1081,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         auto get_order_response = client.getOrder(buyid);
         auto order_response = get_order_response.second;
 
-
-        //first things first... make sure this current stop buy in place hasn't been filled already...
-        auto currentstopbuyorder_order_response = client.getOrder(sell_lim_id);
-        //asssuming no error with that again cuz i rly hope/thing there should not be...
-        auto currentstopbuyorder = currentstopbuyorder_order_response.second;
-        if (currentstopbuyorder.status == "filled")
-        {
-            //then leave this line alone...
-            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id;
-            newFile << newline + "\n";
-            continue;
-        }
-
         //makes sure this morning order is actually placed...
         if (order_response.status == "new" || order_response.status == "partially_filled")
         {
@@ -1103,6 +1090,20 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         if (order_response.status == "canceled")
         {
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
+            continue;
+        }
+
+
+        if (sell_lim_id != "NOT_YET_PLACED")
+        {
+            //first things first... make sure this current stop buy in place hasn't been filled already... --> WHICH SHOULD BE THE CASE IF THE ABOVE CONDITION IS TRUE
+            auto currentstopbuyorder_order_response = client.getOrder(sell_lim_id);
+            //asssuming no error with that again cuz i rly hope/thing there should not be...
+            auto currentstopbuyorder = currentstopbuyorder_order_response.second;
+            assert(currentstopbuyorder.status == "filled");
+            //then leave this line alone...
+            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id;
+            newFile << newline + "\n";
             continue;
         }
 
@@ -1568,7 +1569,7 @@ int main()
 
 
             //shit here is to avoid margin calls --> implements the constant intraday trading on MOO and MOC
-            if (now.time_of_day().hours() == 22 && now.time_of_day().minutes() == 30 && HasShitGoneDown == false)//shit goes down
+            if ( now.time_of_day().hours() == 22 && now.time_of_day().minutes() == 30 && HasShitGoneDown == false )//shit goes down
             {
                 if (int i = ChangeUpTheFiles(client); i != 0)
                     return (i);
