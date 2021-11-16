@@ -826,7 +826,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
-        cash = (cash)/(5*1.015+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
+        cash = (cash)/(5*(1 + 0.015 * tickers.size())+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
         //Note i changed 1.01 to 1.015 to accnt for a possible increase in an astounding 50% of the asset before we short
         //so that even in that extreme case we'd be able to cover the extra 1/2% of losses
 
@@ -873,7 +873,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         }
 
         cash = cash - totalmoneyrecieved;
-        cash = (cash)/(5*1.015+EmergencyTrigger-5);
+        cash = (cash)/(5*(1+ 0.015*tickers.size())+EmergencyTrigger-5);
 
 
     }
@@ -900,7 +900,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     /*AND ENDS HERE */
 
     //Check to c if there is too little cash to split evenly amongst all tickers...
-    if (cash / tickers.size() < 20 )
+    if (cash / tickers.size() < 20 )//honestly hope this never happens cuz it's a bit wonky/shoots too low due to the 1.015*tickers.size() above
     {
         int NumberOfTickers;
         NumberOfTickers = cash/25;
