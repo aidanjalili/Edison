@@ -57,6 +57,7 @@ struct buyorder{
     string ticker;
     string buyid;
     string sell_lim_id;
+    string lim_price;
 };
 
 
@@ -455,6 +456,7 @@ int Sell(alpaca::Client& client)
         currentbuyorder.ticker = row[0];
         currentbuyorder.buyid = row[1];
         currentbuyorder.sell_lim_id = row[2];
+        currentbuyorder.lim_price = row[3];
         buyorders.push_back(currentbuyorder);
     }
     InputFile.close();
@@ -532,12 +534,12 @@ int SellTwo(alpaca::Client& client)
     //for every file, put in a MOC sell order...
     for (int i = 0; i < files.size(); i++)//technically could be an iterator again...
     {
-        io::CSVReader<3> in( files.back().c_str() );
-        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
-        string ticker, buyid, sell_lim_id;
+        io::CSVReader<4> in( files.back().c_str() );
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+        string ticker, buyid, sell_lim_id, lim_price;
 
 
-        while(in.read_row(ticker, buyid, sell_lim_id))
+        while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
         {
             //j cuz im a little ocnfused tbh and not sure if this case would ever happen and if it does it should be treated this way...
             if (sell_lim_id == "NOT_YET_PLACED")
@@ -840,13 +842,13 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         vector <double> moneysrecievedfromshorts;
         for (auto& dir : files)
         {
-            io::CSVReader<3> in(dir);
-            in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+            io::CSVReader<4> in(dir);
+            in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
             //could maybe add a guard here to c if file is too small/not enuf entries like i did in "backtestingVSEB"
             //but also could low key be unecessary
 
-            std::string ticker, buyid, sell_lim_id;
-            while(in.read_row(ticker, buyid, sell_lim_id))
+            std::string ticker, buyid, sell_lim_id, lim_price;
+            while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
             {
                 auto get_lim_order_response = client.getOrder(sell_lim_id);
                 auto lim_order = get_lim_order_response.second;
@@ -1022,12 +1024,13 @@ int Buy(int RunNumber, alpaca::Client& client)
             continue;
         }
 
-        string thislimid = "NOT_YET_PLACED";//"N/A" for now as it will be placed later with REFRESH function...
+        string thislimid = "NOT_YET_PLACED";
 
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
         ThisBuyOrder.buyid = to_string(qty);
         ThisBuyOrder.sell_lim_id = thislimid;
+        ThisBuyOrder.lim_price = "N/A";
         BuyOrders.push_back(ThisBuyOrder);
     }
     boost::gregorian::date DateToday = boost::gregorian::day_clock::local_day();
@@ -1040,10 +1043,10 @@ int Buy(int RunNumber, alpaca::Client& client)
 void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 {
     ofstream OutputFile(DIRECTORY+"/CurrentlyBought/"+date+".csv");
-    OutputFile << "ticker,buyid,sell_lim_id\n";
+    OutputFile << "ticker,buyid,sell_lim_id,lim_price\n";
     for (auto iter = buyorders.begin(); iter!=buyorders.end(); iter++)
     {
-        OutputFile << (*iter).ticker << "," << (*iter).buyid << "," << (*iter).sell_lim_id << "\n";
+        OutputFile << (*iter).ticker << "," << (*iter).buyid << "," << (*iter).sell_lim_id << "," <<(*iter).lim_price << "\n";
     }
     OutputFile.close();
 
@@ -1069,13 +1072,13 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
     string newfilename = FILENAME.substr(DIRECTORY.size()+17, 10)+"-new.csv";//returns YYYY-MM-DD-new.csv
     newfilename = DIRECTORY+"/CurrentlyBought/" + newfilename;
     std::ofstream newFile(newfilename);
-    newFile << "ticker,buyid,sell_lim_id\n";
+    newFile << "ticker,buyid,sell_lim_id,lim_price\n";
 
-    io::CSVReader<3> in( (FILENAME).c_str() );
-    in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+    io::CSVReader<4> in( (FILENAME).c_str() );
+    in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
 
-    std::string ticker, buyid, sell_lim_id;
-    while(in.read_row(ticker , buyid, sell_lim_id))
+    std::string ticker, buyid, sell_lim_id, lim_price;
+    while(in.read_row(ticker , buyid, sell_lim_id, lim_price))
     {
 
         auto get_order_response = client.getOrder(buyid);
@@ -1102,7 +1105,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             auto currentstopbuyorder = currentstopbuyorder_order_response.second;
             assert(currentstopbuyorder.status == "filled");
             //then leave this line alone...
-            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id;
+            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id + "," + lim_price;
             newFile << newline + "\n";
             continue;
         }
@@ -1117,9 +1120,17 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
         auto last_trade = last_trade_response.second;
         auto priceofstonk = last_trade.trade.price;
-        double price = stod(order_response.filled_avg_price);//price order filled at
-        double limitprice = price*1.01;
         int qty = stoi(order_response.qty);
+
+        double limitprice;
+        if (lim_price != "N/A")
+            limitprice = stod(lim_price);
+        else
+        {
+            double price = stod(order_response.filled_avg_price);//price order filled at
+            limitprice = price*1.01;
+        }
+
 
         if (last_trade.trade.price >= limitprice)
         {
@@ -1151,7 +1162,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             thislimid = limit_order_response.id;
 
 
-            string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+            string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
             newFile << newline + "\n";
 
         }
@@ -1193,7 +1204,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 thislimid = limit_order_response_two.id;
 
 
-                string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+                string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
                 newFile << newline + "\n";
 
                 sleep(2);//wait for order to be put in...
@@ -1206,7 +1217,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             thislimid = limit_order_response.id;
 
 
-            string newline = order_response.symbol + "," + order_response.id + "," + thislimid;
+            string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + to_string(limitprice);
             newFile << newline + "\n";
 
         }
@@ -1280,12 +1291,12 @@ int ChangeUpTheFiles(alpaca::Client& client)
 
     if (files.back().substr(DIRECTORY.size()+17, 10) == TodaysDateAsString)//check for the existence mentioned in A)
     {
-        io::CSVReader<3> in( files.back().c_str() );
-        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
+        io::CSVReader<4> in( files.back().c_str() );
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
 
-        string ticker, qty, sell_lim_id;
+        string ticker, qty, sell_lim_id, lim_price;
         vector<buyorder> ListofBuyOrders;
-        while(in.read_row(ticker, qty, sell_lim_id))
+        while(in.read_row(ticker, qty, sell_lim_id, lim_price))
         {
             assert(sell_lim_id == "NOT_YET_PLACED");
 
@@ -1309,6 +1320,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             currentBuyOrder.ticker = ticker;
             currentBuyOrder.buyid = submit_order_response.second.id;
             currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
+            currentBuyOrder.lim_price = "N/A";
             ListofBuyOrders.push_back(currentBuyOrder);
         }
 
@@ -1328,10 +1340,10 @@ int ChangeUpTheFiles(alpaca::Client& client)
         vector<buyorder> ListofBuyOrders;
         string ThisFilesDate = files[i].substr(DIRECTORY.size()+17, 10);
 
-        io::CSVReader<3> in( files.back().c_str() );
-        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id");
-        string ticker, buyid, sell_lim_id;
-        while(in.read_row(ticker, buyid, sell_lim_id))
+        io::CSVReader<4> in( files.back().c_str() );
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+        string ticker, buyid, sell_lim_id, lim_price;
+        while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
         {
             auto get_order_response = client.getOrder(buyid);
             if (auto status = get_order_response.first; !status.ok())
@@ -1362,6 +1374,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 currentBuyOrder.ticker = oldbuyordersticker;
                 currentBuyOrder.buyid = oldbuyorder.id;
                 currentBuyOrder.sell_lim_id = stopbuy.id;
+                currentBuyOrder.lim_price = lim_price;
                 ListofBuyOrders.push_back(currentBuyOrder);
                 continue;
             }
@@ -1393,6 +1406,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             currentBuyOrder.ticker = oldbuyordersticker;
             currentBuyOrder.buyid = newbuyorder.id;
             currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
+            currentBuyOrder.lim_price = lim_price;
             ListofBuyOrders.push_back(currentBuyOrder);
 
 
@@ -1422,7 +1436,6 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
-
 
     if (FirstRun())
     {
