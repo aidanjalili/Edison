@@ -1088,9 +1088,11 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         if (order_response.status == "new" || order_response.status == "partially_filled")
         {
             sleep(45);//hopefully this'll give it enuf time to fill...
+            get_order_response = client.getOrder(buyid);
+            order_response = get_order_response.second;
         }
 
-        if (order_response.status == "canceled")
+        if (order_response.status == "canceled")//could(or maybe should tbh) be else if but whatever
         {
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
             continue;
@@ -1590,7 +1592,7 @@ int main()
                 HasShitGoneDown = true;
             }
 
-            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 35 && TodaysDailyLimSellsPlaced == false)
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 32 && TodaysDailyLimSellsPlaced == false)
             {
 
                 /*
