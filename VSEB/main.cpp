@@ -1342,7 +1342,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
         vector<buyorder> ListofBuyOrders;
         string ThisFilesDate = files[i].substr(DIRECTORY.size()+17, 10);
 
-        io::CSVReader<4> in( files.back().c_str() );
+        io::CSVReader<4> in( files[i].c_str() );
         in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
         string ticker, buyid, sell_lim_id, lim_price;
         while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
