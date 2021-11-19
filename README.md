@@ -2,6 +2,11 @@
 
 Makes money
 
+## TO DO
+Make it so that we updateassets/filterassets every day so that we always r having an updated list of those that are tradable and shortable. 
+--Right now all we do is anticipate canceled order/rejected orders as things that have become unshortable/untradeable we try to trade anyway.
+But this is kind of a stupid fix.
+
 ## Important Notes
 This program should only be run the morning of the first day you'd like to make buys. So if you want the first day you trade stocks today make sure to check that:
 A) the market is open today
