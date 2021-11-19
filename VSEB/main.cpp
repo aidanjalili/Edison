@@ -475,7 +475,7 @@ int Sell(alpaca::Client& client)
         auto get_buy_order_shit_response = client.getOrder(buyorders[i].buyid);
         auto buy_order = get_buy_order_shit_response.second;//assuming no error fetching api...
 
-        if (buy_order.status == "canceled")
+        if (buy_order.status == "canceled" || buy_order.status == "rejected")
         {
             sellorderids.push_back("N/A");
             continue;
@@ -574,7 +574,7 @@ int SellTwo(alpaca::Client& client)
             }
             auto buyorder = get_order_response_three.second;
 
-            if (buyorder.status == "canceled")//since its never been bought in the first place then...
+            if (buyorder.status == "canceled" || buyorder.status == "rejected")//since its never been bought in the first place then...
                 continue;
 
             stringstream thing(buyorder.qty);
@@ -1092,7 +1092,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             order_response = get_order_response.second;
         }
 
-        if (order_response.status == "canceled")//could(or maybe should tbh) be else if but whatever
+        if (order_response.status == "canceled" || order_response.status == "rejected" )//could(or maybe should tbh) be else if but whatever
         {
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
             continue;
@@ -1369,7 +1369,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             auto get_limit_order_response = client.getOrder(sell_lim_id);
             //assuming theres no error with get_limit_order_response.first
             auto stopbuy = get_limit_order_response.second;
-            if (stopbuy.status == "filled" || oldbuyorder.status == "canceled")
+            if (stopbuy.status == "filled" || oldbuyorder.status == "canceled" || oldbuyorder.status == "rejected")
             {
                 //shit stays the same...
                 buyorder currentBuyOrder;
