@@ -1144,7 +1144,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     alpaca::OrderTimeInForce::Day
             );
 
-            sleep(2);//wait for lim sell order to be submitted (or in this case j a full blown cover)
+            sleep(4);//wait for lim sell order to be submitted (or in this case j a full blown cover)
 
             if (auto status = submit_limit_order_response.first; !status.ok())
             {
@@ -1181,7 +1181,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     to_string(limitprice)
             );
 
-            sleep(2);//wait for lim sell order to be submitted
+            sleep(4);//wait for lim sell order to be submitted
 
             if (auto status = submit_limit_order_response.first; !status.ok())
             {
@@ -1209,7 +1209,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
                 newFile << newline + "\n";
 
-                sleep(2);//wait for order to be put in...
+                sleep(4);//wait for order to be put in...
                 continue;
             }
 
@@ -1316,7 +1316,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
             }
-            sleep(2); //to let the order go thru
+            sleep(4); //to let the order go thru
 
             buyorder currentBuyOrder;
             currentBuyOrder.ticker = ticker;
@@ -1389,7 +1389,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::OPG
             );
-            sleep(2); //to let the order go thru...
+            sleep(4); //to let the order go thru...
             if (auto status = submit_order_response.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -1592,7 +1592,7 @@ int main()
                 HasShitGoneDown = true;
             }
 
-            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 32 && TodaysDailyLimSellsPlaced == false)
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && TodaysDailyLimSellsPlaced == false)
             {
 
                 /*
