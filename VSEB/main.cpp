@@ -826,7 +826,10 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
     if (RunNumber == 1)
     {
-        cash = (cash)/(5*(1 + 0.015 * tickers.size())+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
+        //do nothing
+
+
+        //cash = (cash)/(5*(1 + 0.015 * tickers.size())+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
         //Note i changed 1.01 to 1.015 to accnt for a possible increase in an astounding 50% of the asset before we short
         //so that even in that extreme case we'd be able to cover the extra 1/2% of losses
 
@@ -847,6 +850,9 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
             //could maybe add a guard here to c if file is too small/not enuf entries like i did in "backtestingVSEB"
             //but also could low key be unecessary
 
+
+            //we need to allocate enuf money such that if the stonks we currently have shorted go up to their stop buy
+            //we have enuf money to cover those...
             std::string ticker, buyid, sell_lim_id, lim_price;
             while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
             {
@@ -858,8 +864,8 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                 {
                     auto get_buy_order_response = client.getOrder(buyid);
                     auto buy_order = get_buy_order_response.second;
-                    double moneyrecieved = stod(buy_order.filled_avg_price)*stod(buy_order.filled_qty);
-                    moneysrecievedfromshorts.push_back( moneyrecieved );
+                    double moneyrecieved = stod(lim_price)*stod(buy_order.filled_qty);
+                    moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
             }
@@ -872,11 +878,19 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
             totalmoneyrecieved+=(*iter);
         }
 
-        cash = cash - totalmoneyrecieved;
-        cash = (cash)/(5*(1+ 0.015*tickers.size())+EmergencyTrigger-5);
+        cash = cash - totalmoneyrecieved;/*so the idea here is that the other outstanding stonks can pay for themselves if need be...*/
+
+
+        //so now the rest of the money can be divided up j so that there's enuf for the remaining investments if they go up by 1.5%...
+       // cash = (cash)/(5*(1+ 0.015*tickers.size())+EmergencyTrigger-5);
 
 
     }
+
+    cash = cash*((1-0.99)/(tickers.size()*(1.0125-1)));//lmao low key don't mess with this
+    /* E.T. deprecated, extra 0.0025 for a potential 25% increase over night
+     * This makes it such that even if the stonks increase in price by 1.0125, if all of them do it
+     * we only lose 1% of our moneys...*/
 
 
     /* AND ENDS HERE */
