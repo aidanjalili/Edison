@@ -862,6 +862,13 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     continue;
                 else
                 {
+                    if (lim_price == "N/A")//tho it shouldn't happen, i don't think...
+                    {
+                        string Message = "Weird, case here, look in calculate amnt to be invested func..";
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                        continue;
+                    }
+
                     auto get_buy_order_response = client.getOrder(buyid);
                     auto buy_order = get_buy_order_response.second;
                     double moneyrecieved = stod(lim_price)*stod(buy_order.filled_qty);
