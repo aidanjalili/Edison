@@ -556,10 +556,16 @@ int SellTwo(alpaca::Client& client)
                 return status.getCode();
             }
             auto limsell = get_order_response_two.second;
-            if (limsell.status == "new")
+            if (limsell.status != "filled")
             {
+                if (limsell.status == "expired")
+                {
+                    cout << "We're fucked!" << endl;
+                    exit(-100);
+                }
+
                 client.cancelOrder(sell_lim_id);
-                sleep(1);
+                sleep(3);
             }
             else//then its already been sold
             {
@@ -874,7 +880,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
                     /*As if we were truly shorting and holding the short overnight...*/
                     //tho maybew we could jupdate thme daily idk... that's for alter updates...
-                    double moneyrecieved = (stod(lim_price)/(1.01))*stod(buy_order.filled_qty);
+                    double moneyrecieved = ( stod(lim_price) / (1.01) )*stod(buy_order.filled_qty);
                     moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
