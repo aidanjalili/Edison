@@ -903,8 +903,8 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
     }
 
-    cash = cash*((1-0.99)/(tickers.size()*(1.0125-1)));//lmao low key don't mess with this
-    /* E.T. deprecated, extra 0.0025 for a potential 25% increase over night
+    cash = cash*((1-0.99)/(tickers.size()*(1.01-1)));//lmao low key don't mess with this
+    /* E.T. deprecated, extra 0.001 for a potential 25% increase over night
      * This makes it such that even if the stonks increase in price by 1.0125, if all of them do it
      * we only lose 1% of our moneys...*/
 
