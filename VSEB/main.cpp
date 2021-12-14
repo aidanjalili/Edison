@@ -1213,7 +1213,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
             sleep(4);//wait for lim sell order to be submitted
 
-            if (auto status = submit_limit_order_response.first; !status.ok())
+            if (auto status = submit_limit_order_response.first; !status.ok() || ( status.ok() &&  submit_limit_order_response.second.status == "rejected") )
             {
                 std::cerr
                         << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
