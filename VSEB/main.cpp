@@ -880,7 +880,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
                     /*As if we were truly shorting and holding the short overnight...*/
                     //tho maybew we could jupdate thme daily idk... that's for alter updates...
-                    double moneyrecieved = ( stod(lim_price) / (1.01) )*stod(buy_order.filled_qty);
+                    double moneyrecieved = ( stod(lim_price) / (1.0125) )*stod(buy_order.filled_qty);
                     moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
@@ -903,7 +903,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
     }
 
-    cash = cash*((1-0.99)/(tickers.size()*(1.01-1)));//lmao low key don't mess with this
+    cash = cash*((1-0.99)/(tickers.size()*(1.0125-1)));//lmao low key don't mess with this
     /* E.T. deprecated, extra 0.001 for a potential 25% increase over night
      * This makes it such that even if the stonks increase in price by 1.0125, if all of them do it
      * we only lose 1% of our moneys...*/
