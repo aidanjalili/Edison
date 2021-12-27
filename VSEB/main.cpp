@@ -880,7 +880,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
                     /*As if we were truly shorting and holding the short overnight...*/
                     //tho maybew we could jupdate thme daily idk... that's for alter updates...
-                    double moneyrecieved = ( stod(lim_price) / (1.0125) )*stod(buy_order.filled_qty);
+                    double moneyrecieved = ( stod(lim_price) / (1.01) )*stod(buy_order.filled_qty);
                     moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
@@ -1213,8 +1213,11 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
             sleep(4);//wait for lim sell order to be submitted
 
-            if (auto status = submit_limit_order_response.first; !status.ok() || ( status.ok() &&  submit_limit_order_response.second.status == "rejected") )
+            auto statusthing = submit_limit_order_response.first;
+
+            if ( ( !statusthing.ok() ) || ( statusthing.ok() &&  submit_limit_order_response.second.status == "rejected" ) )
             {
+                auto status = statusthing;
                 std::cerr
                         << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
                         << status.getMessage() << std::endl;
