@@ -1200,6 +1200,9 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         }
         else
         {
+            /*
+             * shitty ~possible~ solution to the rejected lim sell prob... but who knows, maybe it'll work...
+             */
 
             auto submit_limit_order_response = client.submitOrder(
                     (order_response.symbol),
@@ -1211,11 +1214,26 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     to_string(limitprice)
             );
 
-            sleep(4);//wait for lim sell order to be submitted
+            sleep(6);//wait for lim sell order to be submitted
 
             auto statusthing = submit_limit_order_response.first;
 
-            if ( ( !statusthing.ok() ) || ( statusthing.ok() &&  submit_limit_order_response.second.status == "rejected" ) )
+            bool thisorderisbad = false;
+            bool wasrejected = false;
+
+            if (!statusthing.ok())
+                thisorderisbad = true;
+
+            if (thisorderisbad == false)
+            {
+                auto get_order_response = client.getOrder(submit_limit_order_response.second.id);
+                auto actual_order_response = get_order_response.second;
+                if (actual_order_response.status == "rejected")
+                    wasrejected = true;
+            }
+
+
+            if ( ( thisorderisbad ) || ( wasrejected) )
             {
                 auto status = statusthing;
                 std::cerr
