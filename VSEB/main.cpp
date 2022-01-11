@@ -903,10 +903,14 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
     }
 
-    cash = cash*((1-0.99)/(tickers.size()*(1.0125-1)));//lmao low key don't mess with this
-    /* E.T. deprecated, extra 0.001 for a potential 25% increase over night
-     * This makes it such that even if the stonks increase in price by 1.0125, if all of them do it
-     * we only lose 1% of our moneys...*/
+
+
+    cash = cash*((1-0.99)/(tickers.size()*(1.0105-1)));
+
+    /*Essentially this, referencing the line above,
+     * just invests ~95.2% of what we actually could. (as of rn with bottom number at 1.0105)
+     * so that we have even more room in case stuff goes up to cover,
+     * as in the 1-2 mins we don't have a lim place if the stonk goes up even 5% during that tine, we're good
 
 
     /* AND ENDS HERE */
@@ -1147,7 +1151,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         if (auto status = last_trade_response.first; !status.ok())
         {
             std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
-            return status.getCode();
+            continue;
+            //return status.getCode();
         }
 
         auto last_trade = last_trade_response.second;
@@ -1214,7 +1219,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     to_string(limitprice)
             );
 
-            sleep(6);//wait for lim sell order to be submitted
+            sleep(5);//wait for lim sell order to be submitted
 
             auto statusthing = submit_limit_order_response.first;
 
@@ -1666,7 +1671,7 @@ int main()
 
                 for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, fuck optimizing memory or runtime amiright or amiright?
                 {
-                    PlaceLimSellOrders(client, files[i]);
+                    PlaceLimSellOrders(client, files[i]);//should always return 0, but idrk know at this pt that fact might have to be double checked lol...
 
                 }
 
