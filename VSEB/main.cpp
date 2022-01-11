@@ -868,11 +868,20 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     continue;
                 else
                 {
-                    if (lim_price == "N/A")//tho it shouldn't happen, i don't think...
+                    //"Note dir=DIRECTORY+/CurrentlyBought/xxxx-xx-xx.csv"
+                    string Date_Associated_With_File = dir.substr(DIRECTORY.size()+17, 10); //returns date hopefully
+                    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+                    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+                    if (TodaysDateAsString==Date_Associated_With_File)//tho it shouldn't happen, i don't think... edit: or ig it does! who knows, anyway still does the rt thing by conitnuing...
                     {
-                        string Message = "Weird, case here, look in calculate amnt to be invested func..";
-                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
-                        continue;
+                        if (lim_price != "N/A")//if this happens that'd be very, very weird, honestly would do an assert if i was ballsy enuf
+                        {
+                            string Message = "Weird, case here, look in calculate amnt to be invested func..";
+                            Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                            continue;
+                        }
+                        else
+                            continue;
                     }
 
                     auto get_buy_order_response = client.getOrder(buyid);
