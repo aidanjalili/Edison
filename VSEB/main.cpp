@@ -1249,13 +1249,13 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
             if ( ( thisorderisbad ) || ( wasrejected) )
             {
-                auto status = statusthing;
+
                 std::cerr
                         << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
                         << status.getMessage() << std::endl;
                 string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " +
                                  to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
-                                 " Error message of lim sell was: " + status.getMessage();
+                                 " Error message of lim sell was: " + status.getMessage();//note an OK status.getMessage() means the order was reejcted, don't ask it's just how it goes
                 Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
 
                 auto submit_limit_order_response_two = client.submitOrder(
