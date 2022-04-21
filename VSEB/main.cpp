@@ -1165,7 +1165,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         }
 
         auto last_trade = last_trade_response.second;
-        auto priceofstonk = last_trade.trade.price;
         int qty = stoi(order_response.qty);
 
         double limitprice;
