@@ -1174,6 +1174,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         {
             double price = stod(order_response.filled_avg_price);//price order filled at
             limitprice = price*1.01;
+            limitprice = floor(limitprice*100+0.5)/100;
         }
 
 
