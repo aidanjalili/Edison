@@ -1554,7 +1554,7 @@ int main()
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() >= BuyTime.minutes && HaveAlreadyPlacedOrders == false)
+            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes && HaveAlreadyPlacedOrders == false)
             {
                 int NumberofFilesInCurrentlyBought;
                 vector<string> files;
