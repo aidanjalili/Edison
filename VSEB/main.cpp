@@ -542,7 +542,7 @@ int SellTwo(alpaca::Client& client)
         while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
         {
             //j cuz im a little ocnfused tbh and not sure if this case would ever happen and if it does it should be treated this way...
-            if (sell_lim_id == "NOT_YET_PLACED")
+            if (sell_lim_id == "NOT_YET_PLACED" || "N/A")
                 continue;
 
             //altho the limit sells will just naturally cancel by end of day if they're not executed
@@ -1554,7 +1554,7 @@ int main()
         if (IsGivenDayATradingDay(TodaysDateAsString, datesmarketisopen))
         {
             HomeMadeTimeObj BuyTime = FetchTimeToBuy(datesmarketisopen);
-            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() == BuyTime.minutes && HaveAlreadyPlacedOrders == false)
+            if (now.time_of_day().hours() == BuyTime.hours && now.time_of_day().minutes() >= BuyTime.minutes && HaveAlreadyPlacedOrders == false)
             {
                 int NumberofFilesInCurrentlyBought;
                 vector<string> files;
