@@ -593,6 +593,7 @@ int SellTwo(alpaca::Client& client)
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::CLS
             );
+            sleep(1);
             if (auto status = submit_order_response.first; !status.ok()) {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
