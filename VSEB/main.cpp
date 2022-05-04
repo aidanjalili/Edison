@@ -426,8 +426,10 @@ int Sell(alpaca::Client& client)
     cout << DateofBuy << endl;
     if (DateToSellGivenDateToBuy(DateofBuy) != TodaysDateAsString)
     {
-        SellTwo(client);
-        return 69;
+        if (int ret = SellTwo(client); ret!=0)
+            return ret;
+        else
+            return 69;
     }
     //above if statement saves us some work... otherwise we'd do all the following to actually sell some shit for no reason...
 
