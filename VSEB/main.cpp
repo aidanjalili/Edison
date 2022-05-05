@@ -418,7 +418,7 @@ int Sell(alpaca::Client& client)
     {
         files.push_back(file.path());
     }
-    sort(files.begin(), files.end());//Now we only work the most recent one -- so the first one in the vector
+    sort(files.begin(), files.end());//Now we only work the oldest one -- so the first one in the vector
     //Double check today is correct DateToSell...
     string DateofBuy = files[0].substr (DIRECTORY.size()+17, 10);//Date of buy in iso format e.g. 1900-12-30
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
@@ -1245,7 +1245,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             {
                 auto get_order_response = client.getOrder(submit_limit_order_response.second.id);
                 auto actual_order_response = get_order_response.second;
-                if (actual_order_response.status == "rejected")
+                if (actual_order_response.status != "new" && actual_order_response.status != "filled" && actual_order_response.status != "partially_filled")
                     wasrejected = true;
             }
 
@@ -1493,6 +1493,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
+
     atexit(ExitWarningSystem);
 
     setenv("APCA_API_KEY_ID", API_PUBLIC_KEY.c_str(), 1);
