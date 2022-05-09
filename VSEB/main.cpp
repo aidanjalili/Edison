@@ -1252,15 +1252,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
             if ( ( thisorderisbad ) || ( wasrejected) )
             {
-                auto status = statusthing;
-
-                std::cerr
-                        << "SOMEHOW THE BUY ORDER COULD BE SUBMITED BUT THERE WAS AN ERROR SUBMITTING THE LIM ORDER... API RESPONSE ERROR WAS: "
-                        << status.getMessage() << std::endl;
-                string Message = "Emergency Buy Order Placed for: " + order_response.symbol + " on: " +
-                                 to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
-                                 " Error message of lim sell was: " + status.getMessage();//note an OK status.getMessage() means the orddr
-                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
 
                 auto submit_limit_order_response_two = client.submitOrder(
                         (order_response.symbol),
@@ -1279,6 +1270,15 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 newFile << newline + "\n";
 
                 sleep(4);//wait for order to be put in...
+                //check status of that order, and if it was bad, alert user right away!
+                if (limit_order_response_two.status != "filled")
+                {
+                    string Message = "Failure for Emergency Buy Order Placed For: " + order_response.symbol + " on: " +
+                                     to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
+                                     " Error message of emergency buy order : " + limit_order_response_two.status;
+                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                }
+
                 continue;
             }
 
