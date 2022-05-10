@@ -21,7 +21,7 @@ cc_binary(
     srcs = ["main.cpp"],
     deps = select({
         "//:linux_x86_64": [
-            "@python_linux//:python3-lib",
+            "@python_linux//:python38-lib",
             "@com_github_marpaia_alpaca_trade_api_cpp//alpaca:alpaca",
             "@boost//:date_time",
             "Ben-Strasser-Csv-Library"

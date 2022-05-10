@@ -29,10 +29,10 @@ new_local_repository(
     path = "/usr",
     build_file_content = """
 cc_library(
-    name = "python3-lib",
-    srcs = ["lib/python3/config-3m-x86_64-linux-gnu/libpython3.so"],
-    hdrs = glob(["include/python3/*.h"]),
-    includes = ["include/python3"],
+    name = "python38-lib",
+    srcs = ["lib/python3.8/config-3.8m-x86_64-linux-gnu/libpython3.8.so"],
+    hdrs = glob(["include/python3.8/**/*.h"]),
+    includes = ["include/python3.8"],
     visibility = ["//visibility:public"]
 )
     """
