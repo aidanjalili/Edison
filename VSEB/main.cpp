@@ -22,7 +22,7 @@
 #include <numeric>
 #include <sys/stat.h>
 #include <cstdlib>
-#include <Python/Python.h>
+#include <Python/Python.h>//on server change #include "Python.h"
 
 #include "csv.h"
 #include "alpaca/alpaca.h"
@@ -33,7 +33,7 @@ using namespace std;
 
 
 /*Constants to modify as necessary by the user*/ //(in green is what to do when ur giving dad bak his 1,500)
-const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command
+const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command, but for rn on server change to output of pwd
 const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
 const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 25000;//rn it's actually much less than 25k lol
 const double LIMIT_AMOUNT = 25500.00;///change this back to 500 (subtravt 1,500 from it)
