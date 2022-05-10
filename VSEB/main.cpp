@@ -22,9 +22,12 @@
 #include <numeric>
 #include <sys/stat.h>
 #include <cstdlib>
+#include <Python/Python.h>
 
 #include "csv.h"
 #include "alpaca/alpaca.h"
+
+
 
 using namespace std;
 
@@ -1039,6 +1042,8 @@ int Buy(int RunNumber, alpaca::Client& client)
                 TickersToBeBought.erase(TickersToBeBought.begin() + i);
         }
     }
+   // TickersToBeBought is the vector with the tickers to be bought...
+
 
     pair<double, int> Amnt_Invested;
     Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, RunNumber, client);
