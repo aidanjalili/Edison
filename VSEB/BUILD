@@ -27,6 +27,7 @@ cc_binary(
             "Ben-Strasser-Csv-Library"
         ],
         "//:mac": [
+            "@python_mac//:python39-lib",
             "@com_github_marpaia_alpaca_trade_api_cpp//alpaca:alpaca",
             "@boost//:date_time",
             "Ben-Strasser-Csv-Library"

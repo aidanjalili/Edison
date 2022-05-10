@@ -37,3 +37,31 @@ cc_library(
 )
     """
 )
+
+new_local_repository(
+    name = "python_mac",
+    path = "/opt/homebrew/Frameworks/Python.framework/Versions/3.9",
+    build_file_content = """
+cc_library(
+    name = "python39-lib",
+    srcs = ["lib/python3.9/config-3.9-darwin/libpython3.9.dylib"],
+    hdrs = glob(["include/python3.9/**/*.h"]),
+    includes = ["include/python3.9"],
+    visibility = ["//visibility:public"]
+)
+    """
+)
+
+#new_local_repository(
+#    name = "python_mac",
+#    path = "/usr",
+#    build_file_content = """
+#cc_library(
+#    name = "python38-lib",
+#    srcs = ["lib/python3.8/config-3.8-darwin/libpython3.8.dylib"],
+#    hdrs = glob(["include/python3.8/**/*.h"]),
+#    includes = ["include/python3.8"],
+#    visibility = ["//visibility:public"]
+#)
+#    """
+#)

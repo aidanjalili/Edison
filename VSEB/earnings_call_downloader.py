@@ -6,18 +6,22 @@ import dateutil.parser
 import csv
 
 
-# setting the report date
-report_date = datetime.now().date()
-timestampStr = report_date.strftime("%Y-%m-%d")
+def main(DIRECTORY):
+
+    print("Hello from file")
+
+    # setting the report date
+    report_date = datetime.now().date()
+    timestampStr = report_date.strftime("%Y-%m-%d")
 
 
-todays_earnings = si.get_earnings_for_date(timestampStr)
+    todays_earnings = si.get_earnings_for_date(timestampStr)
 
-csv_columns = ['ticker','companyshortname','startdatetime','startdatetimetype','epsestimate','epsactual','epssurprisepct','timeZoneShortName','gmtOffsetMilliSeconds','quoteType']
+    csv_columns = ['ticker','companyshortname','startdatetime','startdatetimetype','epsestimate','epsactual','epssurprisepct','timeZoneShortName','gmtOffsetMilliSeconds','quoteType']
 
-csv_file = "Earnings_Data.csv"
-with open(csv_file, 'w') as csvfile:
-    writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-    writer.writeheader()
-    for data in todays_earnings:
-        writer.writerow(data)
+    csv_file = DIRECTORY+"/Earnings_Data.csv"
+    with open(csv_file, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
+        writer.writeheader()
+        for data in todays_earnings:
+            writer.writerow(data)

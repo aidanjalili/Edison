@@ -22,8 +22,8 @@
 #include <numeric>
 #include <sys/stat.h>
 #include <cstdlib>
-#include <Python/Python.h>//on server change #include "Python.h"
 
+#include "Python.h"
 #include "csv.h"
 #include "alpaca/alpaca.h"
 
@@ -981,6 +981,22 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
 }
 
+
+bool func(string current_ticker_in_question)
+{
+    //check if any match the ticker in the csv file
+    io::CSVReader<10> in( (DIRECTORY+"/Earnings_Data.csv").c_str() );
+    in.read_header(io::ignore_extra_column, "ticker", "companyshortname", "startdatetime", "startdatetimetype", "epsestimate", "epsactual", "epssurprisepct", "timeZoneShortName", "gmtOffsetMilliSeconds", "quoteType");
+
+    std::string ticker, companyshortname, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType;
+    while(in.read_row(ticker , companyshortname, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType))
+    {
+        if (current_ticker_in_question == ticker)
+            return true;
+    }
+    return false;
+}
+
 int Buy(int RunNumber, alpaca::Client& client)
 {
     vector<StockVolumeInformation> TodaysVolInformation = FetchTodaysVolumeInfo(client);
@@ -1042,7 +1058,21 @@ int Buy(int RunNumber, alpaca::Client& client)
                 TickersToBeBought.erase(TickersToBeBought.begin() + i);
         }
     }
-   // TickersToBeBought is the vector with the tickers to be bought...
+    //TickersToBeBought is the vector with the tickers to be bought...
+    Py_Initialize();
+    PyObject *pName, *pModule, *pFunc, *pArgs, *pValue;
+    PyObject* sysPath = PySys_GetObject("path");
+    auto pystring = PyUnicode_FromString(DIRECTORY.c_str());
+    PyList_Append(sysPath, pystring);
+    pName = PyUnicode_FromString((char*)"earnings_call_downloader");
+    pModule = PyImport_Import(pName);
+    pFunc = PyObject_GetAttrString(pModule, (char*)"main");
+    pArgs = PyTuple_Pack(1, PyUnicode_FromString(DIRECTORY.c_str()));
+    PyObject_CallObject(pFunc, pArgs);
+    Py_Finalize();
+
+    //remove if earnings call was today...
+    remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
 
 
     pair<double, int> Amnt_Invested;
@@ -1498,7 +1528,6 @@ int ChangeUpTheFiles(alpaca::Client& client)
 #pragma ide diagnostic ignored "EndlessLoop"
 int main()
 {
-
     atexit(ExitWarningSystem);
 
     setenv("APCA_API_KEY_ID", API_PUBLIC_KEY.c_str(), 1);
