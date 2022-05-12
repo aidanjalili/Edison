@@ -1,5 +1,5 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-IPA,ImmunoPrecise Antibodies Ltd.,2018-12-28T18:11:00.000Z,TAS,-0.1,-0.1,0,EST,-18000000,EQUITY
-IPATF,ImmunoPrecise Antibodies Ltd.,2018-12-28T18:11:00.000Z,TAS,-0.1,-0.1,0,UTC,0,EQUITY
-IPATD,ImmunoPrecise Antibodies Ltd.,2018-12-28T18:11:00.000Z,TAS,-0.1,-0.1,0,UTC,0,EQUITY
-BLIN,"Bridgeline Digital, Inc.",2018-12-28T16:35:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+IPA,2018-12-28T18:11:00.000Z,TAS,-0.1,-0.1,0,EST,-18000000,EQUITY
+IPATF,2018-12-28T18:11:00.000Z,TAS,-0.1,-0.1,0,UTC,0,EQUITY
+IPATD,2018-12-28T18:11:00.000Z,TAS,-0.1,-0.1,0,UTC,0,EQUITY
+BLIN,2018-12-28T16:35:00.000Z,TAS,,,,EST,-18000000,EQUITY

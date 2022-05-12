@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-SGFY,"Signify Health, Inc.",2021-02-13T17:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SGFY,2021-02-13T17:01:00.000Z,TAS,,,,EST,-18000000,EQUITY

@@ -540,7 +540,7 @@ int SellTwo(alpaca::Client& client)
     //for every file, put in a MOC sell order...
     for (int i = 0; i < files.size(); i++)//technically could be an iterator again...
     {
-        io::CSVReader<4> in( files.back().c_str() );
+        io::CSVReader<4> in( files[i].c_str() );
         in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
         string ticker, buyid, sell_lim_id, lim_price;
 
@@ -1063,7 +1063,8 @@ int Buy(int RunNumber, alpaca::Client& client)
         Py_Finalize();
 
         //remove if earnings call was today...
-        remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
+        /*Turns out, from data from backtesting, that reduces earnings...*/
+        //remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
     }
     catch (...)
     {

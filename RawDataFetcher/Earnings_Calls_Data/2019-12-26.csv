@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-DYSL,Dynasil Corporation of America,2019-12-26T08:06:00.000Z,TAS,,,,EST,-18000000,EQUITY
-NCLTF,"Nitori Holdings Co., Ltd.",2019-12-27T01:00:00.000Z,TAS,178.54,183.83,2.96,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+DYSL,2019-12-26T08:06:00.000Z,TAS,,,,EST,-18000000,EQUITY
+NCLTF,2019-12-27T01:00:00.000Z,TAS,178.54,183.83,2.96,EST,-18000000,EQUITY

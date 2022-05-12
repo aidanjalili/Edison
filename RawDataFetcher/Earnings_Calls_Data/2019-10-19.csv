@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-HDB,HDFC Bank Limited,2019-10-19T07:57:00.000Z,TAS,0.25,0.51,108.98,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+HDB,2019-10-19T07:57:00.000Z,TAS,0.25,0.51,108.98,EDT,-14400000,EQUITY

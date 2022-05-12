@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-HZNQF,Horizon Discovery Group plc,2018-09-17T02:01:00.000Z,TAS,,,,UTC,0,EQUITY
-ELLKF,Ellaktor S.A.,2018-09-17T03:41:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+HZNQF,2018-09-17T02:01:00.000Z,TAS,,,,UTC,0,EQUITY
+ELLKF,2018-09-17T03:41:00.000Z,TAS,,,,EDT,-14400000,EQUITY

@@ -1,6 +1,6 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-EMSHF,EMS-CHEMIE HOLDING AG,2020-10-05T00:59:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-SHPPF,Shop Apotheke Europe N.V.,2020-10-04T19:00:00.000Z,TAS,,-0.25,,EDT,-14400000,EQUITY
-TOETF,Tosei Corporation,2020-10-05T02:00:00.000Z,TAS,,27.99,,UTC,0,EQUITY
-PTGIF,PT Medco Energi Internasional Tbk,2020-10-04T19:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-KARNF,Kernel Holding S.A.,2020-10-05T01:50:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+EMSHF,2020-10-05T00:59:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SHPPF,2020-10-04T19:00:00.000Z,TAS,,-0.25,,EDT,-14400000,EQUITY
+TOETF,2020-10-05T02:00:00.000Z,TAS,,27.99,,UTC,0,EQUITY
+PTGIF,2020-10-04T19:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+KARNF,2020-10-05T01:50:00.000Z,TAS,,,,EDT,-14400000,EQUITY

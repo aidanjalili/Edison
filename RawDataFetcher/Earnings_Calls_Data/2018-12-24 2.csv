@@ -1,4 +1,0 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-AAHIF,'Asahi Co., Ltd.',2018-12-25T01:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
-SHAOF,'SHIMAMURA Co., Ltd.',2018-12-25T01:00:00.000Z,TAS,244.87,115.29,-52.92,EST,-18000000,EQUITY
-ZOJIF,Zojirushi Corporation,2018-12-25T01:30:00.000Z,TAS,9.68,10.18,5.17,EST,-18000000,EQUITY

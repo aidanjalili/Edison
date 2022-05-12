@@ -1,4 +1,0 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-CTK,CooTek (Cayman) Inc.,2019-06-03T00:30:00.000Z,TAS,0.02,0.02,0,EDT,-14400000,EQUITY
-ITOEF,'Ito En, Ltd.',2019-06-03T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-BPIRF,Piraeus Financial Holdings S.A.,2019-06-03T02:26:00.000Z,TAS,0.83,0.5,-40,EDT,-14400000,EQUITY

@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ON,ON Semiconductor Corporation,2020-10-31T12:00:00.000Z,TAS,0.2,0.27,34.33,EDT,-14400000,EQUITY
-GMPXD,RF Capital Group Inc.,2020-10-31T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-GMPXF,RF Capital Group Inc.,2020-10-31T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ON,2020-10-31T12:00:00.000Z,TAS,0.2,0.27,34.33,EDT,-14400000,EQUITY
+GMPXD,2020-10-31T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GMPXF,2020-10-31T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY

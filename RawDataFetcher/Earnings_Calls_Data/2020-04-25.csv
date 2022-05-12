@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-EWGFF,Eat Well Investment Group Inc.,2020-04-25T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-PUTKF,PT United Tractors Tbk,2020-04-25T20:00:00.000Z,TAS,642.27,489,-23.86,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+EWGFF,2020-04-25T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+PUTKF,2020-04-25T20:00:00.000Z,TAS,642.27,489,-23.86,EDT,-14400000,EQUITY

@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-QBAK,Qualstar Corporation,2021-01-03T22:24:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+QBAK,2021-01-03T22:24:00.000Z,TAS,,,,EST,-18000000,EQUITY

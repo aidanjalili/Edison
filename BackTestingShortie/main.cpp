@@ -94,27 +94,30 @@ void PrintDates(alpaca::Client& client)
 
 bool tester(ShortOrder CurrentShort)
 {
-    try
-    {
-        io::CSVReader<10> in(("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/Earnings_Calls_Data/" + CurrentShort.date.substr(0,10) +".csv").c_str());
-        in.read_header(io::ignore_extra_column, "ticker", "companyshortname", "startdatetime", "startdatetimetype", "epsestimate", "epsactual", "epssurprisepct", "timeZoneShortName", "gmtOffsetMilliSeconds", "quoteType");
-        std::string ticker, companyshortname, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType;
-        while(in.read_row(ticker , companyshortname, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType))
+//    try
+//    {
+        io::CSVReader<9> in(("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/Earnings_Calls_Data/" + CurrentShort.date.substr(0,10) +".csv").c_str());
+        in.read_header(io::ignore_extra_column, "ticker", "startdatetime", "startdatetimetype", "epsestimate", "epsactual", "epssurprisepct", "timeZoneShortName", "gmtOffsetMilliSeconds", "quoteType");
+        std::string ticker, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType;
+        while(in.read_row(ticker , startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType))
         {
+            //currently in typical order
             if (ticker == CurrentShort.ticker)
+            {
                 cout << "cocky" << endl;
                 return true;
+            }
         }
         cout << "cock" << endl;
         return false;
-    }
-    catch (...)
-    {
-        cout << CurrentShort.date << endl;
-        cout << "***** FUCKITY FUCK FUCK FUCK " << endl;
-        cout << '\a' << endl;
-        return false;
-    }
+//    }
+//    catch (...)
+//    {
+//        cout << CurrentShort.date << endl;
+//        cout << "***** FUCKITY FUCK FUCK FUCK " << endl;
+//        cout << '\a' << endl;
+//        return false;
+//    }
 }
 
 double MySpecialRandFunc()//note that the weights are pretty arbitrary as no real data to go of...
@@ -298,7 +301,7 @@ int main()
         }
     }
     cout << "cunt" << endl;
-   remove_if(AllShorts.begin(), AllShorts.end(), tester);
+   //remove_if(AllShorts.begin(), AllShorts.end(), tester);
 
         for (auto& currentshort : AllShorts)
         {

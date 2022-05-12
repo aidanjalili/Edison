@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-DMTRF,"3-D Matrix, Ltd.",2021-06-14T02:30:00.000Z,TAS,,-10.33,,EDT,-14400000,EQUITY
-PKCOF,"PARK24 Co., Ltd.",2021-06-14T03:01:00.000Z,TAS,1.47,-27.35,-1958.02,EDT,-14400000,EQUITY
-SNBIF,SanBio Company Limited,2021-06-14T02:01:00.000Z,TAS,,-16.61,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+DMTRF,2021-06-14T02:30:00.000Z,TAS,,-10.33,,EDT,-14400000,EQUITY
+PKCOF,2021-06-14T03:01:00.000Z,TAS,1.47,-27.35,-1958.02,EDT,-14400000,EQUITY
+SNBIF,2021-06-14T02:01:00.000Z,TAS,,-16.61,,EDT,-14400000,EQUITY

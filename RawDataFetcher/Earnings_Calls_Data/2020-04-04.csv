@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ERJ,Embraer S.A.,2020-04-04T18:57:00.000Z,TAS,-0.12,-0.51,-332.2,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ERJ,2020-04-04T18:57:00.000Z,TAS,-0.12,-0.51,-332.2,EDT,-14400000,EQUITY

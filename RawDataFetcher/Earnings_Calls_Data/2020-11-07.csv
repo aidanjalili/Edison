@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BRK-B,Berkshire Hathaway Inc.,2020-11-07T10:33:00.000Z,TAS,2.42,2.3,-4.84,EST,-18000000,EQUITY
-BRK-A,Berkshire Hathaway Inc.,2020-11-07T08:09:00.000Z,TAS,3640.82,3452,-5.19,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BRK-B,2020-11-07T10:33:00.000Z,TAS,2.42,2.3,-4.84,EST,-18000000,EQUITY
+BRK-A,2020-11-07T08:09:00.000Z,TAS,3640.82,3452,-5.19,EST,-18000000,EQUITY

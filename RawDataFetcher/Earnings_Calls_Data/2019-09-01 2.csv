@@ -1,6 +1,0 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BDVSY,The Bidvest Group Limited,2019-09-02T01:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-PIGEF,Pigeon Corporation,2019-09-02T02:00:00.000Z,TAS,31.19,28.61,-8.26,EDT,-14400000,EQUITY
-ITOEF,'Ito En, Ltd.',2019-09-02T02:00:00.000Z,TAS,,30.13,,EDT,-14400000,EQUITY
-SAPLF,Sylvania Platinum Limited,2019-09-02T02:02:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-PBYYF,,2019-09-02T03:50:00.000Z,TAS,,,,UTC,0,EQUITY

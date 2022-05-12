@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-UBFO,United Security Bancshares,2019-07-07T17:38:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-OPY,Oppenheimer Holdings Inc.,2019-07-07T17:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+UBFO,2019-07-07T17:38:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+OPY,2019-07-07T17:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-KPCPF,Kasikornbank Public Company Limited,2020-07-20T01:43:00.000Z,TAS,,0.19,,EDT,-14400000,EQUITY
-PHG,Koninklijke Philips N.V.,2020-07-20T01:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-RYLPF,Koninklijke Philips N.V.,2020-07-20T01:00:00.000Z,TAS,0.18,0.35,93.37,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+KPCPF,2020-07-20T01:43:00.000Z,TAS,,0.19,,EDT,-14400000,EQUITY
+PHG,2020-07-20T01:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+RYLPF,2020-07-20T01:00:00.000Z,TAS,0.18,0.35,93.37,EDT,-14400000,EQUITY

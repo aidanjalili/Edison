@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ECGFF,EcoGraf Limited,2018-09-23T20:19:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-BEGYF,Trinity Exploration & Production plc,2018-09-24T02:01:00.000Z,TAS,,,,UTC,0,EQUITY
-TRXEF,Trinity Exploration & Production plc,2018-09-24T02:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ECGFF,2018-09-23T20:19:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BEGYF,2018-09-24T02:01:00.000Z,TAS,,,,UTC,0,EQUITY
+TRXEF,2018-09-24T02:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY

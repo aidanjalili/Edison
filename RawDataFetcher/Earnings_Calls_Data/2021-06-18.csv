@@ -1,5 +1,5 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ADSGF,adesso SE,2021-06-18T07:49:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-FXRVF,Fox River Resources Corporation,2021-06-18T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-GLBS,Globus Maritime Limited,2021-06-18T13:03:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-LYEL,"Lyell Immunopharma, Inc.",2021-06-18T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ADSGF,2021-06-18T07:49:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+FXRVF,2021-06-18T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GLBS,2021-06-18T13:03:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+LYEL,2021-06-18T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY

@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BGNE,"BeiGene, Ltd.",2021-05-08T16:59:00.000Z,TAS,-2.76,0.69,125,EDT,-14400000,EQUITY
-TTSH,"Tile Shop Holdings, Inc.",2021-05-08T16:14:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BGNE,2021-05-08T16:59:00.000Z,TAS,-2.76,0.69,125,EDT,-14400000,EQUITY
+TTSH,2021-05-08T16:14:00.000Z,TAS,,,,EDT,-14400000,EQUITY

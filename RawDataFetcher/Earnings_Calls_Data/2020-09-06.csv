@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-TGTNF,Tungsten Corporation plc,2020-09-07T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-MOPLF,Molinos Rio de la Plata S.A.,2020-09-07T01:15:00.000Z,TAS,,3.61,,EDT,-14400000,EQUITY
-SAPLF,Sylvania Platinum Limited,2020-09-07T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+TGTNF,2020-09-07T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+MOPLF,2020-09-07T01:15:00.000Z,TAS,,3.61,,EDT,-14400000,EQUITY
+SAPLF,2020-09-07T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

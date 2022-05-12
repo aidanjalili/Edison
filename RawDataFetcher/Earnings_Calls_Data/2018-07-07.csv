@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BBEDF,Beter Bed Holding N.V.,2018-07-07T04:27:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BBEDF,2018-07-07T04:27:00.000Z,TAS,,,,EDT,-14400000,EQUITY

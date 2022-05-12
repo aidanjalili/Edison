@@ -1,6 +1,6 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-AVXL,Anavex Life Sciences Corp.,2020-12-28T07:00:00.000Z,TAS,-0.13,-0.1,21.87,EST,-18000000,EQUITY
-CSPI,CSP Inc.,2020-12-28T08:30:00.000Z,TAS,,,,EST,-18000000,EQUITY
-SGIPF,"Sugi Holdings Co.,Ltd.",2020-12-29T01:30:00.000Z,TAS,63.09,77.05,22.13,EST,-18000000,EQUITY
-WB,Weibo Corporation,2020-12-28T05:12:00.000Z,TAS,0.6,0.66,9.63,EST,-18000000,EQUITY
-STMH,"Stem Holdings, Inc.",2020-12-29T03:47:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AVXL,2020-12-28T07:00:00.000Z,TAS,-0.13,-0.1,21.87,EST,-18000000,EQUITY
+CSPI,2020-12-28T08:30:00.000Z,TAS,,,,EST,-18000000,EQUITY
+SGIPF,2020-12-29T01:30:00.000Z,TAS,63.09,77.05,22.13,EST,-18000000,EQUITY
+WB,2020-12-28T05:12:00.000Z,TAS,0.6,0.66,9.63,EST,-18000000,EQUITY
+STMH,2020-12-29T03:47:00.000Z,TAS,,,,EST,-18000000,EQUITY

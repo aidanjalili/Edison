@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BBVA,"Banco Bilbao Vizcaya Argentaria, S.A.",2020-01-13T02:58:00.000Z,TAS,,,,EST,-18000000,EQUITY
-CPGSF,CropEnergies AG,2020-01-13T01:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
-MBAIF,CIBT Education Group Inc.,2020-01-12T19:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BBVA,2020-01-13T02:58:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CPGSF,2020-01-13T01:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+MBAIF,2020-01-12T19:00:00.000Z,TAS,,,,EST,-18000000,EQUITY

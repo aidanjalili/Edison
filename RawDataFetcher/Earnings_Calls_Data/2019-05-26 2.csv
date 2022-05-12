@@ -1,5 +1,0 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-MPZZF,MPC Container Ships ASA,2019-05-27T02:04:00.000Z,TAS,-0.04,-0.1,-138.1,EDT,-14400000,EQUITY
-RHBAF,RHB Capital Berhad,2019-05-27T01:13:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-BLMIF,Bank Leumi Le-Israel B.M.,2019-05-27T01:23:00.000Z,TAS,0.77,0.73,-5.19,EDT,-14400000,EQUITY
-KARNF,Kernel Holding S.A.,2019-05-27T01:42:00.000Z,TAS,,0.31,,EDT,-14400000,EQUITY

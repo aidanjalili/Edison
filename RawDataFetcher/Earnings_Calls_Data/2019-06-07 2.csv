@@ -1,9 +1,0 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-AOHLF,Autohellas S.A.,2019-06-07T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-CLZNF,Clariant AG,2019-06-07T10:57:00.000Z,TAS,0.39,,,EDT,-14400000,EQUITY
-UBP-PK,Urstadt Biddle Properties Inc.,2019-06-07T16:26:00.000Z,TAS,0.19,0.15,-21.05,EDT,-14400000,EQUITY
-UBA,Urstadt Biddle Properties Inc.,2019-06-07T16:26:00.000Z,TAS,0.19,0.15,-21.05,EDT,-14400000,EQUITY
-DKKGF,'Duckyang Ind. Co., Ltd.',2019-06-07T06:45:00.000Z,TAS,,,,UTC,0,EQUITY
-RVLV,'Revolve Group, Inc.',2019-06-07T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-MJARF,'MJardin Group, Inc.',2019-06-07T14:02:00.000Z,TAS,0,-0.13,,EDT,-14400000,EQUITY
-OAOFY,PJSC Tatneft,2019-06-07T05:25:00.000Z,TAS,,,,EDT,-14400000,EQUITY

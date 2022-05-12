@@ -1,6 +1,6 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-EFRMF,East Africa Metals Inc.,2021-05-01T07:35:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-BRK-B,Berkshire Hathaway Inc.,2021-05-01T08:05:00.000Z,TAS,2.53,3.05,20.41,EDT,-14400000,EQUITY
-BRK-A,Berkshire Hathaway Inc.,2021-05-01T08:05:00.000Z,TAS,3783.17,4577,20.98,EDT,-14400000,EQUITY
-DGHI,Digihost Technology Inc.,2021-05-01T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-SWISF,Sekur Private Data Ltd.,2021-05-01T05:57:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+EFRMF,2021-05-01T07:35:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BRK-B,2021-05-01T08:05:00.000Z,TAS,2.53,3.05,20.41,EDT,-14400000,EQUITY
+BRK-A,2021-05-01T08:05:00.000Z,TAS,3783.17,4577,20.98,EDT,-14400000,EQUITY
+DGHI,2021-05-01T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SWISF,2021-05-01T05:57:00.000Z,TAS,,,,EDT,-14400000,EQUITY

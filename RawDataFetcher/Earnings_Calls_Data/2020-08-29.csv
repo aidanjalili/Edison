@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-NFIN,Netfin Acquisition Corp.,2020-08-29T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
-TRIT,"Triterras, Inc.",2020-08-29T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+NFIN,2020-08-29T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+TRIT,2020-08-29T17:05:00.000Z,TAS,,,,UTC,0,EQUITY

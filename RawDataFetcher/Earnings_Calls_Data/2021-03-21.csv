@@ -1,6 +1,6 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-CMCL,Caledonia Mining Corporation Plc,2021-03-22T03:00:00.000Z,TAS,0.67,0.75,11.94,EDT,-14400000,EQUITY
-CELTF,Centamin plc,2021-03-22T03:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-SGLJF,Strauss Group Ltd.,2021-03-22T02:24:00.000Z,TAS,1.22,0.74,-39.34,EDT,-14400000,EQUITY
-GZTGF,Gazit-Globe Ltd.,2021-03-22T02:39:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-IS,ironSource Ltd.,2021-03-21T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CMCL,2021-03-22T03:00:00.000Z,TAS,0.67,0.75,11.94,EDT,-14400000,EQUITY
+CELTF,2021-03-22T03:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SGLJF,2021-03-22T02:24:00.000Z,TAS,1.22,0.74,-39.34,EDT,-14400000,EQUITY
+GZTGF,2021-03-22T02:39:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+IS,2021-03-21T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY

@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-VKEMF,VEF Ltd.,2019-10-13T02:00:00.000Z,TAS,,,,UTC,0,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+VKEMF,2019-10-13T02:00:00.000Z,TAS,,,,UTC,0,EQUITY

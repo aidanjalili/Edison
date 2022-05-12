@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ARLLF,Argan SA,2020-01-02T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
-RGP,"Resources Connection, Inc.",2020-01-02T16:05:00.000Z,TAS,0.31,0.38,24.59,EST,-18000000,EQUITY
-LNDC,Landec Corporation,2020-01-02T16:05:00.000Z,TAS,-0.06,-0.16,-166.67,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ARLLF,2020-01-02T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+RGP,2020-01-02T16:05:00.000Z,TAS,0.31,0.38,24.59,EST,-18000000,EQUITY
+LNDC,2020-01-02T16:05:00.000Z,TAS,-0.06,-0.16,-166.67,EST,-18000000,EQUITY

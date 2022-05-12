@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-AHWSF,Athens Water Supply and Sewerage Company S.A.,2020-12-14T02:52:00.000Z,TAS,,,,EST,-18000000,EQUITY
-OREAF,Orea Mining Corp.,2020-12-14T02:28:00.000Z,TAS,,,,EST,-18000000,EQUITY
-TGTNF,Tungsten Corporation plc,2020-12-14T02:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AHWSF,2020-12-14T02:52:00.000Z,TAS,,,,EST,-18000000,EQUITY
+OREAF,2020-12-14T02:28:00.000Z,TAS,,,,EST,-18000000,EQUITY
+TGTNF,2020-12-14T02:00:00.000Z,TAS,,,,EST,-18000000,EQUITY

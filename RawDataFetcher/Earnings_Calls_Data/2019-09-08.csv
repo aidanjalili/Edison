@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-MVC,"MVC Capital, Inc.",2019-09-09T03:00:00.000Z,TAS,0.15,0.16,6.67,UTC,0,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+MVC,2019-09-09T03:00:00.000Z,TAS,0.15,0.16,6.67,UTC,0,EQUITY

@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ARLLF,Argan SA,2019-01-02T17:04:00.000Z,TAS,,,,EST,-18000000,EQUITY
-USYNF,Unisync Corp.,2019-01-02T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
-ZMSPF,Zecotek Photonics Inc.,2019-01-02T19:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ARLLF,2019-01-02T17:04:00.000Z,TAS,,,,EST,-18000000,EQUITY
+USYNF,2019-01-02T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ZMSPF,2019-01-02T19:00:00.000Z,TAS,,,,EST,-18000000,EQUITY

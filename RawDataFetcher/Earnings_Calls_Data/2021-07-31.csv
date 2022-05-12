@@ -1,6 +1,6 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BBVA,"Banco Bilbao Vizcaya Argentaria, S.A.",2021-07-31T05:08:00.000Z,TAS,,0.08,,EDT,-14400000,EQUITY
-BBAJF,"Banco del Bajío, S.A., Institución de Banca Múltiple",2021-07-31T11:11:00.000Z,TAS,0.79,0.9,13.64,EDT,-14400000,EQUITY
-ENIC,Enel Chile S.A.,2021-07-31T11:13:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-LUXFF,Luxxfolio Holdings Inc.,2021-07-31T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-RSKD,Riskified Ltd.,2021-07-31T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BBVA,2021-07-31T05:08:00.000Z,TAS,,0.08,,EDT,-14400000,EQUITY
+BBAJF,2021-07-31T11:11:00.000Z,TAS,0.79,0.9,13.64,EDT,-14400000,EQUITY
+ENIC,2021-07-31T11:13:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+LUXFF,2021-07-31T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+RSKD,2021-07-31T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY

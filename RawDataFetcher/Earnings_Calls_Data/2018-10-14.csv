@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-CRTSF,Chr. Hansen Holding A/S,2018-10-15T02:09:00.000Z,TAS,0.56,0.53,-6.19,EDT,-14400000,EQUITY
-BCLMF,Bacanora Lithium Plc,2018-10-15T02:00:00.000Z,TAS,,,,UTC,0,EQUITY
-LHX,"L3Harris Technologies, Inc.",2018-10-14T12:05:00.000Z,TAS,1.71,1.78,3.91,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CRTSF,2018-10-15T02:09:00.000Z,TAS,0.56,0.53,-6.19,EDT,-14400000,EQUITY
+BCLMF,2018-10-15T02:00:00.000Z,TAS,,,,UTC,0,EQUITY
+LHX,2018-10-14T12:05:00.000Z,TAS,1.71,1.78,3.91,EDT,-14400000,EQUITY

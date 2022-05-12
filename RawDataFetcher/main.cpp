@@ -47,8 +47,9 @@ int main()
 
 
     /*Set environment variables*/
-    setenv("APCA_API_KEY_ID", "PKNPM7HFBCX963JDQY7H", 1);
-    setenv("APCA_API_SECRET_KEY", "Hu0wQlwPrbEUTOO0EHmAdLD7lQkpWz3UD7rsynMy", 1);
+    setenv("APCA_API_KEY_ID", "AKUL7PSSDDM0UW4BXKH8", 1);
+    setenv("APCA_API_SECRET_KEY", "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s", 1);
+    setenv("APCA_API_BASE_URL", "api.alpaca.markets", 1);
 
     /*Setting the env and client variables for the main func here... this needs to be done in the main func. for some reason*/
     auto env = alpaca::Environment();

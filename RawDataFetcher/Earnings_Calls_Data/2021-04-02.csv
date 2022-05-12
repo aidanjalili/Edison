@@ -1,8 +1,8 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-AGFY,Agrify Corporation,2021-04-02T17:30:00.000Z,TAS,-0.73,-1.08,-47.95,EDT,-14400000,EQUITY
-ILAL,"International Land Alliance, Inc.",2021-04-02T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-BCYP,Big Cypress Acquisition Corp.,2021-04-02T16:57:00.000Z,TAS,,,,UTC,0,EQUITY
-SABS,"SAB Biotherapeutics, Inc.",2021-04-02T16:57:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-ULCC,"Frontier Group Holdings, Inc.",2021-04-02T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-EM,Smart Share Global Limited,2021-04-02T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-NTRB,Nutriband Inc.,2021-04-02T17:30:00.000Z,TAS,0,-0.38,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AGFY,2021-04-02T17:30:00.000Z,TAS,-0.73,-1.08,-47.95,EDT,-14400000,EQUITY
+ILAL,2021-04-02T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BCYP,2021-04-02T16:57:00.000Z,TAS,,,,UTC,0,EQUITY
+SABS,2021-04-02T16:57:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ULCC,2021-04-02T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+EM,2021-04-02T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+NTRB,2021-04-02T17:30:00.000Z,TAS,0,-0.38,,EDT,-14400000,EQUITY

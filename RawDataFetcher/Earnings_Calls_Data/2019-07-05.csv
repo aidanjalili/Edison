@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-BDWBF,Budweiser Brewing Company APAC Limited,2019-07-05T18:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-IDTVF,AB Industrivärden (publ),2019-07-05T04:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-SPRCY,SciSparc Ltd.,2019-07-05T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BDWBF,2019-07-05T18:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+IDTVF,2019-07-05T04:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SPRCY,2019-07-05T17:05:00.000Z,TAS,,,,UTC,0,EQUITY

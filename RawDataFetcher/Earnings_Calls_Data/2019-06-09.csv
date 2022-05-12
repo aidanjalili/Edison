@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-TREAF,Terna Energy Societe Anonyme Commercial Technical Company,2019-06-10T03:44:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-CREJF,"CRE, Inc.",2019-06-10T02:30:00.000Z,TAS,,,,UTC,0,EQUITY
-PIGEF,Pigeon Corporation,2019-06-10T02:00:00.000Z,TAS,33.67,26.22,-22.13,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+TREAF,2019-06-10T03:44:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CREJF,2019-06-10T02:30:00.000Z,TAS,,,,UTC,0,EQUITY
+PIGEF,2019-06-10T02:00:00.000Z,TAS,33.67,26.22,-22.13,EDT,-14400000,EQUITY

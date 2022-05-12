@@ -1,2 +1,2 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-IBN,ICICI Bank Limited,2020-07-25T06:08:00.000Z,TAS,0.06,0.13,113.56,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+IBN,2020-07-25T06:08:00.000Z,TAS,0.06,0.13,113.56,EDT,-14400000,EQUITY

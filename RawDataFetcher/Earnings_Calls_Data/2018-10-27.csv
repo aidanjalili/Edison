@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-GBFBF,"Grupo Bafar, S.A.B. de C.V.",2018-10-27T07:24:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-VITOF,"Vitro, S.A.B. de C.V.",2018-10-27T04:42:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-GTMAF,"Grupo TMM, S.A.B.",2018-10-27T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+GBFBF,2018-10-27T07:24:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+VITOF,2018-10-27T04:42:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GTMAF,2018-10-27T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY

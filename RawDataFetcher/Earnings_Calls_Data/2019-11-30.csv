@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-LOWLF,Lowell Farms Inc.,2019-11-30T07:55:00.000Z,TAS,-0.13,-0.59,-360.94,EST,-18000000,EQUITY
-INDXF,Lowell Farms Inc.,2019-11-30T07:55:00.000Z,TAS,-0.13,-0.59,-360.94,UTC,0,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+LOWLF,2019-11-30T07:55:00.000Z,TAS,-0.13,-0.59,-360.94,EST,-18000000,EQUITY
+INDXF,2019-11-30T07:55:00.000Z,TAS,-0.13,-0.59,-360.94,UTC,0,EQUITY

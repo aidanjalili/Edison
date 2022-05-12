@@ -1,3 +1,3 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-MGMCA,MGM Holdings Inc.,2018-11-17T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
-MGMB,MGM Holdings Inc.,2018-11-17T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+MGMCA,2018-11-17T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+MGMB,2018-11-17T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY

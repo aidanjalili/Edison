@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-SEMHF,Siemens Healthineers AG,2020-08-01T20:00:00.000Z,TAS,0.27,0.27,1.12,EDT,-14400000,EQUITY
-CZGZF,Colt CZ Group SE,2020-08-01T08:14:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-VAR,"Varian Medical Systems, Inc.",2020-08-02T03:55:00.000Z,TAS,0.52,0.78,51.16,UTC,0,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SEMHF,2020-08-01T20:00:00.000Z,TAS,0.27,0.27,1.12,EDT,-14400000,EQUITY
+CZGZF,2020-08-01T08:14:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+VAR,2020-08-02T03:55:00.000Z,TAS,0.52,0.78,51.16,UTC,0,EQUITY

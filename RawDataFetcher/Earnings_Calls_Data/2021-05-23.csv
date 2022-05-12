@@ -1,5 +1,5 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-ARLUF,Aristocrat Leisure Limited,2021-05-23T18:31:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-CNSRF,CoinShares International Limited,2021-05-24T02:50:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-CHJTF,CSPC Pharmaceutical Group Limited,2021-05-24T00:01:00.000Z,TAS,0.1,0.12,29.47,EDT,-14400000,EQUITY
-KNNNF,Kainos Group plc,2021-05-24T02:20:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ARLUF,2021-05-23T18:31:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CNSRF,2021-05-24T02:50:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CHJTF,2021-05-24T00:01:00.000Z,TAS,0.1,0.12,29.47,EDT,-14400000,EQUITY
+KNNNF,2021-05-24T02:20:00.000Z,TAS,,,,EDT,-14400000,EQUITY

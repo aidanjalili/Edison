@@ -1,6 +1,6 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-SNAAF,"SAN-A CO.,LTD.",2021-01-05T01:05:00.000Z,TAS,,36.67,,EST,-18000000,EQUITY
-ARGYF,Avanti Energy Inc.,2021-01-04T17:06:00.000Z,TAS,,,,EST,-18000000,EQUITY
-HNSDF,Hensoldt AG,2021-01-04T12:09:00.000Z,TAS,,,,EST,-18000000,EQUITY
-DSKIF,"Daiseki Co.,Ltd.",2021-01-05T01:00:00.000Z,TAS,,33.97,,EST,-18000000,EQUITY
-JEF,Jefferies Financial Group Inc.,2021-01-04T16:15:00.000Z,TAS,0.5,1.11,122.89,EST,-18000000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SNAAF,2021-01-05T01:05:00.000Z,TAS,,36.67,,EST,-18000000,EQUITY
+ARGYF,2021-01-04T17:06:00.000Z,TAS,,,,EST,-18000000,EQUITY
+HNSDF,2021-01-04T12:09:00.000Z,TAS,,,,EST,-18000000,EQUITY
+DSKIF,2021-01-05T01:00:00.000Z,TAS,,33.97,,EST,-18000000,EQUITY
+JEF,2021-01-04T16:15:00.000Z,TAS,0.5,1.11,122.89,EST,-18000000,EQUITY

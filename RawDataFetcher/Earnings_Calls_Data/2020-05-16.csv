@@ -1,5 +1,5 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-CIG-C,Companhia Energética de Minas Gerais,2020-05-16T04:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-CIG,Companhia Energética de Minas Gerais,2020-05-16T04:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY
-GPIIF,"GP Investments, Ltd.",2020-05-16T17:25:00.000Z,TAS,,,,UTC,0,EQUITY
-POROF,Panoro Minerals Ltd.,2020-05-16T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CIG-C,2020-05-16T04:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CIG,2020-05-16T04:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GPIIF,2020-05-16T17:25:00.000Z,TAS,,,,UTC,0,EQUITY
+POROF,2020-05-16T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY

@@ -1,4 +1,4 @@
-ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
-THRPF,ABIONYX Pharma SA,2018-09-10T01:10:00.000Z,TAS,,,,UTC,0,EQUITY
-AASZF,Atlantic Sapphire ASA,2018-09-10T02:00:00.000Z,TAS,-0.04,,,EDT,-14400000,EQUITY
-COSXF,"Cosel Co., Ltd.",2018-09-09T22:00:00.000Z,TAS,23.1,25.32,9.61,EDT,-14400000,EQUITY
+ticker,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+THRPF,2018-09-10T01:10:00.000Z,TAS,,,,UTC,0,EQUITY
+AASZF,2018-09-10T02:00:00.000Z,TAS,-0.04,,,EDT,-14400000,EQUITY
+COSXF,2018-09-09T22:00:00.000Z,TAS,23.1,25.32,9.61,EDT,-14400000,EQUITY
