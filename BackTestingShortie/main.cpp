@@ -251,7 +251,7 @@ int main()
                 stdev = Stdeviation(volumes, averagevolume);
             }
 
-            if (Volume >= averagevolume+ 0.03*stdev && Close > 1.1*yesterdaysclose /*&& High <= 20 */ && DoneCountingAvgVolumes == true)
+            if (Volume >= averagevolume+ 0.01*stdev && Close > 1.25*yesterdaysclose /*&& High <= 20 */ && DoneCountingAvgVolumes == true)
             {
                 for (auto& x : assets)//checks to c if it's easy to borrow
                 {
@@ -362,7 +362,7 @@ int main()
 //                    }
                     //assumign it didn't move more than 1% over night at any pt, one of the following will run...
                     /*above comment deprecated*/
-                    if (Hightwo >= 1.001*currentshort.price_at_short) //stop loss
+                    if (Hightwo >= 1.02*currentshort.price_at_short) //stop loss
                     {
                         cout << "current date in doc: " << Datetwo << endl;
                         cout << "date of short: " << currentshort.date << endl;
@@ -370,8 +370,8 @@ int main()
                         LineOfOutput ThisLineOfOutput;
                         ThisLineOfOutput.date = Datetwo;
                         ThisLineOfOutput.ticker = currentshort.ticker;
-                        ThisLineOfOutput.percent_return = MySpecialRandFunc();
-                        assert(ThisLineOfOutput.percent_return >= 0.001 && ThisLineOfOutput.percent_return <= 0.01);
+                        ThisLineOfOutput.percent_return = 0.02;//MySpecialRandFunc();
+                        //assert(ThisLineOfOutput.percent_return >= 0.001 && ThisLineOfOutput.percent_return <= 0.01);
                         Outputs.push_back(ThisLineOfOutput);
                         INDEX++;//tho this doesn't rly do much as it's reset
                         break;

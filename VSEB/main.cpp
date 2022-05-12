@@ -1,7 +1,7 @@
 /*
  * ALGO DOES THE FOLLOWING....
- * Volume >= averagevolume+ 0.03*stdev && Close > 1.1*yesterdaysclose and days later = 5 and stop loss at 1 percent
- * if earnings call was today, I don't short it
+ * Volume >= averagevolume+ 0.01*stdev && Close > 1.25*yesterdaysclose and days later = 5 and stop loss at 2 percent
+ * if earnings call was today, I don't short it NOT ANYMORE, –– THIS NO LONGER APPLYS/WAS COMMENTED OUT
  */
 
 /*
@@ -762,7 +762,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)//
     auto last_trade = last_trade_response.second;
     auto currentprice = last_trade.trade.price;
 
-    if (currentprice > 1.1*closingprice)
+    if (currentprice > 1.25*closingprice)
         return true;
     else
         return false;
@@ -896,7 +896,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
                     /*As if we were truly shorting and holding the short overnight...*/
                     //tho maybew we could jupdate thme daily idk... that's for alter updates...
-                    double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.001) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
+                    double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.02) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
                     moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
@@ -993,7 +993,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     for (auto iter = TodaysVolInformation.begin(); iter!=TodaysVolInformation.end(); iter++)
     {
         //to check if price is less than or equal to 20...
-        if ( ((*iter).todaysvolume >= (*iter).avgvolume+0.03*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )
+        if ( ((*iter).todaysvolume >= (*iter).avgvolume+0.01*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )//essentially in the end stdev fluctuation didn't play a role at all rly
         {
             TickersToBeBought.push_back( (*iter).ticker );
         }
@@ -1063,7 +1063,7 @@ int Buy(int RunNumber, alpaca::Client& client)
         Py_Finalize();
 
         //remove if earnings call was today...
-        /*Turns out, from data from backtesting, that reduces earnings...*/
+        /*Never mind, this hurts the algo's preformance as it turns out..*/
         //remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
     }
     catch (...)
@@ -1209,7 +1209,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         else
         {
             double price = stod(order_response.filled_avg_price);//price order filled at
-            limitprice = price*1.001;
+            limitprice = price*1.02;
             limitprice = floor(limitprice*100+0.5)/100;
             if (limitprice == price)//in case we r dealing with a real penny stock...
                 limitprice+=0.01;
