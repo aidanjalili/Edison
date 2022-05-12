@@ -1,0 +1,8 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+PIRRQ,"Pier 1 Imports, Inc.",2020-01-06T16:15:00.000Z,TAS,,,,UTC,0,EQUITY
+SNAAF,"SAN-A CO.,LTD.",2020-01-07T01:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CALM,"Cal-Maine Foods, Inc.",2020-01-06T06:30:00.000Z,TAS,0.03,-0.21,-736.36,EST,-18000000,EQUITY
+CMC,Commercial Metals Company,2020-01-06T06:45:00.000Z,TAS,0.54,0.73,34.19,EST,-18000000,EQUITY
+PFHD,Professional Holding Corp.,2020-01-06T17:08:00.000Z,TAS,,,,EST,-18000000,EQUITY
+VYGVF,Voyager Digital Ltd.,2020-01-06T17:10:00.000Z,TAS,,,,EST,-18000000,EQUITY
+QK,Q&K International Group Limited,2020-01-06T05:46:00.000Z,TAS,-18.85,-12,36.34,EST,-18000000,EQUITY

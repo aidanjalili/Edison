@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+PNCKD,Galleon Gold Corp.,2020-06-06T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+PNCKF,Galleon Gold Corp.,2020-06-06T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+VEDL,Vedanta Limited,2020-06-06T07:03:00.000Z,TAS,,,,UTC,0,EQUITY

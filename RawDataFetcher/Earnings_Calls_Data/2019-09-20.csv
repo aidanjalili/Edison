@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AASZF,Atlantic Sapphire ASA,2019-09-20T10:20:00.000Z,TAS,-0.04,,,EDT,-14400000,EQUITY
+AMRQQ,"Alta Mesa Resources, Inc.",2019-09-20T09:24:00.000Z,TAS,0,0.06,,UTC,0,EQUITY
+BRBR,"BellRing Brands, Inc.",2019-09-20T17:08:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BRBR-WI,"BellRing Brands, Inc.",2019-09-20T17:08:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+PING,Ping Identity Holding Corp.,2019-09-20T17:07:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+JVTSF,Juventus Football Club S.p.A.,2019-09-20T09:10:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+LCUAF,Le Château Inc.,2019-09-20T18:23:00.000Z,TAS,,,,UTC,0,EQUITY
+XGN,Exagen Inc.,2019-09-20T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY

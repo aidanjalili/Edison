@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+LEDS,SemiLEDs Corporation,2020-01-10T16:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CJREF,Corus Entertainment Inc.,2020-01-10T06:00:00.000Z,TAS,0.39,0.38,-1.81,EST,-18000000,EQUITY
+INFY,Infosys Limited,2020-01-10T06:04:00.000Z,TAS,0.14,0.15,7.91,EST,-18000000,EQUITY
+NBSE,"NeuBase Therapeutics, Inc.",2020-01-10T16:13:00.000Z,TAS,-0.28,-2.14,-672.56,EST,-18000000,EQUITY
+NNYAF,,2020-01-10T20:21:00.000Z,TAS,0.68,0.42,-38.6,UTC,0,EQUITY

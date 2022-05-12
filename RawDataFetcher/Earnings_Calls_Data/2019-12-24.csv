@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AMYZF,American Manganese Inc.,2019-12-24T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+AZMTF,Azimut Exploration Inc.,2019-12-24T12:19:00.000Z,TAS,,,,EST,-18000000,EQUITY
+FNNZF,FinCanna Capital Corp.,2019-12-24T12:22:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ZOJIF,Zojirushi Corporation,2019-12-25T01:30:00.000Z,TAS,,15.27,,EST,-18000000,EQUITY
+CCARF,Colonial Coal International Corp.,2019-12-24T15:36:00.000Z,TAS,,,,EST,-18000000,EQUITY

@@ -1,0 +1,3 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+VDEVF,Van de Velde NV,2019-01-14T02:36:00.000Z,TAS,,,,EST,-18000000,EQUITY
+OROXF,Orosur Mining Inc.,2019-01-13T19:00:00.000Z,TAS,,,,EST,-18000000,EQUITY

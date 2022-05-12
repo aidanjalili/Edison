@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BRKB,Berkshire Hathaway Inc.,2018-08-04T08:15:00.000Z,TAS,3386.62,4190.13,23.73,UTC,0,EQUITY
+BRK-B,Berkshire Hathaway Inc.,2018-08-04T08:15:00.000Z,TAS,2.24,2.79,24.78,EDT,-14400000,EQUITY
+BRK-A,Berkshire Hathaway Inc.,2018-08-04T08:15:00.000Z,TAS,3386.62,4190.13,23.73,EDT,-14400000,EQUITY

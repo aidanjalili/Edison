@@ -1,0 +1,3145 @@
+build_file_artifact_location {
+  is_external: true
+  is_new_external_version: true
+  is_source: true
+  relative_path: "BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/aes/aes.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/aes/aes_nohw.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/aes/key_wrap.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/aes/mode_wrappers.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/add.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/asm/x86_64-gcc.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/bn.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/bytes.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/cmp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/ctx.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/div.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/div_extra.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/exponentiation.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/gcd.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/gcd_extra.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/generic.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/jacobi.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/montgomery.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/montgomery_inv.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/mul.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/prime.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/random.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/rsaz_exp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/shift.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/sqrt.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/cipher/aead.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/cipher/cipher.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/cipher/e_aes.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/dh/check.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/dh/dh.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/digest/digest.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/digest/digests.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/ec.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/ec_key.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/ec_montgomery.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/felem.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/oct.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/p224-64.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/p256-nistz.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/p256.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/scalar.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/simple.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/simple_mul.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/util.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/wnaf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ecdh/ecdh.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ecdsa/ecdsa.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/hmac/hmac.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/md4/md4.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/md5/md5.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/cbc.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/cfb.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/ctr.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/gcm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/gcm_nohw.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/ofb.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/polyval.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/ctrdrbg.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/fork_detect.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/rand.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/urandom.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rsa/blinding.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rsa/padding.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rsa/rsa.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rsa/rsa_impl.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/self_check/fips.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/self_check/self_check.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/sha/sha1-altivec.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/sha/sha1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/sha/sha256.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/sha/sha512.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/tls/kdf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/aead.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/aes.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/arm_arch.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/asn1.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/asn1_mac.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/asn1t.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/base.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/base64.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/bio.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/blake2.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/blowfish.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/bn.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/buf.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/buffer.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/bytestring.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/cast.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/chacha.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/cipher.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/cmac.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/conf.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/cpu.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/crypto.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/curve25519.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/des.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/dh.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/digest.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/dsa.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/e_os2.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ec.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ec_key.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ecdh.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ecdsa.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/engine.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/err.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/evp.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/evp_errors.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ex_data.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/hkdf.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/hmac.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/hpke.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/hrss.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/is_boringssl.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/lhash.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/md4.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/md5.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/mem.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/nid.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/obj.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/obj_mac.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/objects.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/opensslconf.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/opensslv.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ossl_typ.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/pem.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/pkcs12.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/pkcs7.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/pkcs8.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/poly1305.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/pool.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/rand.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/rc4.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/ripemd.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/rsa.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/safestack.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/sha.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/siphash.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/span.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/stack.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/thread.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/trust_token.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/type_check.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/x509.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/x509_vfy.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/include/openssl/x509v3.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "err_data.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_bitstr.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_bool.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_d2i_fp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_dup.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_gentm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_i2d_fp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_int.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_mbstr.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_object.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_octet.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_print.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_strex.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_strnid.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_time.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_type.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_utctm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/a_utf8.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/asn1_lib.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/asn1_par.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/asn_pack.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/f_int.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/f_string.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/tasn_dec.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/tasn_enc.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/tasn_fre.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/tasn_new.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/tasn_typ.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/tasn_utl.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/time_support.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/base64/base64.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/bio.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/bio_mem.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/connect.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/fd.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/file.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/hexdump.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/pair.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/printf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/socket.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/socket_helper.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/blake2/blake2.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bn_extra/bn_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bn_extra/convert.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/buf/buf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bytestring/asn1_compat.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bytestring/ber.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bytestring/cbb.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bytestring/cbs.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bytestring/unicode.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/chacha/chacha.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/cipher_extra.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/derive_key.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_aesccm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_aesctrhmac.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_aesgcmsiv.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_chacha20poly1305.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_des.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_null.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_rc2.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_rc4.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/e_tls.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/tls_cbc.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cmac/cmac.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/conf/conf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_aarch64_apple.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_aarch64_fuchsia.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_aarch64_linux.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_aarch64_win.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_arm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_arm_linux.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_intel.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_ppc64le.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/crypto.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/curve25519/curve25519.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/curve25519/spake25519.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/des/des.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/dh_extra/dh_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/dh_extra/params.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/digest_extra/digest_extra.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/dsa/dsa.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/dsa/dsa_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ec_extra/ec_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ec_extra/ec_derive.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ec_extra/hash_to_curve.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ecdh_extra/ecdh_extra.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ecdsa_extra/ecdsa_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/engine/engine.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/err/err.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/digestsign.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/evp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/evp_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/evp_ctx.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_dsa_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_ec.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_ec_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_ed25519.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_ed25519_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_rsa.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_rsa_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_x25519.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/p_x25519_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/pbkdf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/print.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/scrypt.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/sign.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ex_data.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bcm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/fips_shared_support.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/hkdf/hkdf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/hpke/hpke.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/hrss/hrss.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/lhash/lhash.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/mem.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/obj/obj.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/obj/obj_xref.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_all.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_info.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_lib.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_oth.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_pk8.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_pkey.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_x509.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pem/pem_xaux.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs7/pkcs7.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs7/pkcs7_x509.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs8/p5_pbev2.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs8/pkcs8.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs8/pkcs8_x509.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/poly1305/poly1305.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/poly1305/poly1305_arm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/poly1305/poly1305_vec.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pool/pool.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rand_extra/deterministic.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rand_extra/forkunsafe.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rand_extra/fuchsia.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rand_extra/passive.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rand_extra/rand_extra.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rand_extra/windows.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rc4/rc4.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/refcount_c11.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/refcount_lock.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rsa_extra/rsa_asn1.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/rsa_extra/rsa_print.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/siphash/siphash.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/stack/stack.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/thread.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/thread_none.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/thread_pthread.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/thread_win.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/trust_token/pmbtoken.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/trust_token/trust_token.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/trust_token/voprf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/a_digest.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/a_sign.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/a_verify.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/algorithm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/asn1_gen.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/by_dir.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/by_file.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/i2d_pr.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/name_print.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/rsa_pss.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/t_crl.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/t_req.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/t_x509.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/t_x509a.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_att.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_cmp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_d2.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_def.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_ext.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_lu.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_obj.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_req.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_set.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_trs.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_txt.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_v3.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_vfy.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509_vpm.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509cset.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509name.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509rset.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x509spki.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_algor.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_all.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_attrib.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_crl.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_exten.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_info.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_name.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_pkey.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_pubkey.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_req.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_sig.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_spki.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_val.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_x509.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/x_x509a.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/pcy_cache.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/pcy_data.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/pcy_lib.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/pcy_map.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/pcy_node.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/pcy_tree.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_akey.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_akeya.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_alt.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_bcons.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_bitst.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_conf.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_cpols.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_crld.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_enum.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_extku.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_genn.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_ia5.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_info.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_int.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_lib.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_ncons.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_ocsp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_pci.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_pcia.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_pcons.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_pmaps.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_prn.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_purp.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_skey.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/v3_utl.c"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/charmap.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/asn1/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bio/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/bytestring/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/chacha/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cipher_extra/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/conf/conf_def.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/conf/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/cpu_arm_linux.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/curve25519/curve25519_tables.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/curve25519/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/des/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/dsa/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/ec_extra/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/err/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/evp/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/aes/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/bn/rsaz_exp.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/cipher/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/delocate.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/dh/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/digest/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/digest/md32_common.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/p256-nistz-table.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/p256-nistz.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ec/p256_table.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/ecdsa/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/md5/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/modes/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/fork_detect.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/getrandom_fillin.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rand/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/rsa/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/sha/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/fipsmodule/tls/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/hrss/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/lhash/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/obj/obj_dat.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs7/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pkcs8/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/poly1305/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/pool/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/trust_token/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/ext_dat.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/crypto/x509v3/internal.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/third_party/fiat/curve25519_32.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/third_party/fiat/curve25519_64.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/third_party/fiat/p256_32.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/third_party/fiat/p256_64.h"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/chacha/chacha-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/cipher_extra/chacha20_poly1305_armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/aesv8-armx64.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/armv8-mont.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/ghash-neon-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/ghashv8-armx64.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/p256-armv8-asm.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/p256_beeu-armv8-asm.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/sha1-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/sha256-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/sha512-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/fipsmodule/vpaes-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "apple-aarch64/crypto/test/trampoline-armv8.S"
+    root_execution_path_fragment: "external/com_github_google_boringssl"
+  }
+  target_copt: "-Wa,--noexecstack"
+  target_copt: "-Wall"
+  target_copt: "-Werror"
+  target_copt: "-Wformat=2"
+  target_copt: "-Wsign-compare"
+  target_copt: "-Wmissing-field-initializers"
+  target_copt: "-Wwrite-strings"
+  target_copt: "-Wshadow"
+  target_copt: "-fno-common"
+  target_copt: "-std=c11"
+  target_copt: "-Wmissing-prototypes"
+  target_copt: "-Wold-style-definition"
+  target_copt: "-Wstrict-prototypes"
+  transitive_quote_include_directory: "external/com_github_google_boringssl"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl"
+  transitive_system_include_directory: "external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl/src/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+key {
+  label: "@com_github_google_boringssl//:crypto"
+}
+kind_string: "cc_library"
+tags: "__CC_RULES_MIGRATION_DO_NOT_USE_WILL_BREAK__"

@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ARLO,"Arlo Technologies, Inc.",2018-07-06T11:11:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+PCYO,Pure Cycle Corporation,2018-07-06T14:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CCF,Chase Corporation,2018-07-06T17:10:00.000Z,TAS,,,,EDT,-14400000,EQUITY

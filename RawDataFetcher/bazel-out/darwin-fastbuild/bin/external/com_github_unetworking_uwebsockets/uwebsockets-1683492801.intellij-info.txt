@@ -1,0 +1,209 @@
+build_file_artifact_location {
+  is_external: true
+  is_new_external_version: true
+  is_source: true
+  relative_path: "BUILD.bazel"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Backend.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Epoll.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Extensions.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Group.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/HTTPSocket.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Hub.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Libuv.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Networking.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Node.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Socket.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/WebSocket.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/WebSocketProtocol.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/uWS.h"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Epoll.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Extensions.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Group.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/HTTPSocket.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Hub.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Networking.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Node.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/Socket.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/WebSocket.cpp"
+    root_execution_path_fragment: "external/com_github_unetworking_uwebsockets"
+  }
+  transitive_quote_include_directory: "external/com_github_unetworking_uwebsockets"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_unetworking_uwebsockets"
+  transitive_quote_include_directory: "external/com_github_google_boringssl"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl"
+  transitive_quote_include_directory: "external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "external/com_github_madler_zlib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib"
+  transitive_system_include_directory: "external/com_github_unetworking_uwebsockets/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_unetworking_uwebsockets/src"
+  transitive_system_include_directory: "external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "external/com_github_madler_zlib/zlib/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib/zlib/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_google_boringssl//:ssl"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_libuv_libuv//:libuv"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_madler_zlib//:zlib"
+  }
+}
+key {
+  label: "@com_github_unetworking_uwebsockets//:uwebsockets"
+}
+kind_string: "cc_library"

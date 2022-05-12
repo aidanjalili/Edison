@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SNHPF,"Sanei Architecture Planning Co.,Ltd.",2020-04-13T02:30:00.000Z,TAS,,49.01,,EDT,-14400000,EQUITY
+SRAIF,Stadler Rail AG,2020-04-13T03:54:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SVTMF,SM Investments Corporation,2020-04-12T21:50:00.000Z,TAS,10.1,9.55,-5.45,EDT,-14400000,EQUITY
+FYRTF,"FamilyMart Co., Ltd.",2020-04-13T02:15:00.000Z,TAS,10.33,-4.9,-147.43,UTC,0,EQUITY
+TSIHF,"TSI Holdings Co.,Ltd.",2020-04-13T02:00:00.000Z,TAS,,-28.42,,EDT,-14400000,EQUITY
+TKSHF,"Takashimaya Company, Limited",2020-04-13T02:00:00.000Z,TAS,,-2.48,,EDT,-14400000,EQUITY
+KMSTF,Kadimastem Ltd,2020-04-13T03:09:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SMNUF,PT Sarana Menara Nusantara Tbk.,2020-04-12T21:52:00.000Z,TAS,13.74,15,9.15,EDT,-14400000,EQUITY

@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CVU,"CPI Aerostructures, Inc.",2020-12-31T06:11:00.000Z,TAS,0.02,0.07,250,EST,-18000000,EQUITY
+AMTD,AMTD IDEA Group,2020-12-31T17:01:00.000Z,TAS,,0.05,,EST,-18000000,EQUITY
+HKIB,AMTD International Inc.,2020-12-31T17:01:00.000Z,TAS,,0.05,,UTC,0,EQUITY
+BNXAF,Banxa Holdings Inc.,2020-12-31T09:49:00.000Z,TAS,,,,EST,-18000000,EQUITY
+NRVTF,Noram Lithium Corp.,2020-12-31T17:08:00.000Z,TAS,,,,EST,-18000000,EQUITY
+MKD,Molecular Data Inc.,2020-12-31T17:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+TLGT,"Teligent, Inc.",2020-12-31T15:20:00.000Z,TAS,-1.48,-0.42,71.62,UTC,0,EQUITY
+TLGTQ,"Teligent, Inc.",2020-12-31T15:20:00.000Z,TAS,-1.48,-0.42,71.62,EST,-18000000,EQUITY

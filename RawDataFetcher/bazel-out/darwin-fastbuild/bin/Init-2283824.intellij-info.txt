@@ -1,0 +1,74 @@
+build_file_artifact_location {
+  is_external: false
+  is_new_external_version: true
+  is_source: true
+  relative_path: "BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "Init.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "Init.cpp"
+    root_execution_path_fragment: ""
+  }
+  transitive_define: "CPPHTTPLIB_OPENSSL_SUPPORT"
+  transitive_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_glog/_virtual_includes/glog"
+  transitive_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags"
+  transitive_quote_include_directory: "."
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin"
+  transitive_quote_include_directory: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_marpaia_alpaca_trade_api_cpp"
+  transitive_quote_include_directory: "external/com_github_google_boringssl"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl"
+  transitive_quote_include_directory: "external/com_github_google_glog"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_glog"
+  transitive_quote_include_directory: "external/com_github_gflags_gflags"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_gflags_gflags"
+  transitive_quote_include_directory: "external/com_github_tencent_rapidjson"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_tencent_rapidjson"
+  transitive_quote_include_directory: "external/com_github_yhirose_cpp_httplib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_yhirose_cpp_httplib"
+  transitive_quote_include_directory: "external/com_github_unetworking_uwebsockets"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_unetworking_uwebsockets"
+  transitive_quote_include_directory: "external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "external/com_github_madler_zlib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib"
+  transitive_system_include_directory: "external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "external/com_github_tencent_rapidjson/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_tencent_rapidjson/include"
+  transitive_system_include_directory: "external/com_github_unetworking_uwebsockets/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_unetworking_uwebsockets/src"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "external/com_github_madler_zlib/zlib/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib/zlib/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_marpaia_alpaca_trade_api_cpp//alpaca:alpaca"
+  }
+}
+key {
+  label: "//:Init"
+}
+kind_string: "cc_library"

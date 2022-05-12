@@ -1,0 +1,8 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SAABF,Saab AB (publ),2020-10-19T02:14:00.000Z,TAS,4.05,5.43,34.07,EDT,-14400000,EQUITY
+IVSBF,Investor AB (publ),2020-10-19T03:25:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+HDB,HDFC Bank Limited,2020-10-18T22:35:00.000Z,TAS,0.56,0.55,-1.96,EDT,-14400000,EQUITY
+MBRFF,Mo-BRUK S.A.,2020-10-19T02:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+KWLGF,KWG Living Group Holdings Limited,2020-10-18T18:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+PHG,Koninklijke Philips N.V.,2020-10-19T01:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+RYLPF,Koninklijke Philips N.V.,2020-10-19T01:00:00.000Z,TAS,0.45,0.6,34.83,EDT,-14400000,EQUITY

@@ -1,0 +1,8 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+EIHDF,888 Holdings plc,2019-04-15T02:29:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BRAGF,BAUER Aktiengesellschaft,2019-04-15T01:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SHYYF,"Shakey's Pizza Asia Ventures, Inc.",2019-04-14T22:37:00.000Z,TAS,0.5,0.2,-60,UTC,0,EQUITY
+PXMFF,Philex Mining Corporation,2019-04-14T20:59:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+UVRBF,Universal Robina Corporation,2019-04-15T03:27:00.000Z,TAS,1.38,0.76,-44.81,EDT,-14400000,EQUITY
+VIVHY,Vivendi SE,2019-04-15T02:22:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+VIVEF,Vivendi SE,2019-04-15T02:22:00.000Z,TAS,,,,EDT,-14400000,EQUITY

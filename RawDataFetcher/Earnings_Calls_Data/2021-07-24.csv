@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+IBN,ICICI Bank Limited,2021-07-24T06:56:00.000Z,TAS,0.2,0.18,-8.08,EDT,-14400000,EQUITY

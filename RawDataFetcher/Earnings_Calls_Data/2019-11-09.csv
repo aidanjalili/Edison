@@ -1,0 +1,5 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+YPF,YPF Sociedad Anónima,2019-11-09T07:00:00.000Z,TAS,0.42,-0.64,-252.48,EST,-18000000,EQUITY
+BBAR,Banco BBVA Argentina S.A.,2019-11-09T07:51:00.000Z,TAS,0.49,1.05,114.72,EST,-18000000,EQUITY
+BRFS,BRF S.A.,2019-11-09T05:24:00.000Z,TAS,0.05,0.14,156.6,EST,-18000000,EQUITY
+CCU,Compañía Cervecerías Unidas S.A.,2019-11-09T06:58:00.000Z,TAS,0.16,0.07,-58.75,EST,-18000000,EQUITY

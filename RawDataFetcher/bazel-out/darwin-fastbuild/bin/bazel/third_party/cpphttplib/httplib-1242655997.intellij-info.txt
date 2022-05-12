@@ -1,0 +1,38 @@
+build_file_artifact_location {
+  is_external: false
+  is_new_external_version: true
+  is_source: true
+  relative_path: "bazel/third_party/cpphttplib/BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/cpphttplib/httplib.h"
+    root_execution_path_fragment: ""
+  }
+  transitive_quote_include_directory: "."
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin"
+  transitive_quote_include_directory: "external/com_github_google_boringssl"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl"
+  transitive_system_include_directory: "external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl/src/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_google_boringssl//:ssl"
+  }
+}
+key {
+  label: "//bazel/third_party/cpphttplib:httplib"
+}
+kind_string: "cc_library"

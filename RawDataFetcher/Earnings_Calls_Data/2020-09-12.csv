@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+HAIVF,Haivision Systems Inc.,2020-09-12T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY

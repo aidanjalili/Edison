@@ -1,0 +1,209 @@
+build_file_artifact_location {
+  is_external: false
+  is_new_external_version: true
+  is_source: true
+  relative_path: "bazel/third_party/uwebsockets/BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Backend.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Epoll.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Extensions.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Group.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/HTTPSocket.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Hub.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Libuv.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Networking.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Node.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Socket.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/WebSocket.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/WebSocketProtocol.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/uWS.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Epoll.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Extensions.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Group.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/HTTPSocket.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Hub.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Networking.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Node.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/Socket.cpp"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/uwebsockets/src/WebSocket.cpp"
+    root_execution_path_fragment: ""
+  }
+  transitive_quote_include_directory: "."
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin"
+  transitive_quote_include_directory: "external/com_github_google_boringssl"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl"
+  transitive_quote_include_directory: "external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "external/com_github_madler_zlib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib"
+  transitive_system_include_directory: "bazel/third_party/uwebsockets/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/bazel/third_party/uwebsockets/src"
+  transitive_system_include_directory: "external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "external/com_github_madler_zlib/zlib/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib/zlib/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_google_boringssl//:ssl"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_libuv_libuv//:libuv"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_madler_zlib//:zlib"
+  }
+}
+key {
+  label: "//bazel/third_party/uwebsockets:uwebsockets"
+}
+kind_string: "cc_library"

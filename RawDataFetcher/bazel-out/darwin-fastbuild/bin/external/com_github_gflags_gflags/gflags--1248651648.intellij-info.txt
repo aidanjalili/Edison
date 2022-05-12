@@ -1,0 +1,105 @@
+build_file_artifact_location {
+  is_external: true
+  is_new_external_version: true
+  is_source: true
+  relative_path: "BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_gflags_gflags/gflags_completions.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_gflags_gflags/gflags_declare.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_gflags_gflags/gflags_google.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_gflags_gflags/gflags.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/config.h"
+    root_execution_path_fragment: "external/com_github_gflags_gflags"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/gflags.cc"
+    root_execution_path_fragment: "external/com_github_gflags_gflags"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/gflags_completions.cc"
+    root_execution_path_fragment: "external/com_github_gflags_gflags"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/gflags_reporting.cc"
+    root_execution_path_fragment: "external/com_github_gflags_gflags"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/mutex.h"
+    root_execution_path_fragment: "external/com_github_gflags_gflags"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "src/util.h"
+    root_execution_path_fragment: "external/com_github_gflags_gflags"
+  }
+  target_copt: "-DGFLAGS_BAZEL_BUILD"
+  target_copt: "-DGFLAGS_INTTYPES_FORMAT_C99"
+  target_copt: "-DGFLAGS_IS_A_DLL=0"
+  target_copt: "-DHAVE_STDINT_H"
+  target_copt: "-DHAVE_SYS_TYPES_H"
+  target_copt: "-DHAVE_INTTYPES_H"
+  target_copt: "-DHAVE_SYS_STAT_H"
+  target_copt: "-DHAVE_STRTOLL"
+  target_copt: "-DHAVE_STRTOQ"
+  target_copt: "-DHAVE_RWLOCK"
+  target_copt: "-DHAVE_UNISTD_H"
+  target_copt: "-DHAVE_FNMATCH_H"
+  target_copt: "-DHAVE_PTHREAD"
+  transitive_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags"
+  transitive_quote_include_directory: "external/com_github_gflags_gflags"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_gflags_gflags"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+key {
+  label: "@com_github_gflags_gflags//:gflags"
+}
+kind_string: "cc_library"

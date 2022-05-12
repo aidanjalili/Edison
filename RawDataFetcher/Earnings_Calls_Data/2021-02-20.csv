@@ -1,0 +1,3 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SBE,Switchback Energy Acquisition Corporation,2021-02-20T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+CHPT,"ChargePoint Holdings, Inc.",2021-02-20T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY

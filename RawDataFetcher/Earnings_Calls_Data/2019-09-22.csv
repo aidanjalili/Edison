@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+UXIN,Uxin Limited,2019-09-23T02:35:00.000Z,TAS,-0.72,-1.14,-57.24,EDT,-14400000,EQUITY

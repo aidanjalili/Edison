@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ANGO,'AngioDynamics, Inc.',2019-01-04T07:00:00.000Z,TAS,0.21,0.22,5.77,EST,-18000000,EQUITY
+HHT,'Color Star Technology Co., Ltd.',2019-01-04T17:45:00.000Z,TAS,,,,UTC,0,EQUITY
+CSCW,'Color Star Technology Co., Ltd.',2019-01-04T17:45:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CALM,'Cal-Maine Foods, Inc.',2019-01-04T06:30:00.000Z,TAS,0.48,0.49,1.45,EST,-18000000,EQUITY
+HURC,'Hurco Companies, Inc.',2019-01-04T08:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+NWKLF,Network International Holdings plc,2019-01-04T22:07:00.000Z,TAS,,,,EST,-18000000,EQUITY
+LW,'Lamb Weston Holdings, Inc.',2019-01-04T08:30:00.000Z,TAS,0.72,0.8,10.8,EST,-18000000,EQUITY
+RPM,RPM International Inc.,2019-01-04T06:46:00.000Z,TAS,0.67,0.52,-22.62,EST,-18000000,EQUITY

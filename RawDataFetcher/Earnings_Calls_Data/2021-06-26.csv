@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CFNCF,Compagnie Financière Tradition SA,2021-06-27T03:50:00.000Z,TAS,,,,EDT,-14400000,EQUITY

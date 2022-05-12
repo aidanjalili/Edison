@@ -1,0 +1,12 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+FFNTF,4Front Ventures Corp.,2018-12-31T17:05:00.000Z,TAS,0.01,0,-100,EST,-18000000,EQUITY
+AVLIF,Advantage Lithium Corp.,2018-12-31T14:31:00.000Z,TAS,,,,UTC,0,EQUITY
+EEVVF,Eve & Co Incorporated,2018-12-31T16:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+NWHAF,Handa Mining Corporation,2018-12-31T15:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+EEVVD,Eve & Co Incorporated,2018-12-31T16:05:00.000Z,TAS,,,,UTC,0,EQUITY
+COTQF,Cotinga Pharmaceuticals Inc.,2018-12-31T13:43:00.000Z,TAS,,,,EST,-18000000,EQUITY
+PQEFF,Petroteq Energy Inc.,2018-12-31T17:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+PRED,'Predictive Technology Group, Inc.',2018-12-31T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+RICK,'RCI Hospitality Holdings, Inc.',2018-12-31T16:05:00.000Z,TAS,0.47,0.41,-11.83,EST,-18000000,EQUITY
+MGXMF,MGX Minerals Inc.,2018-12-31T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+PTOTF,Patriot One Technologies Inc.,2018-12-31T15:42:00.000Z,TAS,-0.03,-0.04,-33.33,EST,-18000000,EQUITY

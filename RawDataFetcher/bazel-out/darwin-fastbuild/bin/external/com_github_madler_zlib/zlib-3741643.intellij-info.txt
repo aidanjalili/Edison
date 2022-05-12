@@ -1,0 +1,284 @@
+build_file_artifact_location {
+  is_external: true
+  is_new_external_version: true
+  is_source: true
+  relative_path: "BUILD.bazel"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/crc32.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/deflate.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/gzguts.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/inffast.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/inffixed.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/inflate.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/inftrees.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/trees.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/zconf.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/zlib.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: false
+    relative_path: "external/com_github_madler_zlib/zlib/include/zutil.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "adler32.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "compress.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "crc32.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "deflate.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "gzclose.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "gzlib.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "gzread.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "gzwrite.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "infback.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inffast.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inflate.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inftrees.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "trees.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "uncompr.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "zutil.c"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "crc32.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "deflate.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "gzguts.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inffast.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inffixed.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inflate.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "inftrees.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "trees.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "zconf.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "zlib.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "zutil.h"
+    root_execution_path_fragment: "external/com_github_madler_zlib"
+  }
+  target_copt: "-Wno-unused-variable"
+  target_copt: "-Wno-implicit-function-declaration"
+  transitive_quote_include_directory: "external/com_github_madler_zlib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib"
+  transitive_system_include_directory: "external/com_github_madler_zlib/zlib/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib/zlib/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+key {
+  label: "@com_github_madler_zlib//:zlib"
+}
+kind_string: "cc_library"

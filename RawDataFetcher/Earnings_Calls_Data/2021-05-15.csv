@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BTGGF,Bitcoin Group SE,2021-05-16T01:35:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+OFSTF,Carbon Streaming Corporation,2021-05-15T06:52:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GREE,Greenidge Generation Holdings Inc.,2021-05-15T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY

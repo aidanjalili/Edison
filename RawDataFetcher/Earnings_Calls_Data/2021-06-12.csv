@@ -1,0 +1,3 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CCHBF,Coca-Cola HBC AG,2021-06-12T12:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ANEB,"Anebulo Pharmaceuticals, Inc.",2021-06-12T08:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

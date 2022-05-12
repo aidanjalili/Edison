@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AAMAF,Atlas Mara Limited,2018-12-26T09:24:00.000Z,TAS,,,,EST,-18000000,EQUITY
+HSHIF,Hoshizaki Corporation,2018-12-26T20:00:00.000Z,TAS,105.79,118.01,11.56,EST,-18000000,EQUITY
+JFROF,'J. Front Retailing Co., Ltd.',2018-12-27T01:00:00.000Z,TAS,29.04,23.57,-18.84,EST,-18000000,EQUITY
+YUMSF,'Demae-Can Co.,Ltd',2018-12-27T02:00:00.000Z,TAS,,2.25,,EST,-18000000,EQUITY
+NCLTF,'Nitori Holdings Co., Ltd.',2018-12-27T01:00:00.000Z,TAS,157.42,125.35,-20.37,EST,-18000000,EQUITY

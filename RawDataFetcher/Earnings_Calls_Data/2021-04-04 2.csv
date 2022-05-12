@@ -1,0 +1,7 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AAHIF,'Asahi Co., Ltd.',2021-04-05T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+STSGF,STS Group AG,2021-04-05T01:35:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SHYYF,'Shakey's Pizza Asia Ventures, Inc.',2021-04-05T00:58:00.000Z,TAS,,,,UTC,0,EQUITY
+TOETF,Tosei Corporation,2021-04-05T02:00:00.000Z,TAS,,,,UTC,0,EQUITY
+SHAOF,'SHIMAMURA Co., Ltd.',2021-04-05T02:01:00.000Z,TAS,61.16,125.49,105.19,EDT,-14400000,EQUITY
+DSKIF,'Daiseki Co.,Ltd.',2021-04-05T02:00:00.000Z,TAS,,31.97,,EDT,-14400000,EQUITY

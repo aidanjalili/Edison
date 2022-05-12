@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BRK-B,Berkshire Hathaway Inc.,2021-02-27T08:26:00.000Z,TAS,2.27,2.15,-5.16,EST,-18000000,EQUITY
+BRK-A,Berkshire Hathaway Inc.,2021-02-27T08:26:00.000Z,TAS,3394.71,3224.79,-5.01,EST,-18000000,EQUITY
+DUROF,"Duro Felguera, S.A.",2021-02-28T01:35:00.000Z,TAS,,,,EST,-18000000,EQUITY

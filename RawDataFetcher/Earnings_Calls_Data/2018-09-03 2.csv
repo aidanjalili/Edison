@@ -1,0 +1,5 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ZMTBF,Zumtobel Group AG,2018-09-04T01:27:00.000Z,TAS,,,,UTC,0,EQUITY
+PTHIF,PT Solusi Bangun Indonesia Tbk,2018-09-03T13:03:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+DLTTF,Dalata Hotel Group plc,2018-09-04T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+NICMF,Nickel Mines Limited,2018-09-03T19:49:00.000Z,TAS,,,,EDT,-14400000,EQUITY

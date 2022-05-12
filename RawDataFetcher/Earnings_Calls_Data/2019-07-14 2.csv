@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ADEVF,Adevinta ASA,2019-07-15T01:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+AXFOY,Axfood AB (publ),2019-07-15T01:00:00.000Z,TAS,2.06,2,-2.82,EDT,-14400000,EQUITY
+AXFOF,Axfood AB (publ),2019-07-15T01:00:00.000Z,TAS,2.06,2,-2.82,EDT,-14400000,EQUITY
+DCTH,'Delcath Systems, Inc.',2019-07-14T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SPHXF,'SM Prime Holdings, Inc.',2019-07-15T00:23:00.000Z,TAS,0.33,0.36,10.64,EDT,-14400000,EQUITY

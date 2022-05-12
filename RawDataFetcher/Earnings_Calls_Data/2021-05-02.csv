@@ -1,0 +1,10 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+EMBVF,"Arca Continental, S.A.B. de C.V.",2021-05-02T22:48:00.000Z,TAS,1.4,1.47,5,EDT,-14400000,EQUITY
+KCDMF,"Kimberly-Clark de México, S. A. B. de C. V.",2021-05-03T02:35:00.000Z,TAS,0.51,0.52,1.96,EDT,-14400000,EQUITY
+MTPOF,Metropolitan Bank & Trust Company,2021-05-02T21:19:00.000Z,TAS,1.43,1.73,20.73,EDT,-14400000,EQUITY
+INREF,InRetail Perú Corp.,2021-05-02T11:48:00.000Z,TAS,,-0.34,,EDT,-14400000,EQUITY
+CUBXF,CubicFarm Systems Corp.,2021-05-02T20:00:00.000Z,TAS,-0.03,-0.05,-66.67,EDT,-14400000,EQUITY
+SCCO,Southern Copper Corporation,2021-05-02T12:19:00.000Z,TAS,0.92,0.99,7.96,EDT,-14400000,EQUITY
+DBVT,DBV Technologies S.A.,2021-05-03T01:30:00.000Z,TAS,-0.51,-0.22,56.69,EDT,-14400000,EQUITY
+DBVTF,DBV Technologies S.A.,2021-05-03T01:30:00.000Z,TAS,-0.5,-0.45,10.22,EDT,-14400000,EQUITY
+SIUAF,Stabilus S.A.,2021-05-03T01:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

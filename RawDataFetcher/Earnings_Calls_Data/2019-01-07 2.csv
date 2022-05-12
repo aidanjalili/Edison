@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BGOUF,Bang & Olufsen a/s,2019-01-08T02:25:00.000Z,TAS,,0.71,,EST,-18000000,EQUITY
+AMLLF,'AEON Mall Co., Ltd.',2019-01-08T01:00:00.000Z,TAS,29.92,30.67,2.5,EST,-18000000,EQUITY
+PCYO,Pure Cycle Corporation,2019-01-07T14:17:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CMC,Commercial Metals Company,2019-01-07T06:45:00.000Z,TAS,0.33,0.35,4.79,EST,-18000000,EQUITY
+GSUM,Gridsum Holding Inc.,2019-01-07T16:32:00.000Z,TAS,,,,UTC,0,EQUITY

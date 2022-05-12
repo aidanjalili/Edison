@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+HDB,HDFC Bank Limited,2021-01-16T06:19:00.000Z,TAS,0.54,0.64,18.67,EST,-18000000,EQUITY

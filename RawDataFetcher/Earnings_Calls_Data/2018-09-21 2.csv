@@ -1,0 +1,8 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+FUNWF,4fun Media S.A.,2018-09-21T12:50:00.000Z,TAS,,,,UTC,0,EQUITY
+NMTLF,New Age Metals Inc.,2018-09-21T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+AMTBB,Amerant Bancorp Inc.,2018-09-21T16:05:00.000Z,TAS,,,,UTC,0,EQUITY
+AMTB,Amerant Bancorp Inc.,2018-09-21T16:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ELAN,Elanco Animal Health Incorporated,2018-09-21T17:07:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CLGN,CollPlant Biotechnologies Ltd.,2018-09-21T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+RBTEF,Robertet SA,2018-09-21T04:53:00.000Z,TAS,,,,EDT,-14400000,EQUITY

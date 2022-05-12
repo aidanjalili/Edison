@@ -1,0 +1,8 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+PAC,"Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",2020-05-02T13:38:00.000Z,TAS,1.31,1.69,29.48,EDT,-14400000,EQUITY
+AKO-B,Embotelladora Andina S.A.,2020-05-02T11:09:00.000Z,TAS,0.3,0.36,20,EDT,-14400000,EQUITY
+BRKB,Berkshire Hathaway Inc.,2020-05-02T08:09:00.000Z,TAS,3866.63,3617.38,-6.45,UTC,0,EQUITY
+BRK-B,Berkshire Hathaway Inc.,2020-05-02T08:09:00.000Z,TAS,2.51,2.41,-3.98,EDT,-14400000,EQUITY
+BRK-A,Berkshire Hathaway Inc.,2020-05-02T08:09:00.000Z,TAS,3866.63,3617.38,-6.45,EDT,-14400000,EQUITY
+LTMCF,Lithium Chile Inc.,2020-05-02T12:33:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+FMX,"Fomento Económico Mexicano, S.A.B. de C.V.",2020-05-02T12:23:00.000Z,TAS,0.52,0.2,-62.5,EDT,-14400000,EQUITY

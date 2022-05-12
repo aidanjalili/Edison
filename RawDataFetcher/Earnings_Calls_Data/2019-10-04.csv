@@ -1,0 +1,5 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+IDTVF,AB Industrivärden (publ),2019-10-04T04:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+HAFC,Hanmi Financial Corporation,2019-10-04T16:21:00.000Z,TAS,0.18,0.09,-48.86,EDT,-14400000,EQUITY
+FREQ,"Frequency Therapeutics, Inc.",2019-10-04T16:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SCND,"Scientific Industries, Inc.",2019-10-04T16:53:00.000Z,TAS,,,,EDT,-14400000,EQUITY

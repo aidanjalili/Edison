@@ -1,0 +1,284 @@
+build_file_artifact_location {
+  is_external: false
+  is_new_external_version: true
+  is_source: true
+  relative_path: "bazel/third_party/zlib/BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/crc32.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/deflate.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/gzguts.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/inffast.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/inffixed.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/inflate.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/inftrees.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/trees.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/zconf.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/zlib.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: false
+    relative_path: "bazel/third_party/zlib/zlib/include/zutil.h"
+    root_execution_path_fragment: "bazel-out/darwin-fastbuild/bin"
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/adler32.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/compress.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/crc32.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/deflate.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/gzclose.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/gzlib.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/gzread.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/gzwrite.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/infback.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inffast.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inflate.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inftrees.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/trees.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/uncompr.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/zutil.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/crc32.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/deflate.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/gzguts.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inffast.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inffixed.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inflate.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/inftrees.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/trees.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/zconf.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/zlib.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/zlib/zutil.h"
+    root_execution_path_fragment: ""
+  }
+  target_copt: "-Wno-unused-variable"
+  target_copt: "-Wno-implicit-function-declaration"
+  transitive_quote_include_directory: "."
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin"
+  transitive_system_include_directory: "bazel/third_party/zlib/zlib/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/bazel/third_party/zlib/zlib/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+key {
+  label: "//bazel/third_party/zlib:zlib"
+}
+kind_string: "cc_library"

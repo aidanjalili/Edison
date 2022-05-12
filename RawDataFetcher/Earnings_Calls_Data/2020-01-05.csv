@@ -1,0 +1,3 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+SOYIF,Soda Sanayii A.S.,2020-01-05T19:00:00.000Z,TAS,,0.3,,UTC,0,EQUITY
+DSKIF,"Daiseki Co.,Ltd.",2020-01-06T01:00:00.000Z,TAS,,39.48,,EST,-18000000,EQUITY

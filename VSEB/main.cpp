@@ -1,6 +1,7 @@
 /*
  * ALGO DOES THE FOLLOWING....
- * Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 and days later = 5 and stop loss at 1 percent
+ * Volume >= averagevolume+ 0.03*stdev && Close > 1.1*yesterdaysclose and days later = 5 and stop loss at 1 percent
+ * if earnings call was today, I don't short it
  */
 
 /*
@@ -761,7 +762,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)//
     auto last_trade = last_trade_response.second;
     auto currentprice = last_trade.trade.price;
 
-    if (currentprice > 1.2*closingprice && currentprice <= 20)
+    if (currentprice > 1.1*closingprice)
         return true;
     else
         return false;
@@ -895,7 +896,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
                     /*As if we were truly shorting and holding the short overnight...*/
                     //tho maybew we could jupdate thme daily idk... that's for alter updates...
-                    double moneyrecieved = ( stod(lim_price) / (1.01) )*stod(buy_order.filled_qty);
+                    double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.001) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
                     moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
@@ -920,7 +921,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
 
 
-    cash = cash*((1-0.99)/(tickers.size()*(1.0105-1)));
+    cash = cash*((1-0.99)/(tickers.size()*(1.0105-1)));//silly way to write this, no? But alright...
 
     /*Essentially this, referencing the line above,
      * just invests ~95.2% of what we actually could. (as of rn with bottom number at 1.0105)
@@ -948,20 +949,8 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
     /*AND ENDS HERE */
 
-    //Check to c if there is too little cash to split evenly amongst all tickers...
-    if (cash / tickers.size() < 20 )//honestly hope this never happens cuz it's a bit wonky/shoots too low due to the 1.015*tickers.size() above
-    {
-        int NumberOfTickers;
-        NumberOfTickers = cash/25;
-        double amnttobeinvested = cash/NumberOfTickers;
-
-        pair<double, int> ret;
-        ret.first = amnttobeinvested;
-        ret.second = NumberOfTickers;
-        return ret;
-    }
-        //check to c if there is too much cash -- so we j do 75k in each ticker...
-    else if (cash/tickers.size() > 75000)
+    //check to c if there is too much cash -- so we j do 75k in each ticker...
+    if (cash/tickers.size() > 75000)
     {
         pair<double, int> ret;
         ret.first = 75000;
@@ -1004,7 +993,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     for (auto iter = TodaysVolInformation.begin(); iter!=TodaysVolInformation.end(); iter++)
     {
         //to check if price is less than or equal to 20...
-        if ( ((*iter).todaysvolume >= (*iter).avgvolume+3*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )
+        if ( ((*iter).todaysvolume >= (*iter).avgvolume+0.03*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )
         {
             TickersToBeBought.push_back( (*iter).ticker );
         }
@@ -1059,20 +1048,28 @@ int Buy(int RunNumber, alpaca::Client& client)
         }
     }
     //TickersToBeBought is the vector with the tickers to be bought...
-    Py_Initialize();
-    PyObject *pName, *pModule, *pFunc, *pArgs, *pValue;
-    PyObject* sysPath = PySys_GetObject("path");
-    auto pystring = PyUnicode_FromString(DIRECTORY.c_str());
-    PyList_Append(sysPath, pystring);
-    pName = PyUnicode_FromString((char*)"earnings_call_downloader");
-    pModule = PyImport_Import(pName);
-    pFunc = PyObject_GetAttrString(pModule, (char*)"main");
-    pArgs = PyTuple_Pack(1, PyUnicode_FromString(DIRECTORY.c_str()));
-    PyObject_CallObject(pFunc, pArgs);
-    Py_Finalize();
+    try
+    {
+        Py_Initialize();
+        PyObject *pName, *pModule, *pFunc, *pArgs, *pValue;
+        PyObject* sysPath = PySys_GetObject("path");
+        auto pystring = PyUnicode_FromString(DIRECTORY.c_str());
+        PyList_Append(sysPath, pystring);
+        pName = PyUnicode_FromString((char*)"earnings_call_downloader");
+        pModule = PyImport_Import(pName);
+        pFunc = PyObject_GetAttrString(pModule, (char*)"main");
+        pArgs = PyTuple_Pack(1, PyUnicode_FromString(DIRECTORY.c_str()));
+        PyObject_CallObject(pFunc, pArgs);
+        Py_Finalize();
 
-    //remove if earnings call was today...
-    remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
+        //remove if earnings call was today...
+        remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
+    }
+    catch (...)
+    {
+        //do nothing
+        cerr << "python script failed" << endl;
+    }
 
 
     pair<double, int> Amnt_Invested;
@@ -1211,8 +1208,10 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         else
         {
             double price = stod(order_response.filled_avg_price);//price order filled at
-            limitprice = price*1.01;
+            limitprice = price*1.001;
             limitprice = floor(limitprice*100+0.5)/100;
+            if (limitprice == price)//in case we r dealing with a real penny stock...
+                limitprice+=0.01;
         }
 
 
@@ -1306,7 +1305,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
                 sleep(4);//wait for order to be put in...
                 //check status of that order, and if it was bad, alert user right away!
-                if (limit_order_response_two.status != "filled")
+                if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted")
                 {
                     string Message = "Failure for Emergency Buy Order Placed For: " + order_response.symbol + " on: " +
                                      to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
@@ -1695,6 +1694,7 @@ int main()
 
                 HasShitGoneDown = true;
             }
+
 
             if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && TodaysDailyLimSellsPlaced == false)
             {

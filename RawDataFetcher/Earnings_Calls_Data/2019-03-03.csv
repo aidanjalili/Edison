@@ -1,0 +1,8 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+PSZKF,Powszechna Kasa Oszczednosci Bank Polski Spólka Akcyjna,2019-03-04T01:29:00.000Z,TAS,0.8,0.81,1.25,EST,-18000000,EQUITY
+BDVSY,The Bidvest Group Limited,2019-03-04T00:07:00.000Z,TAS,,,,EST,-18000000,EQUITY
+BKCYF,Bank of Cyprus Holdings Public Limited Company,2019-03-04T02:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CZGZF,Colt CZ Group SE,2019-03-03T05:20:00.000Z,TAS,,,,EST,-18000000,EQUITY
+PIGEF,Pigeon Corporation,2019-03-04T01:00:00.000Z,TAS,27.9,16.66,-40.3,EST,-18000000,EQUITY
+CHWRF,China Tower Corporation Limited,2019-03-03T23:06:00.000Z,TAS,,,,EST,-18000000,EQUITY
+SHLLF,"Shelf Drilling, Ltd.",2019-03-04T01:42:00.000Z,TAS,-0.1,-0.08,20,EST,-18000000,EQUITY

@@ -1,0 +1,12 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AMYZF,American Manganese Inc.,2020-12-30T18:21:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CGA,"China Green Agriculture, Inc.",2020-12-30T17:17:00.000Z,TAS,,,,EST,-18000000,EQUITY
+DMGGF,DMG Blockchain Solutions Inc.,2020-12-30T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+CTXDF,Cantex Mine Development Corp.,2020-12-30T14:38:00.000Z,TAS,,,,EST,-18000000,EQUITY
+INCAF,Inca One Gold Corp.,2020-12-30T22:55:00.000Z,TAS,,,,EST,-18000000,EQUITY
+FNNZF,FinCanna Capital Corp.,2020-12-30T13:51:00.000Z,TAS,,,,EST,-18000000,EQUITY
+NRGOF,Newrange Gold Corp.,2020-12-30T16:19:00.000Z,TAS,-0.01,0,100,EST,-18000000,EQUITY
+EFRGF,Pasofino Gold Limited,2020-12-30T17:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+MCIOF,MCI Onehealth Technologies Inc.,2020-12-30T17:07:00.000Z,TAS,,,,EST,-18000000,EQUITY
+VMAR,Vision Marine Technologies Inc.,2020-12-30T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+SPCB,SuperCom Ltd.,2020-12-30T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY

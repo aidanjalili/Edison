@@ -1,0 +1,271 @@
+build_file_artifact_location {
+  is_external: true
+  is_new_external_version: true
+  is_source: true
+  relative_path: "BUILD.bazel"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/allocators.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/document.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/encodedstream.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/encodings.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/error/en.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/error/error.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/filereadstream.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/filewritestream.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/fwd.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/biginteger.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/diyfp.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/dtoa.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/ieee754.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/itoa.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/meta.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/pow10.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/regex.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/stack.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/strfunc.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/strtod.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/internal/swap.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/istreamwrapper.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/memorybuffer.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/memorystream.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/msinttypes/inttypes.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/msinttypes/stdint.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/ostreamwrapper.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/pointer.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/prettywriter.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/rapidjson.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/reader.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/schema.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/stream.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/stringbuffer.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "include/rapidjson/writer.h"
+    root_execution_path_fragment: "external/com_github_tencent_rapidjson"
+  }
+  target_copt: "-Wno-non-virtual-dtor"
+  target_copt: "-Wno-unused-variable"
+  target_copt: "-Wno-implicit-fallthrough"
+  transitive_quote_include_directory: "external/com_github_tencent_rapidjson"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_tencent_rapidjson"
+  transitive_system_include_directory: "external/com_github_tencent_rapidjson/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_tencent_rapidjson/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+key {
+  label: "@com_github_tencent_rapidjson//:rapidjson"
+}
+kind_string: "cc_library"

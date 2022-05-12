@@ -1,0 +1,375 @@
+build_file_artifact_location {
+  is_external: false
+  is_new_external_version: true
+  is_source: true
+  relative_path: "bazel/third_party/libuv/BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/darwin.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/errno.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/threadpool.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/tree.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/unix.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/version.h"
+    root_execution_path_fragment: ""
+  }
+  header {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/internal.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/unix.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/linux.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/sunos.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/darwin.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/bsd.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/include/uv/aix.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/fs-poll.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/heap-inl.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/inet.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/queue.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/threadpool.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/timer.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/uv-common.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/uv-common.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/uv-data-getter-setters.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/version.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/async.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/atomic-ops.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/core.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/dl.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/fs.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/getaddrinfo.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/getnameinfo.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/internal.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/loop.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/loop-watcher.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/pipe.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/poll.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/process.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/signal.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/spinlock.h"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/stream.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/tcp.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/thread.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/tty.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/udp.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/bsd-ifaddrs.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/darwin.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/darwin-proctitle.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/fsevents.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/kqueue.c"
+    root_execution_path_fragment: ""
+  }
+  source {
+    is_external: false
+    is_new_external_version: true
+    is_source: true
+    relative_path: "bazel/third_party/libuv/src/unix/proctitle.c"
+    root_execution_path_fragment: ""
+  }
+  transitive_quote_include_directory: "."
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin"
+  transitive_system_include_directory: "bazel/third_party/libuv/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/bazel/third_party/libuv/include"
+  transitive_system_include_directory: "bazel/third_party/libuv/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/bazel/third_party/libuv/src"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+key {
+  label: "//bazel/third_party/libuv:libuv"
+}
+kind_string: "cc_library"

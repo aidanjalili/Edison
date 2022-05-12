@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+JFROF,"J. Front Retailing Co., Ltd.",2019-12-26T01:30:00.000Z,TAS,28.66,25.33,-11.62,EST,-18000000,EQUITY
+YUMSF,"Demae-Can Co.,Ltd",2019-12-26T02:00:00.000Z,TAS,,-5.38,,EST,-18000000,EQUITY
+TKSHF,"Takashimaya Company, Limited",2019-12-26T02:00:00.000Z,TAS,,23.82,,EST,-18000000,EQUITY

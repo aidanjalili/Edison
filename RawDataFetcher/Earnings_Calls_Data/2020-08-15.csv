@@ -1,0 +1,13 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AIRO,Airspan Networks Holdings Inc.,2020-08-15T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+NMKCF,"Controladora Nemak, S.A.B. de C.V.",2020-08-15T10:31:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ASAI,Sendas Distribuidora S.A.,2020-08-15T12:32:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+THNPF,Technip Energies N.V.,2020-08-15T08:20:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+FORA,Forian Inc.,2020-08-15T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+FDVWF,Friedrich Vorwerk Group SE,2020-08-15T12:07:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+LVRP,"Liverpool Group, Inc.",2020-08-15T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GREE,Greenidge Generation Holdings Inc.,2020-08-15T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+GPIIF,"GP Investments, Ltd.",2020-08-15T17:25:00.000Z,TAS,,,,UTC,0,EQUITY
+THRY,"Thryv Holdings, Inc.",2020-08-15T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ICCT,iCoreConnect Inc.,2020-08-15T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+MMSDF,Macarthur Minerals Limited,2020-08-15T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY

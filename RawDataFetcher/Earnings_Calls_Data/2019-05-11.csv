@@ -1,0 +1,3 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+PGCMF,"Puregold Price Club, Inc.",2019-05-11T16:16:00.000Z,TAS,0.56,0.53,-4.5,EDT,-14400000,EQUITY
+SILLF,Sarine Technologies Ltd.,2019-05-12T03:22:00.000Z,TAS,,,,EDT,-14400000,EQUITY

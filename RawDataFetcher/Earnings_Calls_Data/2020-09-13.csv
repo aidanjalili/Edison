@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+DMTRF,"3-D Matrix, Ltd.",2020-09-14T02:00:00.000Z,TAS,,-11.17,,EDT,-14400000,EQUITY
+BDVSY,The Bidvest Group Limited,2020-09-14T01:57:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SNBIF,SanBio Company Limited,2020-09-14T02:00:00.000Z,TAS,,-32.83,,EDT,-14400000,EQUITY
+RUHN,Ruhnn Holding Limited,2020-09-14T03:30:00.000Z,TAS,0.02,0.13,465.22,UTC,0,EQUITY
+TSUSF,Tsuruha Holdings Inc.,2020-09-14T02:00:00.000Z,TAS,190.83,188.75,-1.09,EDT,-14400000,EQUITY

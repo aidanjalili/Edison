@@ -21,11 +21,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/Results/percent_returns.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/Results/percent_returns.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/percent_returns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/percent_returns.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.bazelproject" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.blaze/modules/.project-data-dir.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.blaze/modules/.workspace.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/vcs 2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/vcs 3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.idea/RawDataFetcher.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../RawDataFetcher/.idea/RawDataFetcher.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.idea/vcs 2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.idea/vcs 3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.idea/vcs 4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel-RawDataFetcher" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel-bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel-out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel-testlogs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/BUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/BUILD 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/deps 2.bzl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/deps.bzl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/BUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/BUILD 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/BUILD 3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/cpphttplib/BUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/cpphttplib/BUILD 2" beforeDir="false" afterPath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/cpphttplib/BUILD 2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/libuv/BUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/libuv/BUILD 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/rapidjson/BUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/rapidjson/BUILD 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/zlib/BUILD" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/zlib/BUILD 2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/bazel/third_party/zlib/BUILD 3" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BUILD" beforeDir="false" afterPath="$PROJECT_DIR$/../BUILD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Earnings_Data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../Earnings_Data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WORKSPACE" beforeDir="false" afterPath="$PROJECT_DIR$/../WORKSPACE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../earnings_call_downloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/../earnings_call_downloader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,7 +217,11 @@
       <workItem from="1652108564464" duration="847000" />
       <workItem from="1652190598825" duration="2756000" />
       <workItem from="1652194656341" duration="7608000" />
-      <workItem from="1652202796227" duration="8357000" />
+      <workItem from="1652202796227" duration="9337000" />
+      <workItem from="1652226379679" duration="1249000" />
+      <workItem from="1652229047420" duration="181000" />
+      <workItem from="1652230815294" duration="12300000" />
+      <workItem from="1652318146097" duration="2024000" />
     </task>
     <servers />
   </component>

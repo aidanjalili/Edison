@@ -1,0 +1,16 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+OONEF,01 Communique Laboratory Inc.,2018-06-25T14:21:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+OCQLF,01 Communique Laboratory Inc.,2018-06-25T14:21:00.000Z,TAS,,,,UTC,0,EQUITY
+PTPIF,PT. Chandra Asri Petrochemical Tbk,2018-06-25T04:39:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BPRMF,Blue Prism Group plc,2018-06-26T02:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CWBHF,"Charlotte's Web Holdings, Inc.",2018-06-25T12:32:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CUK,Carnival Corporation & plc,2018-06-25T11:47:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CCL,Carnival Corporation & plc,2018-06-25T09:15:00.000Z,TAS,0.6,0.68,14.09,EDT,-14400000,EQUITY
+CUKPF,Carnival Corporation & plc,2018-06-25T11:47:00.000Z,TAS,0.59,0.78,33.33,EDT,-14400000,EQUITY
+MLNLF,Millennial Lithium Corp.,2018-06-25T17:00:00.000Z,TAS,,,,UTC,0,EQUITY
+PUPOF,Public Power Corporation S.A.,2018-06-25T09:43:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+OCLCF,Oracle Corporation Japan,2018-06-26T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+LENTY,Lenta International public joint-stock company,2018-06-25T10:33:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+EBF,"Ennis, Inc.",2018-06-25T06:00:00.000Z,TAS,0.28,0.36,26.32,EDT,-14400000,EQUITY
+ECOR,"electroCore, Inc.",2018-06-25T17:02:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+OSSIF,OneSoft Solutions Inc.,2018-06-25T17:05:00.000Z,TAS,,,,EDT,-14400000,EQUITY

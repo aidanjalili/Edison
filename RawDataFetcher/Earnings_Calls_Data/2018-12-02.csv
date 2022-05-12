@@ -1,0 +1,5 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+FFNTF,4Front Ventures Corp.,2018-12-02T05:00:00.000Z,TAS,0,0,,EST,-18000000,EQUITY
+PIGEF,Pigeon Corporation,2018-12-03T01:00:00.000Z,TAS,36.73,34.52,-6.01,EST,-18000000,EQUITY
+ITOEF,"Ito En, Ltd.",2018-12-03T01:00:00.000Z,TAS,,59.48,,EST,-18000000,EQUITY
+ELLKF,Ellaktor S.A.,2018-12-03T02:26:00.000Z,TAS,,,,EST,-18000000,EQUITY

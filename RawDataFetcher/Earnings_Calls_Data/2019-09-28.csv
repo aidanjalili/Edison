@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ESGFF,Ora Banda Mining Limited,2019-09-29T03:50:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+NBN,Northeast Bank,2019-09-28T20:00:00.000Z,TAS,0.62,,,EDT,-14400000,EQUITY
+PTTMF,PT TIMAH Tbk,2019-09-28T20:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

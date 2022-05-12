@@ -1,0 +1,5 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BRKB,Berkshire Hathaway Inc.,2019-02-23T08:00:00.000Z,TAS,3349.04,3484.3,4.04,UTC,0,EQUITY
+BRK-B,Berkshire Hathaway Inc.,2019-02-23T08:00:00.000Z,TAS,1.85,2.32,25.61,EST,-18000000,EQUITY
+BRK-A,Berkshire Hathaway Inc.,2019-02-23T08:00:00.000Z,TAS,3349.04,3484.3,4.04,EST,-18000000,EQUITY
+BAINF,"BASE, Inc.",2019-02-24T02:00:00.000Z,TAS,,,,EST,-18000000,EQUITY

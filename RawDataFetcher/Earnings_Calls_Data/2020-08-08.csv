@@ -1,0 +1,7 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BRKB,Berkshire Hathaway Inc.,2020-08-08T08:10:00.000Z,TAS,3517.8,3420,-2.78,UTC,0,EQUITY
+BRK-B,Berkshire Hathaway Inc.,2020-08-08T09:05:00.000Z,TAS,2.24,2.28,1.65,EDT,-14400000,EQUITY
+BRK-A,Berkshire Hathaway Inc.,2020-08-08T08:10:00.000Z,TAS,3517.8,3420,-2.78,EDT,-14400000,EQUITY
+ON,ON Semiconductor Corporation,2020-08-08T13:15:00.000Z,TAS,0.02,0.12,566.67,EDT,-14400000,EQUITY
+RVIC,Retail Value Inc.,2020-08-08T16:43:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+RVI,Retail Value Inc.,2020-08-08T16:43:00.000Z,TAS,,,,EDT,-14400000,EQUITY

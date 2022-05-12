@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CEI,"Camber Energy, Inc.",2018-07-02T18:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+MLHR,"MillerKnoll, Inc.",2018-07-02T16:05:00.000Z,TAS,0.58,0.66,13.21,UTC,0,EQUITY
+SNCR,"Synchronoss Technologies, Inc.",2018-07-02T07:00:00.000Z,TAS,0.21,-0.54,-357.14,EDT,-14400000,EQUITY
+MLKN,"MillerKnoll, Inc.",2018-07-02T16:05:00.000Z,TAS,0.58,0.66,13.21,EDT,-14400000,EQUITY
+TGNOF,Trigano S.A.,2018-07-02T12:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

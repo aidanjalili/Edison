@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AIRO,Airspan Networks Holdings Inc.,2020-02-15T17:05:00.000Z,TAS,,,,UTC,0,EQUITY
+NMKCF,"Controladora Nemak, S.A.B. de C.V.",2020-02-15T08:57:00.000Z,TAS,,,,EST,-18000000,EQUITY
+USNZY,Usinas Siderúrgicas de Minas Gerais S.A.,2020-02-15T13:26:00.000Z,TAS,0.03,,,EST,-18000000,EQUITY
+THNPF,Technip Energies N.V.,2020-02-15T08:00:00.000Z,TAS,,,,EST,-18000000,EQUITY
+GREE,Greenidge Generation Holdings Inc.,2020-02-15T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+THRY,"Thryv Holdings, Inc.",2020-02-15T17:06:00.000Z,TAS,,,,EST,-18000000,EQUITY
+STTDF,Standard Uranium Ltd.,2020-02-15T09:02:00.000Z,TAS,,,,EST,-18000000,EQUITY
+MMSDF,Macarthur Minerals Limited,2020-02-15T17:01:00.000Z,TAS,,,,EST,-18000000,EQUITY

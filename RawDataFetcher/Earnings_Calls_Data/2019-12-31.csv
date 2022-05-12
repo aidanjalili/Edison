@@ -1,0 +1,3 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+VYGVF,Voyager Digital Ltd.,2019-12-31T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+WEI,Weidai Ltd.,2019-12-31T06:00:00.000Z,TAS,3.28,10.25,212.5,EST,-18000000,EQUITY

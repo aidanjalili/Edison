@@ -1,0 +1,6 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ATRWF,Altius Renewable Royalties Corp.,2021-01-18T17:13:00.000Z,TAS,,,,EST,-18000000,EQUITY
+APAAF,Appia Rare Earths & Uranium Corp.,2021-01-18T17:05:00.000Z,TAS,,,,EST,-18000000,EQUITY
+LOGI,Logitech International S.A.,2021-01-18T21:03:00.000Z,TAS,1.02,2.45,139.73,EST,-18000000,EQUITY
+PAGDF,Paragon ID SA,2021-01-19T01:30:00.000Z,TAS,,,,EST,-18000000,EQUITY
+TIEMF,Tiemco Ltd.,2021-01-19T01:10:00.000Z,TAS,,,,EST,-18000000,EQUITY

@@ -1,0 +1,10 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ATNF,180 Life Sciences Corp.,2021-07-09T17:02:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+CAGPF,Cryptology Asset Group p.l.c.,2021-07-09T17:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+AZZ,AZZ Inc.,2021-07-09T06:30:00.000Z,TAS,0.62,0.88,41.94,EDT,-14400000,EQUITY
+PCYO,Pure Cycle Corporation,2021-07-09T14:18:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+NESR,National Energy Services Reunited Corp.,2021-07-09T16:23:00.000Z,TAS,0.14,0.12,-11.76,EDT,-14400000,EQUITY
+GBX,"The Greenbrier Companies, Inc.",2021-07-09T06:00:00.000Z,TAS,0.13,0.69,418.8,EDT,-14400000,EQUITY
+MTYFF,MTY Food Group Inc.,2021-07-09T06:58:00.000Z,TAS,0.43,1.11,158.14,EDT,-14400000,EQUITY
+RNAZ,"TransCode Therapeutics, Inc.",2021-07-09T17:22:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+LVTTF,Levitee Labs Inc.,2021-07-09T17:04:00.000Z,TAS,,,,EDT,-14400000,EQUITY

@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ASCLF,Ascletis Pharma Inc.,2019-03-24T06:04:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SSMFF,SFC Energy AG,2019-03-25T02:34:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+WSKEF,WISeKey International Holding AG,2019-03-25T02:00:00.000Z,TAS,-0.07,,,EDT,-14400000,EQUITY
+SKPBF,Sapura Energy Berhad,2019-03-25T01:23:00.000Z,TAS,0,-0.11,,UTC,0,EQUITY
+LCPDF,Lucapa Diamond Company Limited,2019-03-24T21:07:00.000Z,TAS,,,,UTC,0,EQUITY
+YRD,Yiren Digital Ltd.,2019-03-25T03:13:00.000Z,TAS,4.61,5.31,15.31,EDT,-14400000,EQUITY
+HFIAF,Hafnia Limited,2019-03-25T02:19:00.000Z,TAS,-0.03,-0.04,-33.33,EDT,-14400000,EQUITY
+PHDVF,,2019-03-24T21:19:00.000Z,TAS,,,,UTC,0,EQUITY

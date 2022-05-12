@@ -1,0 +1,9 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AGPPF,Anglo American Platinum Limited,2020-02-17T01:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ANGPY,Anglo American Platinum Limited,2020-02-17T01:01:00.000Z,TAS,,,,EST,-18000000,EQUITY
+BDGXF,Bertrandt Aktiengesellschaft,2020-02-17T00:15:00.000Z,TAS,0.82,0.86,5.52,UTC,0,EQUITY
+MAOTF,Itissalat Al-Maghrib (IAM) S.A.,2020-02-17T02:23:00.000Z,TAS,,,,EST,-18000000,EQUITY
+KLKBF,Kuala Lumpur Kepong Berhad,2020-02-17T04:43:00.000Z,TAS,,0.16,,EST,-18000000,EQUITY
+BRDCF,Bridgestone Corporation,2020-02-17T01:08:00.000Z,TAS,87.76,122.84,39.98,EST,-18000000,EQUITY
+BRDCY,Bridgestone Corporation,2020-02-17T01:08:00.000Z,TAS,,,,EST,-18000000,EQUITY
+PTPPF,PT PP (Persero) Tbk,2020-02-17T04:40:00.000Z,TAS,,,,UTC,0,EQUITY

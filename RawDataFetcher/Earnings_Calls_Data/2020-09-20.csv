@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+EXLGF,Exasol AG,2020-09-21T01:31:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+BTGGF,Bitcoin Group SE,2020-09-20T18:34:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+NVNXF,Novonix Limited,2020-09-20T23:02:00.000Z,TAS,,,,EDT,-14400000,EQUITY

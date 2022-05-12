@@ -1,0 +1,4 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+CUPUF,'Caribbean Utilities Company, Ltd.',2019-03-02T08:36:00.000Z,TAS,,,,EST,-18000000,EQUITY
+ITCB,Itaú Corpbanca,2019-03-02T08:33:00.000Z,TAS,,,,EST,-18000000,EQUITY
+RXXRF,Rox Resources Limited,2019-03-02T23:48:00.000Z,TAS,,,,EST,-18000000,EQUITY

@@ -1,0 +1,5 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+BNCHF,Benchmark Metals Inc.,2021-06-27T20:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+SHAOF,"SHIMAMURA Co., Ltd.",2021-06-28T02:00:00.000Z,TAS,160.28,241.51,50.68,EDT,-14400000,EQUITY
+ZOJIF,Zojirushi Corporation,2021-06-28T02:30:00.000Z,TAS,,10.07,,EDT,-14400000,EQUITY
+LXXGF,LexaGene Holdings Inc.,2021-06-27T20:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY

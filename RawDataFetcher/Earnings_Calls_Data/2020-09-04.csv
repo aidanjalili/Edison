@@ -1,0 +1,10 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+LRCDF,Laurentian Bank of Canada,2020-09-04T07:30:00.000Z,TAS,0.45,1.02,124.67,EDT,-14400000,EQUITY
+LUNG,Pulmonx Corporation,2020-09-04T17:28:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+ITDN,Interdyne Company,2020-09-04T10:08:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+TAKOF,Drone Delivery Canada Corp.,2020-09-04T19:09:00.000Z,TAS,-0.02,-0.01,50,EDT,-14400000,EQUITY
+HURC,"Hurco Companies, Inc.",2020-09-04T08:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+EXXRF,Exor N.V.,2020-09-04T17:06:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+PPAAF,PT Perusahaan Gas Negara Tbk,2020-09-04T14:07:00.000Z,TAS,,0,,EDT,-14400000,EQUITY
+PPAAY,PT Perusahaan Gas Negara Tbk,2020-09-04T14:07:00.000Z,TAS,,0,,EDT,-14400000,EQUITY
+NBTX,Nanobiotix S.A.,2020-09-04T17:01:00.000Z,TAS,,,,EDT,-14400000,EQUITY

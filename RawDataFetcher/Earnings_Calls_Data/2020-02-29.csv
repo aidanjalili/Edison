@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+ARGX,argenx SE,2020-02-29T09:12:00.000Z,TAS,-1.53,-2.66,-74.12,EST,-18000000,EQUITY

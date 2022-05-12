@@ -1,0 +1,2 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+FNCH,"Finch Therapeutics Group, Inc.",2021-01-09T17:59:00.000Z,TAS,,,,EST,-18000000,EQUITY

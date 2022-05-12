@@ -1,0 +1,7 @@
+ticker,companyshortname,startdatetime,startdatetimetype,epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType
+AMGXF,'AnGes, Inc.',2019-04-22T02:00:00.000Z,TAS,,,,EDT,-14400000,EQUITY
+KTHAF,Krung Thai Bank Public Company Limited,2019-04-22T02:01:00.000Z,TAS,0.45,0.52,15.56,EDT,-14400000,EQUITY
+KGTFF,Krung Thai Bank Public Company Limited,2019-04-22T02:01:00.000Z,TAS,0.45,0.52,15.56,EDT,-14400000,EQUITY
+BDOUF,'BDO Unibank, Inc.',2019-04-22T02:34:00.000Z,TAS,2.13,2.15,1.13,EDT,-14400000,EQUITY
+DIGBF,Digi.Com Berhad,2019-04-22T01:03:00.000Z,TAS,0.05,0.04,-12,EDT,-14400000,EQUITY
+FGSGF,'Flat Glass Group Co., Ltd.',2019-04-21T04:17:00.000Z,TAS,,,,EDT,-14400000,EQUITY

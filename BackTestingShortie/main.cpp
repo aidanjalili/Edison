@@ -8,6 +8,8 @@
 #include <numeric>
 #include <filesystem>
 #include <assert.h>
+#include <random>
+
 
 #include "stdlib.h"
 #include "stdio.h"
@@ -37,12 +39,12 @@ const int DAYSLATER = 5;
 vector<ShortOrder> AllShorts;
 vector<LineOfOutput> Outputs;
 unsigned long long INDEX = 0;
-std::string Date, Datetwo;
-double Open, Opentwo;
-double Close, Closetwo;
-double Low, Lowtwo;
-double High, Hightwo;
-double Volume, Volumetwo;
+std::string Date, Datetwo, DateThree;
+double Open, Opentwo, OpenThree;
+double Close, Closetwo, CloseThree;
+double Low, Lowtwo, LowThree;
+double High, Hightwo, HighThree;
+double Volume, Volumetwo, VolumeThree;
 
 double avg(const std::vector<double>& v)
 {
@@ -90,11 +92,67 @@ void PrintDates(alpaca::Client& client)
     }
 }
 
+bool tester(ShortOrder CurrentShort)
+{
+    try
+    {
+        io::CSVReader<10> in(("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/Earnings_Calls_Data/" + CurrentShort.date.substr(0,10) +".csv").c_str());
+        in.read_header(io::ignore_extra_column, "ticker", "companyshortname", "startdatetime", "startdatetimetype", "epsestimate", "epsactual", "epssurprisepct", "timeZoneShortName", "gmtOffsetMilliSeconds", "quoteType");
+        std::string ticker, companyshortname, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType;
+        while(in.read_row(ticker , companyshortname, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType))
+        {
+            if (ticker == CurrentShort.ticker)
+                cout << "cocky" << endl;
+                return true;
+        }
+        cout << "cock" << endl;
+        return false;
+    }
+    catch (...)
+    {
+        cout << CurrentShort.date << endl;
+        cout << "***** FUCKITY FUCK FUCK FUCK " << endl;
+        cout << '\a' << endl;
+        return false;
+    }
+}
+
+double MySpecialRandFunc()//note that the weights are pretty arbitrary as no real data to go of...
+{
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(1,10000); // distribution in range [1, 6]
+//double weights[] =  {0.40, 0.1, 0.15, 0.1, 0.08,0.07,0.05,0.035,0.0125,0.0025};
+
+    int classifier = dist6(rng);
+    if (classifier >= 1 &&classifier <= 4000)
+        return 0.001;
+    else if (classifier >= 4001 && classifier <= 5000 )
+        return 0.002;
+    else if (classifier >= 5001 && classifier <=6500)
+        return 0.003;
+    else if (classifier >= 6501 && classifier <=7500)
+        return 0.004;
+    else if (classifier >= 7501 && classifier <= 8300)
+        return 0.005;
+    else if (classifier >= 8301 && classifier <= 9000)
+        return 0.006;
+    else if (classifier>=9001 && classifier <= 9500)
+        return 0.007;
+    else if (classifier>=9501 && classifier <= 9850)
+        return 0.008;
+    else if (classifier >= 9851 && classifier <= 9975)
+        return 0.009;
+    else if (classifier >= 9976 && classifier <= 10000)
+        return 0.01;
+}
+
 int main()
 {
     /*INIT*/
-    setenv("APCA_API_KEY_ID", "PKNPM7HFBCX963JDQY7H", 1);
-    setenv("APCA_API_SECRET_KEY", "Hu0wQlwPrbEUTOO0EHmAdLD7lQkpWz3UD7rsynMy", 1);
+    setenv("APCA_API_KEY_ID", "AKUL7PSSDDM0UW4BXKH8", 1);
+    setenv("APCA_API_SECRET_KEY", "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s", 1);
+    setenv("APCA_API_BASE_URL", "api.alpaca.markets", 1);
     auto env = alpaca::Environment();
     if (auto status = env.parse(); !status.ok())
     {
@@ -190,7 +248,7 @@ int main()
                 stdev = Stdeviation(volumes, averagevolume);
             }
 
-            if (Volume >= averagevolume+ 3*stdev && Close > 1.2*yesterdaysclose && Open <= 20 && DoneCountingAvgVolumes == true)
+            if (Volume >= averagevolume+ 0.03*stdev && Close > 1.1*yesterdaysclose /*&& High <= 20 */ && DoneCountingAvgVolumes == true)
             {
                 for (auto& x : assets)//checks to c if it's easy to borrow
                 {
@@ -199,7 +257,30 @@ int main()
                         ShortOrder ThisShort;
                         ThisShort.ticker = currentasset;
                         ThisShort.date = Date;
-                        ThisShort.price_at_short = Close;
+                        double TomorrowsOpen = 0;
+                        unsigned long long countertwo = 0;
+                        io::CSVReader<6> inthree(file_path);
+                        inthree.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
+                        while (inthree.read_row(DateThree, OpenThree, CloseThree, LowThree, HighThree, VolumeThree))
+                        {
+                            if (countertwo<=INDEX)
+                            {
+                                countertwo++;
+                                continue;
+                            }
+                            else if (countertwo == INDEX+1)
+                            {
+                                TomorrowsOpen = OpenThree;
+                                countertwo++;
+                                continue;
+                            }
+                            else
+                            {
+                                countertwo++;
+                                break;
+                            }
+                        }
+                        ThisShort.price_at_short = TomorrowsOpen;
                         ThisShort.index = INDEX;
                         AllShorts.push_back(ThisShort);
                     }
@@ -216,22 +297,32 @@ int main()
             INDEX++;
         }
     }
+    cout << "cunt" << endl;
+   remove_if(AllShorts.begin(), AllShorts.end(), tester);
 
         for (auto& currentshort : AllShorts)
         {
             INDEX = 0;
 
+            try
+            {
+                io::CSVReader<6> intest( DIR+"/"+currentshort.ticker+".csv" );
+            }
+            catch (...)
+            {
+                break;
+            }
             io::CSVReader<6> intwo( DIR+"/"+currentshort.ticker+".csv" );
             intwo.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
             double yesterdaysclose, yesterdaysclosetemp;
             while (intwo.read_row(Datetwo, Opentwo, Closetwo, Lowtwo, Hightwo, Volumetwo))
             {
                 if(INDEX == 0)
-                    yesterdaysclosetemp = Close;
+                    yesterdaysclosetemp = Closetwo;
                 else
                 {
                     yesterdaysclose = yesterdaysclosetemp;
-                    yesterdaysclosetemp = Close;
+                    yesterdaysclosetemp = Closetwo;
                 }
 
 
@@ -247,27 +338,28 @@ int main()
                     cout << "But we shorted at: " << currentshort.price_at_short << "$"<< endl;
                     //make sure it didn't move more than 1% up from where we bought it during pre/after hours and if it did
                     //push back percent return of diff...
-                    if (Opentwo > 1.01*yesterdaysclose)
-                    {
-                        double percent_return = (Opentwo-yesterdaysclose)/yesterdaysclose;
-                        if (percent_return != 0)
-                        {
-                            LineOfOutput ThisLineOfOutput;
-                            ThisLineOfOutput.date = Datetwo;
-                            ThisLineOfOutput.ticker = currentshort.ticker;
-                            ThisLineOfOutput.percent_return = 1.01;//percent_return;
-                            Outputs.push_back(ThisLineOfOutput);
-                            INDEX++;//tho this doesn't rly do much as it's reset
-                            break;
-                        }
-                        else
-                        {
-                            INDEX++;//again tho, this is unecessary
-                            break;
-                        }
-                    }
+//                    if (Opentwo > 1.01*yesterdaysclose)
+//                    {
+//                        double percent_return = (Opentwo-yesterdaysclose)/yesterdaysclose;
+//                        if (percent_return != 0)
+//                        {
+//                            LineOfOutput ThisLineOfOutput;
+//                            ThisLineOfOutput.date = Datetwo;
+//                            ThisLineOfOutput.ticker = currentshort.ticker;
+//                            ThisLineOfOutput.percent_return = percent_return;//percent_return;
+//                            Outputs.push_back(ThisLineOfOutput);
+//                            INDEX++;//tho this doesn't rly do much as it's reset
+//                            break;
+//                        }
+//                        else
+//                        {
+//                            INDEX++;//again tho, this is unecessary
+//                            break;
+//                        }
+//                    }
                     //assumign it didn't move more than 1% over night at any pt, one of the following will run...
-                    if (Hightwo >= 1.01*currentshort.price_at_short) //stop loss
+                    /*above comment deprecated*/
+                    if (Hightwo >= 1.001*currentshort.price_at_short) //stop loss
                     {
                         cout << "current date in doc: " << Datetwo << endl;
                         cout << "date of short: " << currentshort.date << endl;
@@ -275,12 +367,13 @@ int main()
                         LineOfOutput ThisLineOfOutput;
                         ThisLineOfOutput.date = Datetwo;
                         ThisLineOfOutput.ticker = currentshort.ticker;
-                        ThisLineOfOutput.percent_return = 0.01;
+                        ThisLineOfOutput.percent_return = MySpecialRandFunc();
+                        assert(ThisLineOfOutput.percent_return >= 0.001 && ThisLineOfOutput.percent_return <= 0.01);
                         Outputs.push_back(ThisLineOfOutput);
                         INDEX++;//tho this doesn't rly do much as it's reset
                         break;
                     }
-//                    else if (Lowtwo <= 0*currentshort.price_at_short) //stop loss
+//                    else if (Lowtwo <= 0.95*currentshort.price_at_short) //5% stop loss
 //                    {
 //                        cout << "current date in doc: " << Datetwo << endl;
 //                        cout << "date of short: " << currentshort.date << endl;
@@ -288,7 +381,7 @@ int main()
 //                        LineOfOutput ThisLineOfOutput;
 //                        ThisLineOfOutput.date = Datetwo;
 //                        ThisLineOfOutput.ticker = currentshort.ticker;
-//                        ThisLineOfOutput.percent_return = -0.2;
+//                        ThisLineOfOutput.percent_return = -0.05;
 //                        Outputs.push_back(ThisLineOfOutput);
 //                        INDEX++;//tho this doesn't rly do much as it's reset
 //                        break;
@@ -314,6 +407,7 @@ int main()
         }
 
 
+        
     ofstream OutputFile("/Users/aidanjalili03/Desktop/Edison/BackTestingShortie/percent_returns.csv");
     OutputFile << "Date, Ticker, Percent Return" << "\n";
     for(auto iter  = Outputs.begin(); iter!=Outputs.end(); iter++)
@@ -323,3 +417,4 @@ int main()
 
     return 0;
 }
+

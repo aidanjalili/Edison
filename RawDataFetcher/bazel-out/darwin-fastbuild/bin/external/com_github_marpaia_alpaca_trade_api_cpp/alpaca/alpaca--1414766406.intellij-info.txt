@@ -1,0 +1,313 @@
+build_file_artifact_location {
+  is_external: true
+  is_new_external_version: true
+  is_source: true
+  relative_path: "alpaca/BUILD"
+  root_execution_path_fragment: ""
+}
+c_ide_info {
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/account.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/alpaca.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/asset.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/bars.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/calendar.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/client.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/clock.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/config.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/documentation.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/json.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/order.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/portfolio.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/position.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/quote.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/status.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/streaming.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/trade.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  header {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/watchlist.h"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/account.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/asset.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/bars.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/calendar.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/client.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/clock.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/config.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/order.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/portfolio.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/position.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/quote.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/status.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/streaming.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/trade.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  source {
+    is_external: true
+    is_new_external_version: true
+    is_source: true
+    relative_path: "alpaca/watchlist.cpp"
+    root_execution_path_fragment: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  }
+  transitive_define: "CPPHTTPLIB_OPENSSL_SUPPORT"
+  transitive_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_glog/_virtual_includes/glog"
+  transitive_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_gflags_gflags/_virtual_includes/gflags"
+  transitive_quote_include_directory: "external/com_github_marpaia_alpaca_trade_api_cpp"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_marpaia_alpaca_trade_api_cpp"
+  transitive_quote_include_directory: "external/com_github_google_boringssl"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl"
+  transitive_quote_include_directory: "external/com_github_google_glog"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_glog"
+  transitive_quote_include_directory: "external/com_github_gflags_gflags"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_gflags_gflags"
+  transitive_quote_include_directory: "external/com_github_tencent_rapidjson"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_tencent_rapidjson"
+  transitive_quote_include_directory: "external/com_github_yhirose_cpp_httplib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_yhirose_cpp_httplib"
+  transitive_quote_include_directory: "external/com_github_unetworking_uwebsockets"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_unetworking_uwebsockets"
+  transitive_quote_include_directory: "external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv"
+  transitive_quote_include_directory: "external/com_github_madler_zlib"
+  transitive_quote_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib"
+  transitive_system_include_directory: "external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_google_boringssl/src/include"
+  transitive_system_include_directory: "external/com_github_tencent_rapidjson/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_tencent_rapidjson/include"
+  transitive_system_include_directory: "external/com_github_unetworking_uwebsockets/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_unetworking_uwebsockets/src"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/include"
+  transitive_system_include_directory: "external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_libuv_libuv/src"
+  transitive_system_include_directory: "external/com_github_madler_zlib/zlib/include"
+  transitive_system_include_directory: "bazel-out/darwin-fastbuild/bin/external/com_github_madler_zlib/zlib/include"
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@local_config_cc//:toolchain"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_google_boringssl//:ssl"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_google_glog//:glog"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_tencent_rapidjson//:rapidjson"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_yhirose_cpp_httplib//:httplib"
+  }
+}
+deps {
+  dependency_type: 0
+  target {
+    label: "@com_github_unetworking_uwebsockets//:uwebsockets"
+  }
+}
+key {
+  label: "@com_github_marpaia_alpaca_trade_api_cpp//alpaca:alpaca"
+}
+kind_string: "cc_library"
