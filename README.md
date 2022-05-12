@@ -3,7 +3,7 @@
 Makes money
 
 ## TO DO
-Make it so that we updateassets/filterassets every day so that we always r having an updated list of those that are tradable and shortable. 
+Make it so that we updateassets/filterassets every day so that we always r having an updated list of those that are tradable and shortable.
 --Right now all we do is anticipate canceled order/rejected orders as things that have become unshortable/untradeable we try to trade anyway.
 But this is kind of a stupid fix.
 
@@ -24,7 +24,7 @@ assets were bought.
 
 The dates in the "Archives"
 directory refer to the date archived (which sometimes is the date sold in the case of a manual sell at closing.
-If the asset was sold through a limit sell it is simply the date archived/the date the asset it would have been 
+If the asset was sold through a limit sell it is simply the date archived/the date the asset it would have been
 sold had the limit order not been filled).
 
 ## What to do when rich/if this actually starts to work
@@ -34,3 +34,7 @@ There isn't much. First figure out how much (either as a func. of market cap, or
 ## For the future...
 
 Presumably you'll get to the point where you're hitting the 75000/ticker price pt. At that point up it to like 100k or 125 even, maybe more. But then start working on adding a feature that fetches each tickers market cap before you invest. Then take the smallest and limit ur investment to some n% of that for all tickers. (Or if you rly want to be fancy n% of each tickers corresponding market cap.) Then maybe keep a log of how much that is every day. Then once you realize your hitting that on avg everyday, make sure you have enuf money in alpaca for the max  margin reqs you c feesible (given the data you've been collecting on avg. market cap of what you're investing in.) Then change back to pre-margin release as that will make more money, I think anyway (holding overnight will that is.) But anyway that's j an idea.
+
+##Final quick notes
+
+This is my masterpiece. So far anyway. My magnum opus. So... yeah.
