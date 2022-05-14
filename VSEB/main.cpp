@@ -548,7 +548,7 @@ int SellTwo(alpaca::Client& client)
         while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
         {
             //j cuz im a little ocnfused tbh and not sure if this case would ever happen and if it does it should be treated this way...
-            if (sell_lim_id == "NOT_YET_PLACED" || "N/A")
+            if (sell_lim_id == "NOT_YET_PLACED" || sell_lim_id == "N/A")
                 continue;
 
             //altho the limit sells will just naturally cancel by end of day if they're not executed
@@ -1064,7 +1064,7 @@ int Buy(int RunNumber, alpaca::Client& client)
 
         //remove if earnings call was today...
         /*Never mind, this hurts the algo's preformance as it turns out..*/
-        //remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);
+        //remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);//good stuff too cuz i dont rly even know if this python stuff works tbh
     }
     catch (...)
     {
