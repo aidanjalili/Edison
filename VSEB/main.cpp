@@ -1547,9 +1547,20 @@ int main()
     {
         //Get yesterday's date
         boost::gregorian::date Today = boost::gregorian::day_clock::local_day();
-        boost::gregorian::days oneday(1);
-        auto Yesterday = Today - oneday;
-        std::string YesterdayAsString = to_iso_extended_string(Yesterday);
+        std::string YesterdayTestAsString;
+        boost::gregorian::date YesterdayTest;
+        for (int i = 1; i <= 3; i++)
+        {
+            boost::gregorian::days idays(i);
+            YesterdayTest = Today - idays;
+            YesterdayTestAsString = to_iso_extended_string(YesterdayTest);
+            if ( IsGivenDayATradingDay(YesterdayTestAsString, datesmarketisopen) )
+                break;
+            if (i == 3)
+                exit(-2);
+        }
+        auto Yesterday = YesterdayTest;
+        string YesterdayAsString = YesterdayTestAsString;
 
         //Get 6 months before yesterday date
         boost::gregorian::months sixmonths(6);
