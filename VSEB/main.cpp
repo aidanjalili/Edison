@@ -1170,9 +1170,14 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             get_order_response = client.getOrder(buyid);
             order_response = get_order_response.second;
         }
-
-        if (order_response.status == "canceled" || order_response.status == "rejected" )//could(or maybe should tbh) be else if but whatever
+        //if this hasnt been filled by a minute and a half in... we are summing it never will. Should alert user j in case tho...
+        if (order_response.status != "filled" )//could(or maybe should tbh) be else if but whatever
         {
+            if (order_response.status != "rejected" || order_response.status != "canceled" )//cuz if its rejected or canceled its not a problem
+            {
+                string Message = "AFTER A MINUTE AND A HALF A MOO STILL HAS NOT BEEN FILLED... WE ARE JUST LETTING YOU KNOW SO YOU CAN POTENTIALLY LOOK INTO IT AS CONSEQUENTLY NO STOP ORDER WAS PLACED FOR IT. FURTHER... THE ORDER WAS NOT, I REPEAT NOT, CANCELED OR REJECTED";
+                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+            }
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
             continue;
         }
