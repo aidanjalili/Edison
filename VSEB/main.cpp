@@ -1726,16 +1726,17 @@ int main()
                  * NOW IMPLEMENTED BELOW... :)
                  */
 
-                sleep(5);
-
-                //Then sleep until all ahve been placed or a minute has passed...
+                //sleep until all ahve been placed or a minute has passed...
                 for (int i = 0; i < 60; i++)
                 {
                     auto resp = client.getOrders(alpaca::ActionStatus::Open);
                     if (auto status = resp.first; !status.ok())
                     {
                         cout << "Error getting order information: " << status.getMessage();
-                        return status.getCode();
+                        if (i == 59)
+                            return status.getCode();
+                        else
+                            continue;
                     }
                     auto orders = resp.second;
                     if (orders.size() == 0)

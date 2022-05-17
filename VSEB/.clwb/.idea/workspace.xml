@@ -21,16 +21,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/runConfigurations.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,6 +180,7 @@
       <workItem from="1652660154555" duration="775000" />
       <workItem from="1652714896727" duration="657000" />
       <workItem from="1652814510825" duration="4581000" />
+      <workItem from="1652822368059" duration="160000" />
     </task>
     <servers />
   </component>
