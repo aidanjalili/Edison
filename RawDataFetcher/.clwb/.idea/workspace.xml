@@ -21,6 +21,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fbae7c-e2a6-4661-bb1a-ea1869f51b6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,7 +87,7 @@
       <workItem from="1652360519830" duration="4757000" />
       <workItem from="1652660153471" duration="595000" />
       <workItem from="1652714895629" duration="598000" />
-      <workItem from="1652814508257" duration="1272000" />
+      <workItem from="1652814508257" duration="3399000" />
     </task>
     <servers />
   </component>

@@ -21,6 +21,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9fc2fd34-4dbf-4292-b1a8-d4cb2aaca6c3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Investigative_Work/Investigating_AWH/.clwb/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +92,7 @@
       <workItem from="1652363205713" duration="10296000" />
       <workItem from="1652660151296" duration="595000" />
       <workItem from="1652714893813" duration="670000" />
-      <workItem from="1652814506685" duration="597000" />
+      <workItem from="1652814506685" duration="2135000" />
     </task>
     <servers />
   </component>
