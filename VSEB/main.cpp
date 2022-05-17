@@ -1166,7 +1166,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         //makes sure this morning order is actually placed...
         if (order_response.status == "new" || order_response.status == "partially_filled")
         {
-            sleep(45);//hopefully this'll give it enuf time to fill...
+            sleep(30);//hopefully this'll give it enuf time to fill...
             get_order_response = client.getOrder(buyid);
             order_response = get_order_response.second;
         }
@@ -1266,7 +1266,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     to_string(limitprice)
             );
 
-            sleep(5);//wait for lim sell order to be submitted
+            sleep(3);//wait for lim sell order to be submitted
 
             auto statusthing = submit_limit_order_response.first;
 
@@ -1708,7 +1708,7 @@ int main()
             }
 
 
-            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 31 && TodaysDailyLimSellsPlaced == false)
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 30 && TodaysDailyLimSellsPlaced == false)
             {
 
                 /*
@@ -1717,7 +1717,27 @@ int main()
                  * in placelimsell orders and wait there if need be...
                  */
 
+                /*
+                 * NOW IMPLEMENTED BELOW... :)
+                 */
 
+                sleep(5);
+
+                //Then sleep until all ahve been placed or a minute has passed...
+                for (int i = 0; i < 60; i++)
+                {
+                    auto resp = client.getOrders(alpaca::ActionStatus::Open);
+                    if (auto status = resp.first; !status.ok())
+                    {
+                        cout << "Error getting order information: " << status.getMessage();
+                        return status.getCode();
+                    }
+                    auto orders = resp.second;
+                    if (orders.size() == 0)
+                        break;
+
+                    sleep(1);
+                }
 
                 /*
                  * Places all Lim. sell orders for everything, in whateever order files is read from CurrentlyBought dir
