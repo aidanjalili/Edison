@@ -68,7 +68,7 @@ struct buyorder{
 
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
-char* arr[] = {"AWH"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
+char* arr[] = {"ABCDEFGH"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
 vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
 vector<string> LateLimSellsToday;
 
