@@ -896,7 +896,7 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
                     /*As if we were truly shorting and holding the short overnight...*/
                     //tho maybew we could jupdate thme daily idk... that's for alter updates...
-                    double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.02) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
+                    double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.015) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
                     moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
                 }
 
@@ -1214,7 +1214,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         else
         {
             double price = stod(order_response.filled_avg_price);//price order filled at
-            limitprice = price*1.02;
+            limitprice = price*1.015;
             limitprice = floor(limitprice*100+0.5)/100;
             if (limitprice == price)//in case we r dealing with a real penny stock...
                 limitprice+=0.01;
