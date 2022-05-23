@@ -1173,10 +1173,13 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         //if this hasnt been filled by a minute and a half in... we are summing it never will. Should alert user j in case tho...
         if (order_response.status != "filled" )//could(or maybe should tbh) be else if but whatever
         {
-            if (order_response.status != "rejected" || order_response.status != "canceled" )//cuz if its rejected or canceled its not a problem
+            if ( (order_response.status != "rejected" || order_response.status != "canceled") && order_response.filled_at == "")//cuz if its rejected or canceled its not a problem
             {
-                string Message = "AFTER A MINUTE AND A HALF A MOO STILL HAS NOT BEEN FILLED... WE ARE JUST LETTING YOU KNOW SO YOU CAN POTENTIALLY LOOK INTO IT AS CONSEQUENTLY NO STOP ORDER WAS PLACED FOR IT. FURTHER... THE ORDER WAS NOT, I REPEAT NOT, CANCELED OR REJECTED";
+                string Message = "AFTER A MINUTE AND A HALF A MOO STILL HAS NOT BEEN FILLED... WE ARE JUST LETTING YOU KNOW SO YOU CAN POTENTIALLY LOOK INTO IT AS CONSEQUENTLY NO STOP ORDER WAS PLACED FOR IT. FURTHER... THE ORDER WAS NOT, I REPEAT NOT, CANCELED OR REJECTED, THOUGH WE ARE CANCELING IT NOW. THIS WAS DONE AT: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
                 Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+
+                //cancel it
+                client.cancelOrder(order_response.id);
             }
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
             continue;

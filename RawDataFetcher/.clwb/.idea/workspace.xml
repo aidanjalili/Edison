@@ -24,6 +24,7 @@
       <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../VSEB/Emergency_Buy_Log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/Emergency_Buy_Log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -83,6 +84,7 @@
       <workItem from="1652814508257" duration="3399000" />
       <workItem from="1652822373139" duration="422000" />
       <workItem from="1652972498857" duration="100000" />
+      <workItem from="1653313732175" duration="596000" />
     </task>
     <servers />
   </component>
