@@ -1173,13 +1173,54 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         //if this hasnt been filled by a minute and a half in... we are summing it never will. Should alert user j in case tho...
         if (order_response.status != "filled" )//could(or maybe should tbh) be else if but whatever
         {
-            if ( (order_response.status != "rejected" || order_response.status != "canceled") && order_response.filled_at == "")//cuz if its rejected or canceled its not a problem
+            if ( order_response.status != "rejected" || order_response.status != "canceled")//cuz if its rejected or canceled its not a problem
             {
-                string Message = "AFTER A MINUTE AND A HALF A MOO STILL HAS NOT BEEN FILLED... WE ARE JUST LETTING YOU KNOW SO YOU CAN POTENTIALLY LOOK INTO IT AS CONSEQUENTLY NO STOP ORDER WAS PLACED FOR IT. FURTHER... THE ORDER WAS NOT, I REPEAT NOT, CANCELED OR REJECTED, THOUGH WE ARE CANCELING IT NOW. THIS WAS DONE AT: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                string Message = "AFTER A MINUTE AND A HALF A MOO STILL HAS NOT BEEN FILLED... WE ARE JUST LETTING YOU KNOW SO YOU CAN POTENTIALLY LOOK INTO IT AS CONSEQUENTLY NO STOP ORDER WAS PLACED FOR IT. FURTHER... THE ORDER WAS NOT, I REPEAT NOT, CANCELED OR REJECTED, THOUGH WE ARE CANCELING IT NOW AND BUYING BACK ANY PARTIALLY FILLED SHARES. THIS WAS DONE AT: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
                 Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
 
-                //cancel it
-                client.cancelOrder(order_response.id);
+                //cancel it if not on its way to being filled
+                if (order_response.status != "partially_filled")//then we just have to cancel
+                    client.cancelOrder(order_response.id);
+                else//then we have to cancel and buy back the shares already shorted
+                {
+                    client.cancelOrder(order_response.id);
+                    sleep(1);
+                    get_order_response = client.getOrder(buyid);
+                    order_response = get_order_response.second;
+
+                    string qtyasstring = order_response.filled_qty;
+
+                    //make sure there isn't any fractional shares being bought... (and if so alert the user)
+                    int locationofdot = qtyasstring.find(".");
+                    if (locationofdot!=-1)//if it was it means thee is no . within the string and so no fractional shares
+                    {
+                        for (int i = locationofdot+1; i<qtyasstring.size(); i++)
+                        {
+                            if (qtyasstring.at(i) != '0')
+                            {
+                                string msg = "as an addition to the above line... that order was partially filled with fractional shares! So you may have in your portfolio a partial share of a stock with no stop loss... this was logged at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                                Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                                break;
+                            }
+
+                        }
+                    }
+
+                    int qty = stoi(qtyasstring);
+                    //Buy back this many shares of this ticker...
+                    auto submit_buy_back = client.submitOrder(
+                            order_response.symbol,
+                            qty,
+                            alpaca::OrderSide::Buy,
+                            alpaca::OrderType::Market,
+                            alpaca::OrderTimeInForce::Day
+                    );
+                    if (auto status = submit_buy_back.first; !status.ok()) {
+                        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                        return status.getCode();
+                    }
+
+                }
             }
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
             continue;
