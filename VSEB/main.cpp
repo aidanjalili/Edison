@@ -1207,6 +1207,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     }
 
                     int qty = stoi(qtyasstring);
+                    assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
                     //Buy back this many shares of this ticker...
                     auto submit_buy_back = client.submitOrder(
                             order_response.symbol,
