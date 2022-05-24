@@ -22,6 +22,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../RawDataFetcher/.clwb/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
@@ -78,6 +80,11 @@
       </blaze-settings>
       <method v="2">
         <option name="Blaze.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -186,6 +193,10 @@
       <workItem from="1652822368059" duration="427000" />
       <workItem from="1652972495398" duration="102000" />
       <workItem from="1653313727627" duration="3583000" />
+      <workItem from="1653353857752" duration="157000" />
+      <workItem from="1653356372243" duration="259000" />
+      <workItem from="1653356792833" duration="162000" />
+      <workItem from="1653405908761" duration="16052000" />
     </task>
     <servers />
   </component>

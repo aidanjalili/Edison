@@ -164,10 +164,6 @@ int main()
     }
     auto client = alpaca::Client(env);
 
-//    PrintDates(client);
-//    exit(0);
-
-
     /*INIT Over*/
 
     //Get all files

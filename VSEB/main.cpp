@@ -37,10 +37,11 @@ using namespace std;
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command, but for rn on server change to output of pwd
 const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
 const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 25000;//rn it's actually much less than 25k lol
-const double LIMIT_AMOUNT = 25500.00;///change this back to 500 (subtravt 1,500 from it)
+const double LIMIT_AMOUNT = 26000.00;///change this back to 500 (subtravt 1,500 from it)
 const string API_PUBLIC_KEY = "AKUL7PSSDDM0UW4BXKH8";
 const string API_PRIVATE_KEY = "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s";
 const bool IS_LIVE = true;
+int LIMIT_TO_INVEST_IN_EACH_TICKER = 75000;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
@@ -785,9 +786,11 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     else
         cash = cashinsideaccount;
 
-    //If we just placed some covers today we want to change the cash amnt to roughly what it will be
-    //after I pay to cover...
-    if (SomethingWasCoveredToday)//this if statement is ineffecient at doing what it's supposed to do but oh well
+
+    ///determine how much money we've received from shorts and set that money aside (subtract it from cash value)....
+    vector <double> moneysrecievedfromshorts;
+    //in case smthg was covered today and so is already in archives
+    if (SomethingWasCoveredToday)
     {
         vector<string> files;
         for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/Archives"))
@@ -803,51 +806,22 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         vector<double> Costs;
         while(in.read_row(ticker, buyid, sell_lim_id, sellid))
         {
-            //trying to find out abt how much this cover day will cost me...
+
             if (sellid != "N/A")
             {
-                auto get_sell_response = client.getOrder(sellid);
-                auto sell_order = get_sell_response.second;
-                int qty = stoi(sell_order.qty);
-                string symbol = sell_order.symbol;
-                //should prolly assert that this equals ticker but whatever...
-
-                //now get the last trade price of this symbol...
-                auto last_trade_response = client.getLastTrade(symbol);
-                auto last_trade = last_trade_response.second;
-                auto price = last_trade.trade.price;
-                //increase by 7.5% in case it does do that in the last few mins of trading here...
-                price = 1.075*price;
-
-                //calculate money needed to cover...
-                double MoneyNeededToCover = qty*price;
-                Costs.push_back(MoneyNeededToCover);
+                auto get_lim_response = client.getOrder(sell_lim_id);
+                auto lim_order = get_lim_response.second;
+                int qty = stoi(lim_order.qty);
+                double limitprice = stod(lim_order.stop_price);
+                double moneyrecieved = ((ceil( ( ( limitprice / (1.015) ) )*100 ) )/100)*qty;//calculates money recieved from lim_price and qty, always rounds UP to the nearest cent, j to be careful
+                moneysrecievedfromshorts.push_back( moneyrecieved );
 
             }
         }
-        double Sum = 0;
-        for (auto iter = Costs.begin(); iter != Costs.end(); iter++)
-            Sum+=(*iter);
-        cash-=Sum;
-        SomethingWasCoveredToday = false;
     }
 
-    /* FOR SHORTING STARTS HERE */
-    //We can ignore runnumber (except for 1st) when shorting...
 
-    double EmergencyTrigger = 1.00; //the extra .25 cuz im nerotic and rly wanna make sure i'll always have enuf cash //update 2: changed it to 1.00 since we r only trading within the day...
-    //EmergencyTrigger-=0.03;//cuz we account for that in the 1% stop loss
-    if (RunNumber == 1)
-    {
-        //do nothing
-
-
-        //cash = (cash)/(5*(1 + 0.015 * tickers.size())+EmergencyTrigger-5);//this will actually slightly overdo it as we'll prolly invest less as share prices don't divide evenly
-        //Note i changed 1.01 to 1.015 to accnt for a possible increase in an astounding 50% of the asset before we short
-        //so that even in that extreme case we'd be able to cover the extra 1/2% of losses
-
-    }
-    else
+    if (RunNumber!=1)
     {
         //loop thru files in currently bought...
         vector<string> files;
@@ -855,17 +829,10 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
         {
             files.push_back(file.path());
         }
-        vector <double> moneysrecievedfromshorts;
         for (auto& dir : files)
         {
             io::CSVReader<4> in(dir);
             in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
-            //could maybe add a guard here to c if file is too small/not enuf entries like i did in "backtestingVSEB"
-            //but also could low key be unecessary
-
-
-            //we need to allocate enuf money such that if the stonks we currently have shorted go up to their stop buy
-            //we have enuf money to cover those...
             std::string ticker, buyid, sell_lim_id, lim_price;
             while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
             {
@@ -875,7 +842,6 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
                     continue;
                 else
                 {
-                    //"Note dir=DIRECTORY+/CurrentlyBought/xxxx-xx-xx.csv"
                     string Date_Associated_With_File = dir.substr(DIRECTORY.size()+17, 10); //returns date hopefully
                     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
                     std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
@@ -893,67 +859,43 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
 
                     auto get_buy_order_response = client.getOrder(buyid);
                     auto buy_order = get_buy_order_response.second;
-                    /*HERE WE FIND ORIGINAL MONEY RECIEVED FROM SHORT, ON THE FIRST DAY. THIS DOES NOT UPDATE AS DAYS PROGRESS THROUGHOUT THE ASSETS LIFE...*/
-                    /*As if we were truly shorting and holding the short overnight...*/
-                    //tho maybew we could jupdate thme daily idk... that's for alter updates...
+
                     double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.015) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
-                    moneysrecievedfromshorts.push_back( moneyrecieved );//this is not moneyrecieved, its amnt potentially needed to pay...
+                    moneysrecievedfromshorts.push_back( moneyrecieved );
+
                 }
-
             }
+
+
         }
-
-        //sum moneyrecieved vector
-        double totalmoneyrecieved = 0;
-        for (auto iter = moneysrecievedfromshorts.begin(); iter!=moneysrecievedfromshorts.end(); iter++)
-        {
-            totalmoneyrecieved+=(*iter);
-        }
-
-        cash = cash - totalmoneyrecieved;/*so the idea here is that the other outstanding stonks can pay for themselves if need be...*/
-
-
-        //so now the rest of the money can be divided up j so that there's enuf for the remaining investments if they go up by 1.5%...
-       // cash = (cash)/(5*(1+ 0.015*tickers.size())+EmergencyTrigger-5);
-
 
     }
 
+    //sum moneyrecieved vector
+    double totalmoneyrecieved = 0;
+    for (auto iter = moneysrecievedfromshorts.begin(); iter!=moneysrecievedfromshorts.end(); iter++)
+    {
+        totalmoneyrecieved+=(*iter);
+    }
+
+    cash -= totalmoneyrecieved;
 
 
-    cash = cash*((1-0.99)/(tickers.size()*(1.0105-1)));//silly way to write this, no? But alright...
+    ///then divide up the remaining cash evenly by number of tickers...
 
-    /*Essentially this, referencing the line above,
-     * just invests ~95.2% of what we actually could. (as of rn with bottom number at 1.0105)
-     * so that we have even more room in case stuff goes up to cover,
-     * as in the 1-2 mins we don't have a lim place if the stonk goes up even 5% during that tine, we're good
+    //you can change the 1 in the following line to somehting LOWER (obv. only LOWER) if for whatever rzn
+    //you want to decrease the amnt of money invested...
+    cash = (cash/tickers.size())*1.00;
 
-
-    /* AND ENDS HERE */
-
-
-    /*FOR BUYING STARTS HERE*/
-//    if (RunNumber != 0)
-//    {
-//        if (RunNumber == 1)
-//            cash = cash/5;
-//        else if (RunNumber == 2)
-//            cash = cash/4;
-//        else if (RunNumber == 3)
-//            cash = cash/3;
-//        else if (RunNumber == 4)
-//            cash = cash/2;
-//        else
-//            cash = cash;//do nothing...
-//    }
-
-    /*AND ENDS HERE */
+    /*Old line was:*/
+    //cash = cash*( (1-0.98)/ ( tickers.size()*(1.0205-1) ) );
+    /*But that simplifies to the same thing as simply coeffecient of ~0.9756 */
 
     //check to c if there is too much cash -- so we j do 75k in each ticker...
-    if (cash/tickers.size() > 75000)
+    if (cash/tickers.size() > LIMIT_TO_INVEST_IN_EACH_TICKER)
     {
         pair<double, int> ret;
-        ret.first = 75000;
+        ret.first = LIMIT_TO_INVEST_IN_EACH_TICKER;
         ret.second = tickers.size();
         return ret;
     }
@@ -1166,7 +1108,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         //makes sure this morning order is actually placed...
         if (order_response.status == "new" || order_response.status == "partially_filled")
         {
-            sleep(30);//hopefully this'll give it enuf time to fill...
+            sleep(5);//hopefully this'll give it enuf time to fill...
             get_order_response = client.getOrder(buyid);
             order_response = get_order_response.second;
         }
@@ -1175,52 +1117,57 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         {
             if ( order_response.status != "rejected" || order_response.status != "canceled")//cuz if its rejected or canceled its not a problem
             {
-                string Message = "AFTER A MINUTE AND A HALF A MOO STILL HAS NOT BEEN FILLED... WE ARE JUST LETTING YOU KNOW SO YOU CAN POTENTIALLY LOOK INTO IT AS CONSEQUENTLY NO STOP ORDER WAS PLACED FOR IT. FURTHER... THE ORDER WAS NOT, I REPEAT NOT, CANCELED OR REJECTED, THOUGH WE ARE CANCELING IT NOW AND BUYING BACK ANY PARTIALLY FILLED SHARES. THIS WAS DONE AT: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
-                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
-
-                //cancel it if not on its way to being filled
-                if (order_response.status != "partially_filled")//then we just have to cancel
-                    client.cancelOrder(order_response.id);
-                else//then we have to cancel and buy back the shares already shorted
+                try
                 {
-                    client.cancelOrder(order_response.id);
-                    sleep(1);
-                    get_order_response = client.getOrder(buyid);
-                    order_response = get_order_response.second;
-
-                    string qtyasstring = order_response.filled_qty;
-
-                    //make sure there isn't any fractional shares being bought... (and if so alert the user)
-                    int locationofdot = qtyasstring.find(".");
-                    if (locationofdot!=-1)//if it was it means thee is no . within the string and so no fractional shares
+                    //cancel it if not on its way to being filled
+                    if (order_response.status != "partially_filled")//then we just have to cancel
+                        client.cancelOrder(order_response.id);
+                    else//then we have to cancel and buy back the shares already shorted
                     {
-                        for (int i = locationofdot+1; i<qtyasstring.size(); i++)
+                        client.cancelOrder(order_response.id);
+                        sleep(1);
+                        get_order_response = client.getOrder(buyid);
+                        order_response = get_order_response.second;
+
+                        string qtyasstring = order_response.filled_qty;
+
+                        //make sure there isn't any fractional shares being bought... (and if so alert the user)
+                        int locationofdot = qtyasstring.find(".");
+                        if (locationofdot!=-1)//if it was it means thee is no . within the string and so no fractional shares
                         {
-                            if (qtyasstring.at(i) != '0')
+                            for (int i = locationofdot+1; i<qtyasstring.size(); i++)
                             {
-                                string msg = "as an addition to the above line... that order was partially filled with fractional shares! So you may have in your portfolio a partial share of a stock with no stop loss... this was logged at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
-                                Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
-                                break;
+                                if (qtyasstring.at(i) != '0')
+                                {
+                                    string msg = "AN order that wasn\'t filled after half a minute was partially filled with fractional shares! So you may have in your portfolio a partial share of a stock with no stop loss as we truncated qty to int... this was logged at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                                    break;
+                                }
+
                             }
-
                         }
-                    }
 
-                    int qty = stoi(qtyasstring);
-                    assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
-                    //Buy back this many shares of this ticker...
-                    auto submit_buy_back = client.submitOrder(
-                            order_response.symbol,
-                            qty,
-                            alpaca::OrderSide::Buy,
-                            alpaca::OrderType::Market,
-                            alpaca::OrderTimeInForce::Day
-                    );
-                    if (auto status = submit_buy_back.first; !status.ok()) {
-                        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-                        return status.getCode();
-                    }
+                        int qty = stoi(qtyasstring);
+                        assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
+                        //Buy back this many shares of this ticker...
+                        auto submit_buy_back = client.submitOrder(
+                                order_response.symbol,
+                                qty,
+                                alpaca::OrderSide::Buy,
+                                alpaca::OrderType::Market,
+                                alpaca::OrderTimeInForce::Day
+                        );
+                        if (auto status = submit_buy_back.first; !status.ok()) {
+                            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                            return status.getCode();
+                        }
 
+                    }
+                }
+                catch(...)
+                {
+                    string Message = "An order wasn\'t filled after half a minute but was also not rejected or canceled. We then tried to cancel it or buy back a partially filled qty but FAILED SOMEHOW. This was logged at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
                 }
             }
             //this line won't be copied into the new file and so will be deleted from the file subsequently...
@@ -1772,13 +1719,13 @@ int main()
                  */
 
                 //sleep until all ahve been placed or a minute has passed...
-                for (int i = 0; i < 60; i++)
+                for (int i = 0; i < 15; i++)
                 {
                     auto resp = client.getOrders(alpaca::ActionStatus::Open);
                     if (auto status = resp.first; !status.ok())
                     {
                         cout << "Error getting order information: " << status.getMessage();
-                        if (i == 59)
+                        if (i == 14)
                             return status.getCode();
                         else
                             continue;

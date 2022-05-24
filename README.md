@@ -35,6 +35,11 @@ There isn't much. First figure out how much (either as a func. of market cap, or
 
 Presumably you'll get to the point where you're hitting the 75000/ticker price pt. At that point up it to like 100k or 125 even, maybe more. But then start working on adding a feature that fetches each tickers market cap before you invest. Then take the smallest and limit ur investment to some n% of that for all tickers. (Or if you rly want to be fancy n% of each tickers corresponding market cap.) Then maybe keep a log of how much that is every day. Then once you realize your hitting that on avg everyday, make sure you have enuf money in alpaca for the max  margin reqs you c feesible (given the data you've been collecting on avg. market cap of what you're investing in.) Then change back to pre-margin release as that will make more money, I think anyway (holding overnight will that is.) But anyway that's j an idea.
 
-##Final quick notes
+## Final quick notes
 
 This is my masterpiece. So far anyway. My magnum opus. So... yeah.
+
+## PS
+
+The backtesting which verified the effectiveness of this algo is a little sketchy, but oh well got to live life on the edge
+I guess. Who knows if it'll work, we'll c I suppose. If I lose all my money, I'll lose all my money, but I'll track it for sure.
