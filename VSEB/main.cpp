@@ -1006,7 +1006,7 @@ int Buy(int RunNumber, alpaca::Client& client)
 
         //remove if earnings call was today...
         /*Never mind, this hurts the algo's preformance as it turns out..*/
-        //remove_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);//good stuff too cuz i dont rly even know if this python stuff works tbh
+        //erase_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);//good stuff too cuz i dont rly even know if this python stuff works tbh
     }
     catch (...)
     {

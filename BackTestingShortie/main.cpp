@@ -150,6 +150,14 @@ double MySpecialRandFunc()//note that the weights are pretty arbitrary as no rea
         return 0.01;
 }
 
+bool filtertoetb(alpaca::Asset& asset)
+{
+    if (asset.easy_to_borrow==false)//if its not etb erase it
+        return true;
+    else//else (i.e. it is etb) then don't
+        return false;
+}
+
 int main()
 {
     /*INIT*/
@@ -180,15 +188,10 @@ int main()
         return -1;//a -1 return means there was an error in getting the ticker list
     }
     assets = get_assets_response.second;
+    erase_if(assets, filtertoetb);
     //filter out non-shortable
-    for (int i = 0; i<assets.size(); i++)
-    {
-        if (assets[i].easy_to_borrow == false)//if it's not tradable delete it
-        {
-            assets.erase(assets.begin() + i);
-            continue;
-        }
-    }
+
+
     //end of making assets list
 
 
@@ -297,7 +300,7 @@ int main()
         }
     }
     cout << "cunt" << endl;
-   //remove_if(AllShorts.begin(), AllShorts.end(), tester);
+   //erase_if(AllShorts.begin(), AllShorts.end(), tester);
 
         for (auto& currentshort : AllShorts)
         {
