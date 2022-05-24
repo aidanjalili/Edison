@@ -22,10 +22,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b5fbae7c-e2a6-4661-bb1a-ea1869f51b6a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../VSEB/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +87,7 @@
       <workItem from="1653356376602" duration="255000" />
       <workItem from="1653356797333" duration="157000" />
       <workItem from="1653405912993" duration="596000" />
+      <workItem from="1653431737585" duration="10000" />
     </task>
     <servers />
   </component>

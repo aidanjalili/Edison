@@ -960,10 +960,10 @@ int Buy(int RunNumber, alpaca::Client& client)
         auto tempassets = get_assets_response.second;
         bool foundone = false;
         erase_if(tempassets, FilterAssets);//filters them down to ETB assets
-        vector<int> indexestobedeleted;
-        for (int i = 0; i<TickersToBeBought.size(); i++)
+        vector <string> tickerstobedeleted;
+        for (int i = 0; i < TickersToBeBought.size(); i++)
         {
-            for (auto& x : tempassets)
+            for (auto &x : tempassets)
             {
                 //should always find the matching symbol in the tempassets list
                 if (TickersToBeBought[i] == x.symbol)
@@ -976,17 +976,17 @@ int Buy(int RunNumber, alpaca::Client& client)
             //if that didn't happen then the stock for some reason is not in the list and should be removed from the to_be_bought list
             if (foundone == false)
             {
-                indexestobedeleted.push_back(i);
+                tickerstobedeleted.push_back(TickersToBeBought[i]);
             }
 
             //reset foundone
             foundone = false;
         }
 
-        if (indexestobedeleted.size() != 0)
+        if (tickerstobedeleted.size() != 0)
         {
-            for (int& i : indexestobedeleted)
-                TickersToBeBought.erase(TickersToBeBought.begin() + i);
+            for (string& ticker : tickerstobedeleted)
+                TickersToBeBought.erase(find(TickersToBeBought.begin(), TickersToBeBought.end(), ticker));
         }
     }
     //TickersToBeBought is the vector with the tickers to be bought...
@@ -1430,7 +1430,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
         RecordBuyOrders(TodaysDateAsString, ListofBuyOrders);
 
         //since now we've already updated this record, delete file.back();
-        files.erase(files.end() - 1);//or could use files.pop_back();
+        files.pop_back();
 
     }
 
