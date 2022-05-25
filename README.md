@@ -54,4 +54,4 @@ Protocol for in general reviewing a call from ifttt:
 Protocol for hikes (ADD TO README)
 -set up sat phone with that phone number in IFTT
 -set up email forwarding to someone in the real world (and forward to their txt msg email address)
-	-ask that person if they receive that email if they can run a program you’ll set up for them on their computer which will run emergency abort on server (they’ll have to run it before 5 ET)
+	-ask that person if they receive that email if they can run a program you’ll set up for them on their computer which will run emergency abort on server (they’ll have to run it before 5 ET) –– OR just have them login to my triggercmd and trigger the emergency abort
