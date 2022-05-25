@@ -19,7 +19,7 @@
 using namespace std;
 
 /*Params*/
-bool ISLIVE = false;
+bool ISLIVE = true;
 const string DIRECTORY = "/home/aidanjalili03/Edison-Live/Edison/VSEB";
 
 void Log(string InputFile, string Message)
