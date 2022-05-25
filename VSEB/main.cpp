@@ -1064,6 +1064,21 @@ int Buy(int RunNumber, alpaca::Client& client)
 
 void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 {
+    //first, delete the file that already exists there if it does (i think mostly or only for the case of an asset I hold going from ETB to HTB overnight
+    bool doesFileExist = false;
+    ifstream file;
+    file.open(DIRECTORY+"/CurrentlyBought/"+date+".csv");
+    if (file)
+        doesFileExist = true;
+    else
+        doesFileExist = false;
+
+
+    if (doesFileExist == true)
+        remove( (DIRECTORY+"/CurrentlyBought/"+date+".csv").c_str() );
+
+
+    //then proceed with this stuff
     ofstream OutputFile(DIRECTORY+"/CurrentlyBought/"+date+".csv");
     OutputFile << "ticker,buyid,sell_lim_id,lim_price\n";
     for (auto iter = buyorders.begin(); iter!=buyorders.end(); iter++)
@@ -1547,7 +1562,33 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 ListofBuyOrders.push_back(currentBuyOrder);
                 continue;
             }
-            //else case effectivley below
+            //else case effectivley below...
+
+            bool isETB = true;
+            auto get_assets_response = client.getAssets();
+            if (auto status = get_assets_response.first; status.ok() == false)
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                continue;
+                //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
+            }
+            else
+            {
+                auto tempassets = get_assets_response.second;
+                erase_if(tempassets, FilterAssets);//so tempassets only contain ETB assets
+                for (auto& a : tempassets)
+                {
+                    if (a.symbol == oldbuyorder.symbol)//this has to happen at some pt for isETB to be true;
+                    {
+                        isETB = true;
+                        break;
+                    }
+                    isETB = false;
+                }
+
+            }
+            if (isETB == false)
+                continue;
 
             auto submit_order_response = client.submitOrder(
                     oldbuyordersticker,
