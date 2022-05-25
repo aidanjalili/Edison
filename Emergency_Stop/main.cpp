@@ -42,6 +42,18 @@ int main()
     auto client = alpaca::Client(env);
     /*INIT Over*/
 
+    //try to stop algo if it is indeed running
+    try
+    {
+        string pw = "Noodle23!23";
+        string input = "echo \"" +  pw + "\"" + " | " +  "sudo -S pkill screen";
+        system(input.c_str());
+    }
+    catch(...)
+    {
+        //do nothing
+    }
+
     //cancels all open orders...
     auto cancel_orders_response = client.cancelOrders();
     if (auto status = cancel_orders_response.first; !status.ok()) {
