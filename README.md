@@ -43,3 +43,15 @@ This is my masterpiece. So far anyway. My magnum opus. So... yeah.
 
 The backtesting which verified the effectiveness of this algo is a little sketchy, but oh well got to live life on the edge
 I guess. Who knows if it'll work, we'll c I suppose. If I lose all my money, I'll lose all my money, but I'll track it for sure.
+
+## Protocls
+––––
+Protocol for in general reviewing a call from ifttt:
+-check dashboard immediately or very soon
+-if not possible, call them back, leave a voice msg to stop program and liquidate everything
+
+––––
+Protocol for hikes (ADD TO README)
+-set up sat phone with that phone number in IFTT
+-set up email forwarding to someone in the real world (and forward to their txt msg email address)
+	-ask that person if they receive that email if they can run a program you’ll set up for them on their computer which will run emergency abort on server (they’ll have to run it before 5 ET)

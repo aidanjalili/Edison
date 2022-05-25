@@ -1696,7 +1696,7 @@ int main()
 
 
             //shit here is to avoid margin calls --> implements the constant intraday trading on MOO and MOC
-            if ( now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0 && HasShitGoneDown == false )//shit goes down
+            if ( now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 5 && HasShitGoneDown == false )//shit goes down
             {
                 if (int i = ChangeUpTheFiles(client); i != 0)
                     return (i);
