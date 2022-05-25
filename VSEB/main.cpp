@@ -1687,8 +1687,8 @@ int main()
             }
 
 
-            //If time is 1130pm -- run Refresh()
-            if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 30 && HaveAlreadyRunRefreshToday==false)
+            //If time is 1100pm -- run Refresh()
+            if (now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 0 && HaveAlreadyRunRefreshToday==false)
             {
                 Refresh(DIRECTORY, client);//This should take abt 15 mins depending on wifi speed...
                 HaveAlreadyRunRefreshToday = true;
@@ -1696,7 +1696,7 @@ int main()
 
 
             //shit here is to avoid margin calls --> implements the constant intraday trading on MOO and MOC
-            if ( now.time_of_day().hours() == 23 && now.time_of_day().minutes() == 5 && HasShitGoneDown == false )//shit goes down
+            if ( now.time_of_day().hours() == 22 && now.time_of_day().minutes() == 30 && HasShitGoneDown == false )//shit goes down
             {
                 if (int i = ChangeUpTheFiles(client); i != 0)
                     return (i);
