@@ -104,11 +104,11 @@ bool tester(ShortOrder CurrentShort)
             //currently in typical order
             if (ticker == CurrentShort.ticker)
             {
-                cout << "cocky" << endl;
+                //cout << "cocky" << endl;
                 return true;
             }
         }
-        cout << "cock" << endl;
+       // cout << "cock" << endl;
         return false;
 //    }
 //    catch (...)
@@ -300,7 +300,7 @@ int main()
         }
     }
     cout << "cunt" << endl;
-   //erase_if(AllShorts.begin(), AllShorts.end(), tester);
+    //erase_if(AllShorts, tester);
 
         for (auto& currentshort : AllShorts)
         {
