@@ -42,16 +42,19 @@ int main()
     auto client = alpaca::Client(env);
     /*INIT Over*/
 
-    //try to stop algo if it is indeed running
-    try
+    if (ISLIVE)
     {
-        string pw = "Noodle23!23";
-        string input = "echo \"" +  pw + "\"" + " | " +  "sudo -S pkill screen";
-        system(input.c_str());
-    }
-    catch(...)
-    {
-        //do nothing
+        //try to stop algo if it is indeed running
+        try
+        {
+            string pw = "Noodle23!23";
+            string input = "echo \"" +  pw + "\"" + " | " +  "sudo -S pkill screen";
+            system(input.c_str());
+        }
+        catch(...)
+        {
+            //do nothing
+        }
     }
 
     //cancels all open orders...
