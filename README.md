@@ -46,12 +46,13 @@ I guess. Who knows if it'll work, we'll c I suppose. If I lose all my money, I'l
 
 ## Protocls
 ––––
-Protocol for in general reviewing a call from ifttt:
+Protocol for in general receiving a call from ifttt:
 -check dashboard immediately or very soon
--if not possible, call them back, leave a voice msg to stop program and liquidate everything
+-if not possible, call abort number, dial 1 + 000, and it will abort.
 
 ––––
 Protocol for hikes (ADD TO README)
--set up sat phone with that phone number in IFTT
--set up email forwarding to someone in the real world (and forward to their txt msg email address)
-	-ask that person if they receive that email and don't get a call from me within a few mins. if they can run a program you’ll set up for them on their computer which will run emergency abort on server (they’ll have to run it before 5 ET) –– OR actualy just have them login to my triggercmd and trigger the emergency abort -> YES DO THAT, as the backup to the sat phone if they don't receive a call from me and get that email/text just have them login to my triggerCMD (it's confirmed they'll always b able to get in with j my email and pw) and have them run the trigger there. (Alternatively if their up for it they can make their own triggerCMD accnt and I can share my computer with their accnt).
+-turn on ifttt abort on emergency buy log log applet
+
+–––
+Assuming eventually emergency_buy_log is very rarely logged, then can turn on that ifttt applet indefinitely
