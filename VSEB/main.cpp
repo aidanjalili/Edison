@@ -118,6 +118,7 @@ HomeMadeTimeObj FetchTimeToPlaceLimitOrders(vector<alpaca::Date>& datesmarketiso
 void EmergencyAbort(alpaca::Client& client);
 int ChangeUpTheFiles(alpaca::Client& client);
 int SellTwo(alpaca::Client& client);
+int LiquidateEverything(alpaca::Client& client);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -1340,24 +1341,89 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
 }
 
+int LiquidateEverything(alpaca::Client& client, bool CancelFirst)//only internal dependency is LOG func...
+{
+    if (CancelFirst)
+    {
+        //cancels all open orders...
+        auto cancel_orders_response = client.cancelOrders();
+        if (auto status = cancel_orders_response.first; !status.ok()) {
+            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+            exit(status.getCode());
+        }
+    }
+
+    auto get_positions_response = client.getPositions();
+    if (auto status = get_positions_response.first; !status.ok())
+    {
+        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+        return status.getCode();
+    }
+
+    for (auto& position : get_positions_response.second)
+    {
+        if (stoi(position.qty) > 0)
+        {
+            //Sell...
+            auto submit_order_response = client.submitOrder(
+                    position.symbol,
+                    stoi(position.qty),
+                    alpaca::OrderSide::Sell,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::Day
+            );
+            if (auto status = submit_order_response.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                string Message = "***Liquidate Everything Was Called But Could not close position for: " + position.symbol + " !!";
+                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                continue;
+            }
+
+        }
+        else
+        {
+            //Cover...
+            auto submit_order_response = client.submitOrder(
+                    position.symbol,
+                    stoi(position.qty)*-1,
+                    alpaca::OrderSide::Buy,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::Day
+            );
+            if (auto status = submit_order_response.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                string Message = "***Could not close position for: " + position.symbol + " !!";
+                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                continue;
+            }
+        }
+    }
+
+    return 0;
+
+}
+
 
 void EmergencyAbort(alpaca::Client& client)
 {
-    //cancels all open orders...
-    auto cancel_orders_response = client.cancelOrders();
-    if (auto status = cancel_orders_response.first; !status.ok()) {
-        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-        exit(status.getCode());
-    }
 
-    //Liquidates everything...
-    auto close_positions_response = client.closePositions();
-    if (auto status = close_positions_response.first; !status.ok()) {
-        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-        exit(status.getCode());
-    }
+    //Liquidates everything... (and cancels all open orders first)
 
-    exit(42069);
+    int status = LiquidateEverything(client, true);
+    if (status == 0)
+    {
+        string Msg = "Emergency Abort Succeded!";
+        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Msg);
+        exit(42069);
+    }
+    else
+    {
+        string msg = "Emergency Abort somehow failed!";
+        Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+        exit(status);
+    }
 }
 
 /*Description of ChangeUpTheFiles Func (four part func. that should prolly honestly be divided into four seperate functions but oh well)
