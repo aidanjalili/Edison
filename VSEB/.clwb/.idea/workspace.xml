@@ -21,7 +21,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Emergency_Buy_Log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Emergency_Buy_Log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -194,6 +196,7 @@
       <workItem from="1653486275178" duration="81000" />
       <workItem from="1653494256455" duration="2521000" />
       <workItem from="1653506433342" duration="1187000" />
+      <workItem from="1653668521893" duration="2121000" />
     </task>
     <servers />
   </component>

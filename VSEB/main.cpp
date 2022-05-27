@@ -23,6 +23,7 @@
 #include <numeric>
 #include <sys/stat.h>
 #include <cstdlib>
+#include<sys/stat.h>
 
 #include "Python.h"
 #include "csv.h"
@@ -119,6 +120,7 @@ void EmergencyAbort(alpaca::Client& client);
 int ChangeUpTheFiles(alpaca::Client& client);
 int SellTwo(alpaca::Client& client);
 int LiquidateEverything(alpaca::Client& client);
+bool IsPathExist(const std::string &s);
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -1647,6 +1649,7 @@ int main()
     if (int ret = Init(client); ret != 0)
         return ret;
 
+
     if (FirstRun())
     {
         //Get yesterday's date
@@ -1863,6 +1866,43 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
+        }
+
+        boost::gregorian::date Sunday = boost::gregorian::from_string("2000/01/09");
+        if (  ( TodaysDate.day_of_week() == Sunday.day_of_week() && now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 0 ) && ( IsPathExist(DIRECTORY+"/RawData") ) )//time is sunday at 9:00))
+        {
+            //remove it (and all of its conetents naturally)
+            std::filesystem::remove_all(DIRECTORY+"/RawData");
+            //make it again
+            std::filesystem::create_directory(DIRECTORY+"/RawData");
+            //update assets var
+            UpdateAssets(client);
+            //run fetch data again with last trading day as ending day and 6 months prior to that as starting day
+            //Get yesterday's date
+            boost::gregorian::date Today = boost::gregorian::day_clock::local_day();
+            std::string YesterdayTestAsString;
+            boost::gregorian::date YesterdayTest;
+            for (int i = 1; i <= 3; i++)
+            {
+                boost::gregorian::days idays(i);
+                YesterdayTest = Today - idays;
+                YesterdayTestAsString = to_iso_extended_string(YesterdayTest);
+                if ( IsGivenDayATradingDay(YesterdayTestAsString, datesmarketisopen) )
+                    break;
+                if (i == 3)
+                    exit(-2);
+            }
+            auto Yesterday = YesterdayTest;
+            string YesterdayAsString = YesterdayTestAsString;
+
+            //Get 6 months before yesterday date
+            boost::gregorian::months sixmonths(6);
+            boost::gregorian::date SixMonthsBeforeYesterday = Yesterday - sixmonths;
+            std::string SixMonthsBeforeYesterdayAsString = to_iso_extended_string(SixMonthsBeforeYesterday);
+
+            //Run getdata and check for fetching ticker error
+            if (int ret = GetData(DIRECTORY, SixMonthsBeforeYesterdayAsString+"T09:30:00-04:00", YesterdayAsString+"T16:00:00-04:00", client); ret != 0)
+                return ret;
 
 
         }
@@ -1873,5 +1913,11 @@ int main()
 
 
     return 0;//tho never run ig...
+}
+
+bool IsPathExist(const std::string &s)
+{
+    struct stat buffer;
+    return (stat (s.c_str(), &buffer) == 0);
 }
 #pragma clang diagnostic pop
