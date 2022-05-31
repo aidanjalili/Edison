@@ -944,12 +944,6 @@ int Buy(int RunNumber, alpaca::Client& client)
         }
     }
 
-    if (TickersToBeBought.size() == 0)
-    {
-        NoLimitSellsToday = true;
-        return 0;
-    }
-
     //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
     //for now, don't question making the new variavle tempassets to do this, for reasons it is necessary...
     auto get_assets_response = client.getAssets();
@@ -962,7 +956,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     {
         auto tempassets = get_assets_response.second;
         bool foundone = false;
-        erase_if(tempassets, FilterAssets);//filters them down to ETB assets
+        erase_if(tempassets, FilterAssets);//filters them down to ETB and tradeable assets
         vector <string> tickerstobedeleted;
         for (int i = 0; i < TickersToBeBought.size(); i++)
         {
@@ -989,9 +983,21 @@ int Buy(int RunNumber, alpaca::Client& client)
         if (tickerstobedeleted.size() != 0)
         {
             for (string& ticker : tickerstobedeleted)
-                TickersToBeBought.erase(find(TickersToBeBought.begin(), TickersToBeBought.end(), ticker));
+            {
+                if (std::find(TickersToBeBought.begin(), TickersToBeBought.end(),ticker)!=TickersToBeBought.end())//tho this is uneeded
+                {
+                    TickersToBeBought.erase(find(TickersToBeBought.begin(), TickersToBeBought.end(), ticker));
+                }
+            }
         }
     }
+
+    if (TickersToBeBought.size() == 0)
+    {
+        NoLimitSellsToday = true;
+        return 0;
+    }
+
     //TickersToBeBought is the vector with the tickers to be bought...
     try
     {
@@ -1041,7 +1047,7 @@ int Buy(int RunNumber, alpaca::Client& client)
         auto price = last_trade.trade.price;
         qty = AmntToInvest/price;
 
-        qty-=1;//in case price goes up by 1 share price
+        //qty-=1;//in case price goes up by 1 share price
         if (qty == 0)//should never happn but alwyas good to check
         {
             cout << "qty was 0 for some rzn" << endl;

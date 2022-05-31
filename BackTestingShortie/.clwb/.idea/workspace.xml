@@ -23,7 +23,6 @@
     <list default="true" id="9fc2fd34-4dbf-4292-b1a8-d4cb2aaca6c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../VSEB/Emergency_Buy_Log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/Emergency_Buy_Log.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,6 +99,8 @@
       <workItem from="1653486274054" duration="82000" />
       <workItem from="1653494254898" duration="16000" />
       <workItem from="1653669518098" duration="596000" />
+      <workItem from="1653671278566" duration="44000" />
+      <workItem from="1654027595477" duration="1597000" />
     </task>
     <servers />
   </component>
