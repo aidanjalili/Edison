@@ -931,6 +931,35 @@ bool func(string current_ticker_in_question)
     return false;
 }
 
+bool fucker(string input_ticker)
+{
+    auto env = alpaca::Environment();
+    auto client = alpaca::Client(env);
+    auto get_assets_response = client.getAssets();
+    if (auto status = get_assets_response.first; status.ok() == false)
+    {
+        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+        return true;//we'll assume its HTB then
+    }
+    else
+    {
+        auto assets = get_assets_response.second;
+        //filter assets to ETB and tradeable
+        erase_if(assets, FilterAssets);
+        //make sure ticker in question actually exists somewhere in this asset list
+        for (auto& x : assets)
+        {
+            if (x.symbol == input_ticker)
+            {
+                return false;//so its not HTB so should not be deleted
+            }
+        }
+
+        //if you make it out of this for loop without ever returning false then return true as this means the stock is HTB
+        return true;
+    }
+}
+
 int Buy(int RunNumber, alpaca::Client& client)
 {
     vector<StockVolumeInformation> TodaysVolInformation = FetchTodaysVolumeInfo(client);
@@ -945,52 +974,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     }
 
     //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
-    //for now, don't question making the new variavle tempassets to do this, for reasons it is necessary...
-    auto get_assets_response = client.getAssets();
-    if (auto status = get_assets_response.first; status.ok() == false)
-    {
-        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-        //hope there is never an error getting assets from the api... tho ig if they're is nothing would happen, it j wouldn't update...
-    }
-    else
-    {
-        auto tempassets = get_assets_response.second;
-        bool foundone = false;
-        erase_if(tempassets, FilterAssets);//filters them down to ETB and tradeable assets
-        vector <string> tickerstobedeleted;
-        for (int i = 0; i < TickersToBeBought.size(); i++)
-        {
-            for (auto &x : tempassets)
-            {
-                //should always find the matching symbol in the tempassets list
-                if (TickersToBeBought[i] == x.symbol)
-                {
-                    foundone = true;
-                    break;
-                }
-            }
-
-            //if that didn't happen then the stock for some reason is not in the list and should be removed from the to_be_bought list
-            if (foundone == false)
-            {
-                tickerstobedeleted.push_back(TickersToBeBought[i]);
-            }
-
-            //reset foundone
-            foundone = false;
-        }
-
-        if (tickerstobedeleted.size() != 0)
-        {
-            for (string& ticker : tickerstobedeleted)
-            {
-                if (std::find(TickersToBeBought.begin(), TickersToBeBought.end(),ticker)!=TickersToBeBought.end())//tho this is uneeded
-                {
-                    TickersToBeBought.erase(find(TickersToBeBought.begin(), TickersToBeBought.end(), ticker));
-                }
-            }
-        }
-    }
+    erase_if(TickersToBeBought,fucker);
 
     if (TickersToBeBought.size() == 0)
     {
