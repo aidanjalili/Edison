@@ -70,8 +70,7 @@ struct buyorder{
 
 vector<alpaca::Date> datesmarketisopen;
 vector<alpaca::Asset> assets;
-char* arr[] = {"ABCDEFGH"};//{"AFINO", "SWAGU", "AGNCO", "MTAL.U", "AJAX.U", "IMAQU", "RVACU"};
-vector<string> bannedtickers(arr, arr + sizeof(arr)/sizeof(arr[0]));
+vector<string> bannedtickers;
 vector<string> LateLimSellsToday;
 
 
@@ -151,6 +150,9 @@ double avg(const std::vector<double>& v)
 
 int Init(alpaca::Client& client)
 {
+    /*banned tickers*/
+    bannedtickers.push_back("ABCDE");
+
 
     /*Market Dates*/
     auto get_calendar_response = client.getCalendar("2020-01-01", "2028-12-31");
@@ -401,7 +403,7 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(25);//subtract 25 mins to allow ample time to place orders before 3:50
+            auto timetobuy = closingtime - boost::posix_time::minutes(15);//just need to make sure its done by close
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
@@ -474,7 +476,6 @@ int Sell(alpaca::Client& client)
 
     for (int i = 0; i < buyorders.size(); i++)
     {
-        sleep(1);
         auto get_order_response = client.getOrder(buyorders[i].sell_lim_id);
         if (auto status = get_order_response.first; !status.ok()) {
             std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -495,7 +496,7 @@ int Sell(alpaca::Client& client)
         {
             //then we'll fill it ourselves...
             client.cancelOrder(order.id);
-            sleep(2);
+            sleep(1);
 
             //need to cast order.qty as int as all(/most) order object members are strings ig...
             stringstream qty(order.qty);
@@ -507,8 +508,9 @@ int Sell(alpaca::Client& client)
                     orderquantity,
                     alpaca::OrderSide::Buy,
                     alpaca::OrderType::Market,
-                    alpaca::OrderTimeInForce::CLS
+                    alpaca::OrderTimeInForce::Day
             );
+            sleep(3);
             if (auto status = submit_order_response.first; !status.ok()) {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
@@ -575,7 +577,7 @@ int SellTwo(alpaca::Client& client)
                 }
 
                 client.cancelOrder(sell_lim_id);
-                sleep(3);
+                sleep(1);
             }
             else//then its already been sold
             {
@@ -601,9 +603,9 @@ int SellTwo(alpaca::Client& client)
                     buyorderqtyasint,
                     alpaca::OrderSide::Buy,
                     alpaca::OrderType::Market,
-                    alpaca::OrderTimeInForce::CLS
+                    alpaca::OrderTimeInForce::Day
             );
-            sleep(1);
+            sleep(3);
             if (auto status = submit_order_response.first; !status.ok()) {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 return status.getCode();
@@ -939,7 +941,7 @@ bool fucker(string input_ticker)
     if (auto status = get_assets_response.first; status.ok() == false)
     {
         std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-        return true;//we'll assume its HTB then
+        return false;//we'll assume its etb then
     }
     else
     {
@@ -947,9 +949,9 @@ bool fucker(string input_ticker)
         //filter assets to ETB and tradeable
         erase_if(assets, FilterAssets);
         //make sure ticker in question actually exists somewhere in this asset list
-        for (auto& x : assets)
+        for (int i = 0; i < assets.size(); i++)
         {
-            if (x.symbol == input_ticker)
+            if (assets[i].symbol == input_ticker)
             {
                 return false;//so its not HTB so should not be deleted
             }
@@ -964,17 +966,18 @@ int Buy(int RunNumber, alpaca::Client& client)
 {
     vector<StockVolumeInformation> TodaysVolInformation = FetchTodaysVolumeInfo(client);
     vector<string> TickersToBeBought;
-    for (auto iter = TodaysVolInformation.begin(); iter!=TodaysVolInformation.end(); iter++)
+
+    for (int i = 0; i < TodaysVolInformation.size(); i++)
     {
-        //to check if price is less than or equal to 20...
-        if ( ((*iter).todaysvolume >= (*iter).avgvolume+0.01*(*iter).stdevofvolume) && TickerHasGoneUpSinceLastTradingDay((*iter).ticker, client) )//essentially in the end stdev fluctuation didn't play a role at all rly
+        if ( (TodaysVolInformation[i].todaysvolume >= TodaysVolInformation[i].avgvolume+0.01*TodaysVolInformation[i].stdevofvolume) && TickerHasGoneUpSinceLastTradingDay(TodaysVolInformation[i].ticker, client) )//essentially in the end stdev fluctuation didn't play a role at all rly
         {
-            TickersToBeBought.push_back( (*iter).ticker );
+            TickersToBeBought.push_back( TodaysVolInformation[i].ticker );
         }
     }
 
     //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
-    erase_if(TickersToBeBought,fucker);
+    if (TickersToBeBought.size() != 0)
+        erase_if(TickersToBeBought,fucker);
 
     if (TickersToBeBought.size() == 0)
     {
@@ -1488,7 +1491,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             );
             if (auto status = submit_order_response.first; !status.ok()) {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-                return status.getCode();
+                continue;
             }
             sleep(4); //to let the order go thru
 
