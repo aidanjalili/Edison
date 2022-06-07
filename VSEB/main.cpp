@@ -175,9 +175,9 @@ bool FilterAssets(alpaca::Asset& asset)
         return true;
     else
     {
-        for (auto iterator = bannedtickers.begin(); iterator!=bannedtickers.end(); iterator++)
+        for (int i = 0; i<bannedtickers.size(); i++)
         {
-            if (asset.symbol == (*iterator))
+            if (asset.symbol == bannedtickers[i])
                 return true;
         }
     }
@@ -976,8 +976,7 @@ int Buy(int RunNumber, alpaca::Client& client)
     }
 
     //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
-    //erase_if(TickersToBeBought,fucker);..bcuz this line has caused me so many fucking headaches -- from now on im
-    // j doing smthg simple. If there's an error placing the OPG order, it just wont place it -- simple and will catch all tickers that have gone from ETB to HTB during the day
+    erase_if(TickersToBeBought,fucker);
 
     if (TickersToBeBought.size() == 0)
     {
@@ -1641,7 +1640,6 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
-
 
     if (FirstRun())
     {
