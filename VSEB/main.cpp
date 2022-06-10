@@ -989,6 +989,8 @@ int Buy(int RunNumber, alpaca::Client& client)
      * DELETE THIS COMMENT AIDAN IF YOU STILL GET SEG FAULTS EVEN AFTER COMMENTING OUT THIS
      * (HOPEFULLY PAST AIDAN LOOKED AT THIS COMMENT AND WOULDVE DELETED IT IF THERE WAS STILL A SEG FAULT EVEN AFTER COMMENTING IT OUT)
      */
+
+
     //TickersToBeBought is the vector with the tickers to be bought...
 //    try
 //    {
@@ -1014,6 +1016,9 @@ int Buy(int RunNumber, alpaca::Client& client)
 //        cerr << "python script failed" << endl;
 //    }
 
+/*
+ * END BLOCK OF COMMENTED CODE
+ */
 
     pair<double, int> Amnt_Invested;
     Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, RunNumber, client);
