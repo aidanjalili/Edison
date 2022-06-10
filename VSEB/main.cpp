@@ -826,55 +826,52 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumb
     }
 
 
-    if (RunNumber!=1)
+    //loop thru files in currently bought...
+    vector<string> files;
+    for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
     {
-        //loop thru files in currently bought...
-        vector<string> files;
-        for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+        files.push_back(file.path());
+    }
+    for (auto& dir : files)
+    {
+        io::CSVReader<4> in(dir);
+        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+        std::string ticker, buyid, sell_lim_id, lim_price;
+        while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
         {
-            files.push_back(file.path());
-        }
-        for (auto& dir : files)
-        {
-            io::CSVReader<4> in(dir);
-            in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
-            std::string ticker, buyid, sell_lim_id, lim_price;
-            while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
+            auto get_lim_order_response = client.getOrder(sell_lim_id);
+            auto lim_order = get_lim_order_response.second;
+            if (lim_order.status == "filled")
+                continue;
+            else
             {
-                auto get_lim_order_response = client.getOrder(sell_lim_id);
-                auto lim_order = get_lim_order_response.second;
-                if (lim_order.status == "filled")
-                    continue;
-                else
+                string Date_Associated_With_File = dir.substr(DIRECTORY.size()+17, 10); //returns date hopefully
+                boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+                std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+                if (TodaysDateAsString==Date_Associated_With_File)//tho it shouldn't happen, i don't think... edit: or ig it does! who knows, anyway still does the rt thing by conitnuing...
                 {
-                    string Date_Associated_With_File = dir.substr(DIRECTORY.size()+17, 10); //returns date hopefully
-                    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
-                    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
-                    if (TodaysDateAsString==Date_Associated_With_File)//tho it shouldn't happen, i don't think... edit: or ig it does! who knows, anyway still does the rt thing by conitnuing...
+                    if (lim_price != "N/A")//if this happens that'd be very, very weird, honestly would do an assert if i was ballsy enuf
                     {
-                        if (lim_price != "N/A")//if this happens that'd be very, very weird, honestly would do an assert if i was ballsy enuf
-                        {
-                            string Message = "Weird, case here, look in calculate amnt to be invested func..";
-                            Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
-                            continue;
-                        }
-                        else
-                            continue;
+                        string Message = "Weird, case here, look in calculate amnt to be invested func..";
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                        continue;
                     }
-
-                    auto get_buy_order_response = client.getOrder(buyid);
-                    auto buy_order = get_buy_order_response.second;
-
-                    double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.015) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
-                    moneysrecievedfromshorts.push_back( moneyrecieved );
-
+                    else
+                        continue;
                 }
+
+                auto get_buy_order_response = client.getOrder(buyid);
+                auto buy_order = get_buy_order_response.second;
+
+                double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.015) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
+                moneysrecievedfromshorts.push_back( moneyrecieved );
+
             }
-
-
         }
+
 
     }
+
 
     //sum moneyrecieved vector
     double totalmoneyrecieved = 0;
@@ -933,7 +930,7 @@ bool func(string current_ticker_in_question)
     return false;
 }
 
-bool fucker(string input_ticker)
+bool fucker(string& input_ticker)
 {
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
@@ -975,6 +972,7 @@ int Buy(int RunNumber, alpaca::Client& client)
         }
     }
 
+    //erase all HTB tickers
     //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
     erase_if(TickersToBeBought,fucker);
 
@@ -984,30 +982,37 @@ int Buy(int RunNumber, alpaca::Client& client)
         return 0;
     }
 
+    /*
+     * NOTE TO FUTURE SELF (IF APPLICABLE)
+     * THE CODE BELOW DOES NOT WORK, I REPEAT: IT DOES NOT WORK
+     * IT WILL CAUSE A SEGFAULT AFTER THE SECOND RUN
+     * DELETE THIS COMMENT AIDAN IF YOU STILL GET SEG FAULTS EVEN AFTER COMMENTING OUT THIS
+     * (HOPEFULLY PAST AIDAN LOOKED AT THIS COMMENT AND WOULDVE DELETED IT IF THERE WAS STILL A SEG FAULT EVEN AFTER COMMENTING IT OUT)
+     */
     //TickersToBeBought is the vector with the tickers to be bought...
-    try
-    {
-        Py_Initialize();
-        PyObject *pName, *pModule, *pFunc, *pArgs, *pValue;
-        PyObject* sysPath = PySys_GetObject("path");
-        auto pystring = PyUnicode_FromString(DIRECTORY.c_str());
-        PyList_Append(sysPath, pystring);
-        pName = PyUnicode_FromString((char*)"earnings_call_downloader");
-        pModule = PyImport_Import(pName);
-        pFunc = PyObject_GetAttrString(pModule, (char*)"main");
-        pArgs = PyTuple_Pack(1, PyUnicode_FromString(DIRECTORY.c_str()));
-        PyObject_CallObject(pFunc, pArgs);
-        Py_Finalize();
-
-        //remove if earnings call was today...
-        /*Never mind, this hurts the algo's preformance as it turns out..*/
-        //erase_if(TickersToBeBought.begin(), TickersToBeBought.end(), func);//good stuff too cuz i dont rly even know if this python stuff works tbh
-    }
-    catch (...)
-    {
-        //do nothing
-        cerr << "python script failed" << endl;
-    }
+//    try
+//    {
+//        Py_Initialize();
+//        PyObject *pName, *pModule, *pFunc, *pArgs, *pValue;
+//        PyObject* sysPath = PySys_GetObject("path");
+//        auto pystring = PyUnicode_FromString(DIRECTORY.c_str());
+//        PyList_Append(sysPath, pystring);
+//        pName = PyUnicode_FromString((char*)"earnings_call_downloader");
+//        pModule = PyImport_Import(pName);
+//        pFunc = PyObject_GetAttrString(pModule, (char*)"main");
+//        pArgs = PyTuple_Pack(1, PyUnicode_FromString(DIRECTORY.c_str()));
+//        PyObject_CallObject(pFunc, pArgs);
+//        Py_Finalize();
+//
+//        //remove if earnings call was today...
+//        /*Never mind, this hurts the algo's preformance as it turns out..*/
+//        //erase_if(TickersToBeBought, func);//good stuff too cuz i dont rly even know if this python stuff works tbh
+//    }
+//    catch (...)
+//    {
+//        //do nothing
+//        cerr << "python script failed" << endl;
+//    }
 
 
     pair<double, int> Amnt_Invested;
@@ -1640,7 +1645,6 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
-
     if (FirstRun())
     {
         //Get yesterday's date
