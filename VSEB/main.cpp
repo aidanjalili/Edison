@@ -974,7 +974,37 @@ int Buy(int RunNumber, alpaca::Client& client)
 
     //erase all HTB tickers
     //double check that none of these tickers have gone from ETB to HTB since first run when Init() originally got asset list
-    erase_if(TickersToBeBought,fucker);
+    auto get_assets = client.getAssets();
+    if (auto status = get_assets.first; status.ok() == false)
+    {
+        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+    }
+    else
+    {
+        auto assets = get_assets.second;
+        //filter assets to ETB and tradeable
+        erase_if(assets, FilterAssets);
+        vector<string> TickersToBeDeleted;
+        bool foundone = false;
+        for (auto& ticker : TickersToBeBought)
+        {
+            foundone = false;
+            for (auto& asset : assets)
+            {
+                if (asset.symbol == ticker)
+                    foundone = true;
+            }
+
+            if (foundone == false)
+                TickersToBeDeleted.push_back(ticker);
+        }
+
+        for (auto& x : TickersToBeDeleted)
+        {
+            TickersToBeBought.erase(std::remove(TickersToBeBought.begin(), TickersToBeBought.end(), x), TickersToBeBought.end());
+        }
+    }
+    
 
     if (TickersToBeBought.size() == 0)
     {

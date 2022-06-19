@@ -158,6 +158,7 @@ bool filtertoetb(alpaca::Asset& asset)
         return false;
 }
 
+
 int main()
 {
     /*INIT*/
