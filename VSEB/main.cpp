@@ -1004,7 +1004,7 @@ int Buy(int RunNumber, alpaca::Client& client)
             TickersToBeBought.erase(std::remove(TickersToBeBought.begin(), TickersToBeBought.end(), x), TickersToBeBought.end());
         }
     }
-    
+
 
     if (TickersToBeBought.size() == 0)
     {
