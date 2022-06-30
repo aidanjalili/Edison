@@ -106,7 +106,7 @@ double Stdeviation(const vector<double>& v, double mean);
 vector<StockVolumeInformation> FetchTodaysVolumeInfo(alpaca::Client& client);
 string NTradingDaysAgo(int marketdaysago);
 bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client);
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumber, alpaca::Client& client);
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client);
 void RecordBuyOrders(string date, vector<buyorder>& buyorders);
 int Buy(int RunNumber, alpaca::Client& client);
 void UpdateAssets(alpaca::Client& client);
@@ -776,7 +776,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)//
 
 //returns double which is amnt to be invested and int which is how many tickers should be invested in
 //--- first return.second tickers in list should be invested in
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, int RunNumber, alpaca::Client& client)
+pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client)
 {
     auto resp = client.getAccount();
     auto account = resp.second;
@@ -1048,43 +1048,14 @@ int Buy(int RunNumber, alpaca::Client& client)
 /*
  * END BLOCK OF COMMENTED CODE
  */
-
-    pair<double, int> Amnt_Invested;
-    Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, RunNumber, client);
-    vector<string> temp_tickers_to_be_bought; //maybe could use some "slice" func. here instead idk -- but the vector shouldn't be that big anyway (tho technically is kind of slow)
-    for (int i = 0; i<Amnt_Invested.second; i++)
-    {
-        temp_tickers_to_be_bought.push_back(TickersToBeBought[i]);
-    }
-    //copy temp to actual...
-    TickersToBeBought.clear();
-    TickersToBeBought = temp_tickers_to_be_bought;
-    double AmntToInvest = Amnt_Invested.first;
-
     vector<buyorder> BuyOrders;
 
     for (auto Iterator = TickersToBeBought.begin(); Iterator!=TickersToBeBought.end(); Iterator++)
     {
-
-        int qty;
-        auto last_trade_response = client.getLastTrade((*Iterator));
-        auto last_trade = last_trade_response.second;
-        auto price = last_trade.trade.price;
-        qty = AmntToInvest/price;
-
-        //qty-=1;//in case price goes up by 1 share price
-        if (qty == 0)//should never happn but alwyas good to check
-        {
-            cout << "qty was 0 for some rzn" << endl;
-            continue;
-        }
-
-        string thislimid = "NOT_YET_PLACED";
-
         buyorder ThisBuyOrder;
         ThisBuyOrder.ticker = (*Iterator);
-        ThisBuyOrder.buyid = to_string(qty);
-        ThisBuyOrder.sell_lim_id = thislimid;
+        ThisBuyOrder.buyid = "NO_QTY";
+        ThisBuyOrder.sell_lim_id = "NOT_YET_PLACED";
         ThisBuyOrder.lim_price = "N/A";
         BuyOrders.push_back(ThisBuyOrder);
     }
@@ -1506,12 +1477,46 @@ int ChangeUpTheFiles(alpaca::Client& client)
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
     std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
 
-    if (files.back().substr(DIRECTORY.size()+17, 10) == TodaysDateAsString)//check for the existence mentioned in A)
+
+    if (files.back().substr(DIRECTORY.size()+17, 10) == NTradingDaysAgo(1))//check for the existence mentioned in A), but actually last trading day date cuz of new update
     {
+        io::CSVReader<4> in_forqty( files.back().c_str() );
+        in_forqty.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+
+        string ticker, qty, sell_lim_id, lim_price;
+
+        //Update records so that they have a qty
+        vector<string> TickersToBeBought;
+        while (in_forqty.read_row(ticker,qty,sell_lim_id,lim_price))//qty is: NO_QTY as we haven't yet calculated it... tho we will here
+        {
+            TickersToBeBought.push_back(ticker);
+        }
+
+        pair<double, int> Amnt_Invested;
+        Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, client);
+        double AmntToInvest = Amnt_Invested.first;
+        vector<buyorder> ListofBuyOrdersForQtys;
+        while (in_forqty.read_row(ticker,qty,sell_lim_id,lim_price))
+        {
+            int qty;
+            auto last_trade_response = client.getLastTrade(ticker);
+            auto last_trade = last_trade_response.second;
+            auto price = last_trade.trade.price;
+            qty = AmntToInvest/price;
+            buyorder thisbuyorder;
+            thisbuyorder.ticker = ticker;
+            thisbuyorder.lim_price = lim_price;
+            thisbuyorder.sell_lim_id = sell_lim_id;
+            thisbuyorder.buyid = to_string(qty);
+            ListofBuyOrdersForQtys.push_back(thisbuyorder);
+        }
+
+        RecordBuyOrders(TodaysDateAsString, ListofBuyOrdersForQtys);
+
+        //start part A here essentially
         io::CSVReader<4> in( files.back().c_str() );
         in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
 
-        string ticker, qty, sell_lim_id, lim_price;
         vector<buyorder> ListofBuyOrders;
         while(in.read_row(ticker, qty, sell_lim_id, lim_price))
         {
