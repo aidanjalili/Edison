@@ -23,7 +23,6 @@
 #include <numeric>
 #include <sys/stat.h>
 #include <cstdlib>
-#include<sys/stat.h>
 
 #include "Python.h"
 #include "csv.h"
@@ -1479,7 +1478,7 @@ void EmergencyAbort(alpaca::Client& client)
  *
  * This function
  * A)
- *** finds the temp. fake-buy record placed earlier today if it exists
+ *** finds the temp. fake-buy record placed earlier today if it exists //*yesterday's fake-buy record*
  *** and changes it to a real one with a MOO order
  * B)
  *** changes already pre-existing buy records with MOO orders for tmrw
@@ -1526,13 +1525,13 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     qtyasint,
                     alpaca::OrderSide::Sell,
                     alpaca::OrderType::Market,
-                    alpaca::OrderTimeInForce::OPG
+                    alpaca::OrderTimeInForce::Day
             );
             if (auto status = submit_order_response.first; !status.ok()) {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 continue;
             }
-            sleep(4); //to let the order go thru
+            sleep(0.1); //to let the order go thru
 
             buyorder currentBuyOrder;
             currentBuyOrder.ticker = ticker;
@@ -1629,9 +1628,9 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     oldbuyordersqtyasint,
                     alpaca::OrderSide::Sell,
                     alpaca::OrderType::Market,
-                    alpaca::OrderTimeInForce::OPG
+                    alpaca::OrderTimeInForce::Day
             );
-            sleep(4); //to let the order go thru...
+            sleep(0.1); //to let the order go thru...
             if (auto status = submit_order_response.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -1835,16 +1834,6 @@ int main()
             }
 
 
-            //shit here is to avoid margin calls --> implements the constant intraday trading on MOO and MOC
-            if ( now.time_of_day().hours() == 22 && now.time_of_day().minutes() == 30 && HasShitGoneDown == false )//shit goes down
-            {
-                if (int i = ChangeUpTheFiles(client); i != 0)
-                    return (i);
-
-                HasShitGoneDown = true;
-            }
-
-
             if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 30 && TodaysDailyLimSellsPlaced == false)
             {
 
@@ -1855,17 +1844,21 @@ int main()
                  */
 
                 /*
-                 * NOW IMPLEMENTED BELOW... :)
+                 * THE ABOVE OF WHICH HAS NOW IMPLEMENTED BELOW... :)
                  */
 
+
+                if (int i = ChangeUpTheFiles(client); i != 0)
+                    return (i);
+
                 //sleep until all ahve been placed or a minute has passed...
-                for (int i = 0; i < 15; i++)
+                for (int i = 0; i < 60; i++)
                 {
                     auto resp = client.getOrders(alpaca::ActionStatus::Open);
                     if (auto status = resp.first; !status.ok())
                     {
                         cout << "Error getting order information: " << status.getMessage();
-                        if (i == 14)
+                        if (i == 59)
                             return status.getCode();
                         else
                             continue;
