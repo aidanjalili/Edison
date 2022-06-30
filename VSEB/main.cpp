@@ -1511,7 +1511,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             ListofBuyOrdersForQtys.push_back(thisbuyorder);
         }
 
-        RecordBuyOrders(TodaysDateAsString, ListofBuyOrdersForQtys);
+        RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrdersForQtys);
 
         //start part A here essentially
         io::CSVReader<4> in( files.back().c_str() );
@@ -1546,7 +1546,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             ListofBuyOrders.push_back(currentBuyOrder);
         }
 
-        RecordBuyOrders(TodaysDateAsString, ListofBuyOrders);
+        RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrders);
 
         //since now we've already updated this record, delete file.back();
         files.pop_back();
