@@ -525,6 +525,7 @@ int Sell(alpaca::Client& client)
 
     Archive(files[0],buyorders,sellorderids);
     SomethingWasCoveredToday = true;
+    SomethingWasCoveredToday = false;
 
 
     //This will now "sell" all the rest of the shit in currently bought...
@@ -776,7 +777,7 @@ bool TickerHasGoneUpSinceLastTradingDay(string ticker, alpaca::Client& client)//
 
 //returns double which is amnt to be invested and int which is how many tickers should be invested in
 //--- first return.second tickers in list should be invested in
-pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client)
+pair<double, int>  CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Client& client)
 {
     auto resp = client.getAccount();
     auto account = resp.second;
@@ -794,35 +795,35 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cli
     ///determine how much money we've received from shorts and set that money aside (subtract it from cash value)....
     vector <double> moneysrecievedfromshorts;
     //in case smthg was covered today and so is already in archives
-    if (SomethingWasCoveredToday)
-    {
-        vector<string> files;
-        for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/Archives"))
-        {
-            files.push_back(file.path());
-        }
-        sort(files.begin(), files.end());
-        string CurrentCoverFile = files.back();
-        io::CSVReader<4> in(CurrentCoverFile);
-        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "sellid");
-
-        std::string ticker, buyid, sell_lim_id, sellid;
-        vector<double> Costs;
-        while(in.read_row(ticker, buyid, sell_lim_id, sellid))
-        {
-
-            if (sellid != "N/A")
-            {
-                auto get_lim_response = client.getOrder(sell_lim_id);
-                auto lim_order = get_lim_response.second;
-                int qty = stoi(lim_order.qty);
-                double limitprice = stod(lim_order.stop_price);
-                double moneyrecieved = ((ceil( ( ( limitprice / (1.015) ) )*100 ) )/100)*qty;//calculates money recieved from lim_price and qty, always rounds UP to the nearest cent, j to be careful
-                moneysrecievedfromshorts.push_back( moneyrecieved );
-
-            }
-        }
-    }
+//    if (SomethingWasCoveredToday)
+//    {
+//        vector<string> files;
+//        for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/Archives"))
+//        {
+//            files.push_back(file.path());
+//        }
+//        sort(files.begin(), files.end());
+//        string CurrentCoverFile = files.back();
+//        io::CSVReader<4> in(CurrentCoverFile);
+//        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "sellid");
+//
+//        std::string ticker, buyid, sell_lim_id, sellid;
+//        vector<double> Costs;
+//        while(in.read_row(ticker, buyid, sell_lim_id, sellid))
+//        {
+//
+//            if (sellid != "N/A")
+//            {
+//                auto get_lim_response = client.getOrder(sell_lim_id);
+//                auto lim_order = get_lim_response.second;
+//                int qty = stoi(lim_order.qty);
+//                double limitprice = stod(lim_order.stop_price);
+//                double moneyrecieved = ((ceil( ( ( limitprice / (1.015) ) )*100 ) )/100)*qty;//calculates money recieved from lim_price and qty, always rounds UP to the nearest cent, j to be careful
+//                moneysrecievedfromshorts.push_back( moneyrecieved );
+//
+//            }
+//        }
+//    }
 
 
     //loop thru files in currently bought...
@@ -831,6 +832,9 @@ pair<double, int> CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cli
     {
         files.push_back(file.path());
     }
+    sort(files.begin(), files.end());
+    if ( files.back().substr(DIRECTORY.size()+17, 10) == NTradingDaysAgo(1) )
+        files.pop_back();
     for (auto& dir : files)
     {
         io::CSVReader<4> in(dir);
