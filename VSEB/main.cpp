@@ -1500,7 +1500,9 @@ int ChangeUpTheFiles(alpaca::Client& client)
         Amnt_Invested = CalculateAmntToBeInvested(TickersToBeBought, client);
         double AmntToInvest = Amnt_Invested.first;
         vector<buyorder> ListofBuyOrdersForQtys;
-        while (in_forqty.read_row(ticker,qty,sell_lim_id,lim_price))
+        io::CSVReader<4> in_forqty_two( files.back().c_str() );
+        in_forqty_two.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+        while (in_forqty_two.read_row(ticker,qty,sell_lim_id,lim_price))
         {
             int qty;
             auto last_trade_response = client.getLastTrade(ticker);

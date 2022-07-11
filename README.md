@@ -56,7 +56,3 @@ Protocol for hikes (ADD TO README)
 
 –––
 Assuming eventually emergency_buy_log is very rarely logged, then can turn on that ifttt applet indefinitely
-
-## If by Dec. of 2022 This Still Has Not Made Much Money...
-
-Then fix what I would call one of the "fundamental flaws" of this program. The fact that if a stock is going to go down, overnight it probably will too, so the pre-programed number of shares that I put into the MOO order (which was calcualted before the after hours drop) represents less of the stock than I could actually afford to short effectively limiting my profits. On the flip side as well -- that is, a stock that's going to go up will probably do so a bit after hours so now the number of shares in that MOO order represents more shares than I can actually afford shorting and so my losses are increased. Stocks that are profitable I underinvest in and stocks that lose me money I over-invest in. This could be fixed by just putting in only Day Market orders at 930am and then right then calculating the number of shares I can invest
