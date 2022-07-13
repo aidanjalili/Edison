@@ -1217,6 +1217,20 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         if (auto status = last_trade_response.first; !status.ok())
         {
             std::cerr << "Error getting last trade information: " << status.getMessage() << std::endl;
+            int qty = stoi(order_response.qty);
+            auto submit_limit_order_response = client.submitOrder(
+                    (order_response.symbol),
+                    qty,
+                    alpaca::OrderSide::Buy,
+                    alpaca::OrderType::Market,
+                    alpaca::OrderTimeInForce::Day
+            );
+            sleep(3);
+            if (auto status = submit_limit_order_response.first; !status.ok())
+            {
+                string Message = "Strange error.. failed to get last trade price so tried to cover but it didn\t cover...";
+                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+            }
             continue;
             //return status.getCode();
         }
@@ -1568,10 +1582,15 @@ int ChangeUpTheFiles(alpaca::Client& client)
                 currentBuyOrder.lim_price = "N/A";
                 ListofBuyOrders.push_back(currentBuyOrder);
             }
-
-            RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrders);
-
-            //since now we've already updated this record, delete file.back();
+            if(ListofBuyOrders.size() > 0)
+            {
+                RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrders);
+                //since now we've already updated this record, delete file.back();
+            }
+            else
+            {
+                remove(files.back().c_str());
+            }
             files.pop_back();
 
         }
@@ -1683,8 +1702,10 @@ int ChangeUpTheFiles(alpaca::Client& client)
 
 
         }
-
-        RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
+        if (ListofBuyOrders.size() > 0)
+            RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
+        else
+            remove(files[i].c_str());
     }
 
     return 0;
@@ -1708,6 +1729,7 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
+
     if (FirstRun())
     {
         //Get yesterday's date
