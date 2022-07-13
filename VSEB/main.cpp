@@ -793,7 +793,7 @@ pair<double, int>  CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cl
 
 
     ///determine how much money we've received from shorts and set that money aside (subtract it from cash value)....
-    vector <double> moneysrecievedfromshorts;
+//    vector <double> moneysrecievedfromshorts;
     //in case smthg was covered today and so is already in archives
 //    if (SomethingWasCoveredToday)
 //    {
@@ -825,65 +825,65 @@ pair<double, int>  CalculateAmntToBeInvested(vector<string>& tickers, alpaca::Cl
 //        }
 //    }
 
-
-    //loop thru files in currently bought...
-    vector<string> files;
-    for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
-    {
-        files.push_back(file.path());
-    }
-    sort(files.begin(), files.end());
-    if ( files.back().substr(DIRECTORY.size()+17, 10) == NTradingDaysAgo(1) )
-        files.pop_back();
-    for (auto& dir : files)
-    {
-        io::CSVReader<4> in(dir);
-        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
-        std::string ticker, buyid, sell_lim_id, lim_price;
-        while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
-        {
-            auto get_lim_order_response = client.getOrder(sell_lim_id);
-            auto lim_order = get_lim_order_response.second;
-            if (lim_order.status == "filled")
-                continue;
-            else
-            {
-                string Date_Associated_With_File = dir.substr(DIRECTORY.size()+17, 10); //returns date hopefully
-                boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
-                std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
-                if (TodaysDateAsString==Date_Associated_With_File)//tho it shouldn't happen, i don't think... edit: or ig it does! who knows, anyway still does the rt thing by conitnuing...
-                {
-                    if (lim_price != "N/A")//if this happens that'd be very, very weird, honestly would do an assert if i was ballsy enuf
-                    {
-                        string Message = "Weird, case here, look in calculate amnt to be invested func..";
-                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
-                        continue;
-                    }
-                    else
-                        continue;
-                }
-
-                auto get_buy_order_response = client.getOrder(buyid);
-                auto buy_order = get_buy_order_response.second;
-
-                double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.015) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
-                moneysrecievedfromshorts.push_back( moneyrecieved );
-
-            }
-        }
-
-
-    }
-
-
-    //sum moneyrecieved vector
-    double totalmoneyrecieved = 0;
-    for (auto iter = moneysrecievedfromshorts.begin(); iter!=moneysrecievedfromshorts.end(); iter++)
-    {
-        totalmoneyrecieved+=(*iter);
-    }
-
-    cash -= totalmoneyrecieved;
+//
+//    //loop thru files in currently bought...
+//    vector<string> files;
+//    for (const auto& file : filesystem::directory_iterator(DIRECTORY+"/CurrentlyBought"))
+//    {
+//        files.push_back(file.path());
+//    }
+//    sort(files.begin(), files.end());
+//    if ( files.back().substr(DIRECTORY.size()+17, 10) == NTradingDaysAgo(1) )
+//        files.pop_back();
+//    for (auto& dir : files)
+//    {
+//        io::CSVReader<4> in(dir);
+//        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+//        std::string ticker, buyid, sell_lim_id, lim_price;
+//        while(in.read_row(ticker, buyid, sell_lim_id, lim_price))
+//        {
+//            auto get_lim_order_response = client.getOrder(sell_lim_id);
+//            auto lim_order = get_lim_order_response.second;
+//            if (lim_order.status == "filled")
+//                continue;
+//            else
+//            {
+//                string Date_Associated_With_File = dir.substr(DIRECTORY.size()+17, 10); //returns date hopefully
+//                boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+//                std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+//                if (TodaysDateAsString==Date_Associated_With_File)//tho it shouldn't happen, i don't think... edit: or ig it does! who knows, anyway still does the rt thing by conitnuing...
+//                {
+//                    if (lim_price != "N/A")//if this happens that'd be very, very weird, honestly would do an assert if i was ballsy enuf
+//                    {
+//                        string Message = "Weird, case here, look in calculate amnt to be invested func..";
+//                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+//                        continue;
+//                    }
+//                    else
+//                        continue;
+//                }
+//
+//                auto get_buy_order_response = client.getOrder(buyid);
+//                auto buy_order = get_buy_order_response.second;
+//
+//                double moneyrecieved = ((ceil( ( ( stod(lim_price) / (1.015) ) )*100 ) )/100)*stod(buy_order.filled_qty);//always rounds UP to the nearest cent, j to be careful
+//                moneysrecievedfromshorts.push_back( moneyrecieved );
+//
+//            }
+//        }
+//
+//
+//    }
+//
+//
+//    //sum moneyrecieved vector
+//    double totalmoneyrecieved = 0;
+//    for (auto iter = moneysrecievedfromshorts.begin(); iter!=moneysrecievedfromshorts.end(); iter++)
+//    {
+//        totalmoneyrecieved+=(*iter);
+//    }
+//
+//    cash -= totalmoneyrecieved;
 
 
     ///then divide up the remaining cash evenly by number of tickers...
@@ -1327,7 +1327,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
                 sleep(4);//wait for order to be put in...
                 //check status of that order, and if it was bad, alert user right away!
-                if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted")
+                if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted" && limit_order_response_two.status != "pending_new")
                 {
                     string Message = "Failure for Emergency Buy Order Placed For: " + order_response.symbol + " on: " +
                                      to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
@@ -1358,6 +1358,19 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
     rename( newfilename.c_str(), FILENAME.c_str() );
 
     newFile.close();
+
+    //Now we need to double check that there isn't j a blank file, as if there was j one stock listed and it failed to place a lim sell we'll have a file with no real entries in it
+    io::CSVReader<4> in_duplicate( FILENAME.c_str());
+    in_duplicate.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+    string ticker_dup, qty_dup, sell_lim_id_dup, lim_price_dup;
+    int counter = 0;
+    while (in_duplicate.read_row(ticker_dup,qty_dup,sell_lim_id_dup,lim_price_dup))//qty is: NO_QTY as we haven't yet calculated it... tho we will here
+    {
+        counter++;
+    }
+    if (counter == 0)
+        remove( (FILENAME).c_str());
+
     NeedToPlaceLimOrders = false;//deprecated, however
     return 0;
 
@@ -1509,6 +1522,8 @@ int ChangeUpTheFiles(alpaca::Client& client)
             auto last_trade = last_trade_response.second;
             auto price = last_trade.trade.price;
             qty = AmntToInvest/price;
+            if (qty == 0)
+                continue;
             buyorder thisbuyorder;
             thisbuyorder.ticker = ticker;
             thisbuyorder.lim_price = lim_price;
@@ -1517,46 +1532,49 @@ int ChangeUpTheFiles(alpaca::Client& client)
             ListofBuyOrdersForQtys.push_back(thisbuyorder);
         }
 
-        RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrdersForQtys);
-
-        //start part A here essentially
-        io::CSVReader<4> in( files.back().c_str() );
-        in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
-
-        vector<buyorder> ListofBuyOrders;
-        while(in.read_row(ticker, qty, sell_lim_id, lim_price))
+        if (ListofBuyOrdersForQtys.size() >= 1)//j to ensure there wasn't j one order that had zero qty
         {
-            assert(sell_lim_id == "NOT_YET_PLACED");
+            RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrdersForQtys);
 
-            stringstream thing(qty);
-            int  qtyasint = 0;
-            thing >> qtyasint;
-            auto submit_order_response = client.submitOrder(
-                    ticker,
-                    qtyasint,
-                    alpaca::OrderSide::Sell,
-                    alpaca::OrderType::Market,
-                    alpaca::OrderTimeInForce::Day
-            );
-            if (auto status = submit_order_response.first; !status.ok()) {
-                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-                continue;
+            //start part A here essentially
+            io::CSVReader<4> in( files.back().c_str() );
+            in.read_header(io::ignore_extra_column, "ticker", "buyid", "sell_lim_id", "lim_price");
+
+            vector<buyorder> ListofBuyOrders;
+            while(in.read_row(ticker, qty, sell_lim_id, lim_price))
+            {
+                assert(sell_lim_id == "NOT_YET_PLACED");
+
+                stringstream thing(qty);
+                int  qtyasint = 0;
+                thing >> qtyasint;
+                auto submit_order_response = client.submitOrder(
+                        ticker,
+                        qtyasint,
+                        alpaca::OrderSide::Sell,
+                        alpaca::OrderType::Market,
+                        alpaca::OrderTimeInForce::Day
+                );
+                if (auto status = submit_order_response.first; !status.ok()) {
+                    std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                    continue;
+                }
+                sleep(0.1); //to let the order go thru
+
+                buyorder currentBuyOrder;
+                currentBuyOrder.ticker = ticker;
+                currentBuyOrder.buyid = submit_order_response.second.id;
+                currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
+                currentBuyOrder.lim_price = "N/A";
+                ListofBuyOrders.push_back(currentBuyOrder);
             }
-            sleep(0.1); //to let the order go thru
 
-            buyorder currentBuyOrder;
-            currentBuyOrder.ticker = ticker;
-            currentBuyOrder.buyid = submit_order_response.second.id;
-            currentBuyOrder.sell_lim_id = "NOT_YET_PLACED";
-            currentBuyOrder.lim_price = "N/A";
-            ListofBuyOrders.push_back(currentBuyOrder);
+            RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrders);
+
+            //since now we've already updated this record, delete file.back();
+            files.pop_back();
+
         }
-
-        RecordBuyOrders(NTradingDaysAgo(1), ListofBuyOrders);
-
-        //since now we've already updated this record, delete file.back();
-        files.pop_back();
-
     }
 
     /*
