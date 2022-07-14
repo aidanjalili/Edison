@@ -1594,6 +1594,11 @@ int ChangeUpTheFiles(alpaca::Client& client)
             files.pop_back();
 
         }
+        else
+        {
+            remove(files.back().c_str());
+            files.pop_back();
+        }
     }
 
     /*
