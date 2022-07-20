@@ -1261,7 +1261,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     alpaca::OrderTimeInForce::Day
             );
 
-            sleep(4);//wait for lim sell order to be submitted (or in this case j a full blown cover)
+            usleep(100000);//wait for lim sell order to be submitted (or in this case j a full blown cover)
 
             if (auto status = submit_limit_order_response.first; !status.ok())
             {
@@ -1573,7 +1573,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                     continue;
                 }
-                sleep(0.1); //to let the order go thru
+                usleep(100000); //to let the order go thru
 
                 buyorder currentBuyOrder;
                 currentBuyOrder.ticker = ticker;
@@ -1683,7 +1683,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::Day
             );
-            sleep(0.1); //to let the order go thru...
+            usleep(100000); //to let the order go thru...
             if (auto status = submit_order_response.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
@@ -1729,6 +1729,11 @@ int main()
         setenv("APCA_API_BASE_URL", "api.alpaca.markets", 1);
 
     auto env = alpaca::Environment();
+    if (auto status = env.parse(); !status.ok())
+    {
+        std::cout << "Error parsing config from environment: " << status.getMessage() << std::endl;
+        return status.getCode();
+    }
     auto client = alpaca::Client(env);
 
     //Run init() func. and check for errors
