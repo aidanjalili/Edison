@@ -20,13 +20,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/.clwb/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../BackTestingShortie/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Emergency_Buy_Log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Emergency_Buy_Log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="6e39d7aa-73e3-401a-b8b2-f2a60f5d92bf" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -228,7 +222,7 @@
       <workItem from="1657730545461" duration="2217000" />
       <workItem from="1657733037934" duration="757000" />
       <workItem from="1658342897442" duration="91000" />
-      <workItem from="1658343043721" duration="618000" />
+      <workItem from="1658343043721" duration="732000" />
     </task>
     <servers />
   </component>
