@@ -56,3 +56,7 @@ Protocol for hikes (ADD TO README)
 
 –––
 Assuming eventually emergency_buy_log is very rarely logged, then can turn on that ifttt applet indefinitely
+–––
+For when it actually works (extension/update to "for the future")
+Instead of capping at 75k cap at a percentage of the smallest marketcap that we r going to short for the day. Best way to do This may be writing a seperate python script that takes in standard input that you call via a bash command via c++ piping in
+standard input into the "python3 __progeramname__" comand. the python script writes market caps to seperate file. idk j an idea
