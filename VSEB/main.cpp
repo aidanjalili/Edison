@@ -402,7 +402,7 @@ HomeMadeTimeObj FetchTimeToBuy(vector<alpaca::Date>& datesmarketisopen)
         if (date.date == TodaysDateAsString)
         {
             auto closingtime = boost::posix_time::duration_from_string(date.close);
-            auto timetobuy = closingtime - boost::posix_time::minutes(15);//just need to make sure its done by close
+            auto timetobuy = closingtime - boost::posix_time::minutes(9);//just need to make sure its done by close
             string timetobuyasstring = to_simple_string(timetobuy);
             ret.hours = stoi(timetobuyasstring.substr(0,2));
             ret.minutes = stoi(timetobuyasstring.substr(3,2));
