@@ -319,6 +319,8 @@ void DeleteRecord(string InputFileNameAndDir, unsigned long RowNumberToBeDeleted
 
     // removing the existing file
     remove( (InputFileNameAndDir+".csv").c_str());
+    string msg = "removing of: " + InputFileNameAndDir+".csv" + "logged. Differentiater: 1";
+    Log(DIRECTORY + "/General_Log.txt", msg);
 
     // renaming the new file with the existing file name
     rename( (InputFileNameAndDir+"new.csv").c_str(), (InputFileNameAndDir+".csv").c_str() );
@@ -352,6 +354,8 @@ void Refresh(string InputDir, alpaca::Client& client)
             cout << "PROBLEM!" << endl;
             //So we delete the problem...
             remove( (InputDir+"/RawData/"+(*iter).symbol+".csv").c_str() );
+            string msg = "Removing of: " + InputDir+"/RawData/"+(*iter).symbol+".csv" + " logged. Differntiator 2";
+            Log(DIRECTORY + "/General_Log.txt", msg);
             continue;
         }
 
@@ -629,6 +633,8 @@ void Archive(string FileToBeArchived, vector<buyorder>& DataCurrentlyInFile, vec
     }
     OutputFile.close();
     remove(FileToBeArchived.c_str());
+    string msg = "Removing of: " + FileToBeArchived + " loggged. Differentiator 3";
+    Log(DIRECTORY + "/General_Log.txt", msg);
 }
 
 string DateToSellGivenDateToBuy(string DateofBuy)
@@ -1083,7 +1089,11 @@ void RecordBuyOrders(string date, vector<buyorder>& buyorders)
 
 
     if (doesFileExist == true)
+    {
         remove( (DIRECTORY+"/CurrentlyBought/"+date+".csv").c_str() );
+        string msg = "Removing of: " + DIRECTORY+"/CurrentyBought/"+date+".csv" + " logged. Diffeentiator 5";
+        Log(DIRECTORY + "/General_Log.txt", msg);
+    }
 
 
     //then proceed with this stuff
@@ -1301,7 +1311,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     to_string(limitprice)
             );
 
-            sleep(3);//wait for lim sell order to be submitted
+            sleep(1);//wait for lim sell order to be submitted
 
             auto statusthing = submit_limit_order_response.first;
 
@@ -1341,11 +1351,11 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
                 sleep(4);//wait for order to be put in...
                 //check status of that order, and if it was bad, alert user right away!
-                if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted" && limit_order_response_two.status != "pending_new")
+                if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted" && limit_order_response_two.status != "pending_new" && limit_order_response_two.status != "")
                 {
                     string Message = "Failure for Emergency Buy Order Placed For: " + order_response.symbol + " on: " +
                                      to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
-                                     " Error message of emergency buy order : " + limit_order_response_two.status;
+                                     " status of emergency buy order : " + limit_order_response_two.status;
                     Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
                 }
 
@@ -1367,6 +1377,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
     }
     // removing the existing file
     remove( (FILENAME).c_str());
+    string msg = "Removing of: " +FILENAME + " logged. Differntiator 6";
+    Log(DIRECTORY + "/General_Log.txt", msg);
 
     // renaming the new file with the existing file name
     rename( newfilename.c_str(), FILENAME.c_str() );
@@ -1383,7 +1395,11 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         counter++;
     }
     if (counter == 0)
+    {
         remove( (FILENAME).c_str());
+        string msg = "Remove of: " + FILENAME + " logged. Differentaitor 7";
+        Log(DIRECTORY + "/General_Log.txt", msg);
+    }
 
     NeedToPlaceLimOrders = false;//deprecated, however
     return 0;
@@ -1590,6 +1606,8 @@ int ChangeUpTheFiles(alpaca::Client& client)
             else
             {
                 remove(files.back().c_str());
+                string msg = "removing of " + files.back() + " logged. Differentiator 8";
+                Log(DIRECTORY + "/General_Log.txt", msg);
             }
             files.pop_back();
 
@@ -1597,6 +1615,8 @@ int ChangeUpTheFiles(alpaca::Client& client)
         else
         {
             remove(files.back().c_str());
+            string msg = "removing of" + files.back() + " logged. Differentiator 9";
+            Log(DIRECTORY + "/General_Log.txt", msg);
             files.pop_back();
         }
     }
@@ -1684,11 +1704,6 @@ int ChangeUpTheFiles(alpaca::Client& client)
                     alpaca::OrderTimeInForce::Day
             );
             usleep(100000); //to let the order go thru...
-            if (auto status = submit_order_response.first; !status.ok())
-            {
-                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-                continue;
-            }
 
             auto newbuyorder = submit_order_response.second;
 
@@ -1710,7 +1725,11 @@ int ChangeUpTheFiles(alpaca::Client& client)
         if (ListofBuyOrders.size() > 0)
             RecordBuyOrders(ThisFilesDate, ListofBuyOrders);
         else
+        {
             remove(files[i].c_str());
+            string msg = "Removing of: " + files[i] + " logged. Differntiator 10";
+            Log(DIRECTORY + "/General_Log.txt", msg);
+        }
     }
 
     return 0;

@@ -22,7 +22,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9fc2fd34-4dbf-4292-b1a8-d4cb2aaca6c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Results/percent_returns.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../Results/percent_returns.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../percent_returns.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../percent_returns.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/.clwb/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../VSEB/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../VSEB/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,6 +128,13 @@
       <workItem from="1658343046917" duration="732000" />
       <workItem from="1658504917988" duration="457000" />
       <workItem from="1658518887456" duration="593000" />
+      <workItem from="1658687081518" duration="300000" />
+      <workItem from="1658687424278" duration="42000" />
+      <workItem from="1658752973284" duration="10000" />
+      <workItem from="1658753135064" duration="2188000" />
+      <workItem from="1658844174952" duration="597000" />
+      <workItem from="1658949559516" duration="844000" />
+      <workItem from="1659016601909" duration="648000" />
     </task>
     <servers />
   </component>

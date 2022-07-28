@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <assert.h>
 #include <random>
+#include <unistd.h>
 
 
 #include "stdlib.h"
@@ -162,9 +163,8 @@ bool filtertoetb(alpaca::Asset& asset)
 int main()
 {
     /*INIT*/
-    setenv("APCA_API_KEY_ID", "AKUL7PSSDDM0UW4BXKH8", 1);
-    setenv("APCA_API_SECRET_KEY", "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s", 1);
-    setenv("APCA_API_BASE_URL", "api.alpaca.markets", 1);
+    setenv("APCA_API_KEY_ID", "PKKAJEPLSLHC1SPJGVQI", 1);
+    setenv("APCA_API_SECRET_KEY", "g7aJm4ia1c4VZF5hoR8r5egPhPbehLjjqOPTY5uI", 1);
     auto env = alpaca::Environment();
     if (auto status = env.parse(); !status.ok())
     {
@@ -176,6 +176,30 @@ int main()
 
     /*INIT Over*/
 
+    /*
+     * start
+     */
+    for (int i  = 0; i < 1000; i++)
+    {
+        auto submit_order_response = client.submitOrder(
+                "ONEM",
+                2,
+                alpaca::OrderSide::Sell,
+                alpaca::OrderType::Market,
+                alpaca::OrderTimeInForce::Day
+        );
+        //usleep(100000); //to let the order go thru...
+        if (auto status = submit_order_response.first; !status.ok())
+        {
+            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+            exit(-1);
+        }
+    }
+
+    exit(0);
+    /*
+     * end
+     */
     //Get all files
     for (const auto& file : filesystem::directory_iterator(DIR))
     {
