@@ -83,6 +83,7 @@ bool NeedToPlaceLimOrders = false;//same for this one
 bool HasShitGoneDown = false;
 bool TodaysDailyLimSellsPlaced = false;
 bool WeveDoneThisOnce = false;//never used outside refresh function and deprecated now...
+bool ClearGeneralLog = false;
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -119,6 +120,18 @@ int ChangeUpTheFiles(alpaca::Client& client);
 int SellTwo(alpaca::Client& client);
 int LiquidateEverything(alpaca::Client& client);
 bool IsPathExist(const std::string &s);
+
+
+bool IsTheFirstofaMonth()
+{
+    boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+    std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+    if (TodaysDateAsString.substr(8,2) == "01")
+        return true;
+    else
+        return false;
+
+}
 
 double Stdeviation(const vector<double>& v, double mean)
 {
@@ -391,6 +404,7 @@ void ResetVariables()
     TodaysDailyLimSellsPlaced = false;
     LateLimSellsToday.clear();
     WeveDoneThisOnce = false;
+    ClearGeneralLog = false;
 
 }
 
@@ -620,7 +634,7 @@ int SellTwo(alpaca::Client& client)
     return 0;
 }
 
-//This function will FAICurrentlyBoughtL if the two vector inputs are not the same size --> they are supposed to be and should be
+//This function will FAIL if the two vector inputs are not the same size --> they are supposed to be and should be
 void Archive(string FileToBeArchived, vector<buyorder>& DataCurrentlyInFile, vector<string>& SellOrdersToAdd)
 {
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
@@ -1136,6 +1150,41 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
     while(in.read_row(ticker , buyid, sell_lim_id, lim_price))
     {
 
+        //make sure this order has been updated already... if the udpated time does not exist or isn't for today wait until it is
+        //as this has to happen to continue... after 15 seconds I abort everything as this is Alpaca's fault at this point for not
+        //updating my order faster...
+        for (int i = 0; i < 1500; i++)
+        {
+            auto ORDEr = client.getOrder(buyid);
+            if (auto status = ORDEr.first; !status.ok())
+            {
+                std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                continue;
+            }
+            auto ORDEr_response = ORDEr.second;
+            bool WasNotUpdatedToday = false;
+            if (ORDEr_response.updated_at == "")
+                WasNotUpdatedToday = true;
+            else
+            {
+                string updated_date_and_time = ORDEr_response.updated_at;
+                string updated_date = updated_date_and_time.substr(0,10);
+                boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+                std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+                if (updated_date!=TodaysDateAsString)
+                {
+                    WasNotUpdatedToday=true;
+                }
+            }
+
+            if (WasNotUpdatedToday == false)
+                break;
+
+            if (i == 1499)
+                EmergencyAbort(client);
+            usleep(10000);
+        }
+
         auto get_order_response = client.getOrder(buyid);
         auto order_response = get_order_response.second;
 
@@ -1159,7 +1208,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     else//then we have to cancel and buy back the shares already shorted
                     {
                         client.cancelOrder(order_response.id);
-                        sleep(1);
+                        usleep(100000);
                         get_order_response = client.getOrder(buyid);
                         order_response = get_order_response.second;
 
@@ -1235,7 +1284,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     alpaca::OrderType::Market,
                     alpaca::OrderTimeInForce::Day
             );
-            sleep(3);
+            usleep(100000);
             if (auto status = submit_limit_order_response.first; !status.ok())
             {
                 string Message = "Strange error.. failed to get last trade price so tried to cover but it didn\t cover...";
@@ -1311,7 +1360,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     to_string(limitprice)
             );
 
-            sleep(1);//wait for lim sell order to be submitted
+            usleep(125000);//wait for lim sell order to be submitted
 
             auto statusthing = submit_limit_order_response.first;
 
@@ -1340,7 +1389,13 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                         alpaca::OrderType::Market,
                         alpaca::OrderTimeInForce::Day
                 );
-
+                if (auto status = submit_limit_order_response_two.first; !status.ok())
+                {
+                    std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                    string msg = "Error calling api during emer buy log process... ";
+                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                }
+                usleep(100000);
                 string thislimid;
                 auto limit_order_response_two = submit_limit_order_response_two.second;
                 thislimid = limit_order_response_two.id;
@@ -1349,7 +1404,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
                 newFile << newline + "\n";
 
-                sleep(4);//wait for order to be put in...
                 //check status of that order, and if it was bad, alert user right away!
                 if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted" && limit_order_response_two.status != "pending_new" && limit_order_response_two.status != "")
                 {
@@ -1932,13 +1986,13 @@ int main()
                     return (i);
 
                 //sleep until all ahve been placed or a minute has passed...
-                for (int i = 0; i < 60; i++)
+                for (int i = 0; i < 600; i++)
                 {
                     auto resp = client.getOrders(alpaca::ActionStatus::Open);
                     if (auto status = resp.first; !status.ok())
                     {
                         cout << "Error getting order information: " << status.getMessage();
-                        if (i == 59)
+                        if (i == 599)
                             return status.getCode();
                         else
                             continue;
@@ -1947,7 +2001,9 @@ int main()
                     if (orders.size() == 0)
                         break;
 
-                    sleep(1);
+
+
+                    usleep(100000);
                 }
 
                 /*
@@ -1969,8 +2025,14 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
+
         }
 
+        if (ClearGeneralLog == false && IsTheFirstofaMonth() && now.time_of_day().hours() == 21 && now.time_of_day().minutes() == 0)
+        {
+            remove( (DIRECTORY + "/General_Log.txt").c_str() );
+            ClearGeneralLog = true;
+        }
         boost::gregorian::date Sunday = boost::gregorian::from_string("2000/01/09");
         if (  ( TodaysDate.day_of_week() == Sunday.day_of_week() && now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 0 ) && ( IsPathExist(DIRECTORY+"/RawData") ) )//time is sunday at 9:00))
         {
