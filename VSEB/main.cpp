@@ -620,7 +620,7 @@ int SellTwo(alpaca::Client& client)
     return 0;
 }
 
-//This function will FAIL if the two vector inputs are not the same size --> they are supposed to be and should be
+//This function will FAICurrentlyBoughtL if the two vector inputs are not the same size --> they are supposed to be and should be
 void Archive(string FileToBeArchived, vector<buyorder>& DataCurrentlyInFile, vector<string>& SellOrdersToAdd)
 {
     boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
