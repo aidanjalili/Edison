@@ -1,6 +1,6 @@
 #!/bin/bash
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        bazel run --action_env CC=/usr/bin/clang-12 //:Edison --cxxopt='-std=c++20'
+        bazel --host_jvm_args=-Xmx2G run --action_env CC=/usr/bin/clang-12 //:Edison --cxxopt='-std=c++20'
 elif [[ "$OSTYPE" == "darwin"* ]]; then
         bazel run //:Edison --cxxopt='-std=c++20' --cpu=darwin_arm64
 else
