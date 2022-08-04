@@ -84,6 +84,7 @@ bool HasShitGoneDown = false;
 bool TodaysDailyLimSellsPlaced = false;
 bool WeveDoneThisOnce = false;//never used outside refresh function and deprecated now...
 bool ClearGeneralLog = false;
+bool FinalCheckForDay = false;
 
 
 //Forward declare all functions (*note that this is a one file program) -- could put this into a headerfile but oh well
@@ -405,6 +406,7 @@ void ResetVariables()
     LateLimSellsToday.clear();
     WeveDoneThisOnce = false;
     ClearGeneralLog = false;
+    FinalCheckForDay = false;
 
 }
 
@@ -1374,8 +1376,31 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             {
                 auto get_order_response = client.getOrder(submit_limit_order_response.second.id);
                 auto actual_order_response = get_order_response.second;
-                if (actual_order_response.status != "new" && actual_order_response.status != "filled" && actual_order_response.status != "partially_filled")
-                    wasrejected = true;
+                if ( (actual_order_response.status != "new" && actual_order_response.status != "filled" && actual_order_response.status != "partially_filled"))
+                {
+                    if ( actual_order_response.status == "rejected" || actual_order_response.status == "suspended")
+                        wasrejected = true;
+                    else if (actual_order_response.status == "pending_new" || actual_order_response.status == "accepted" || actual_order_response.status == "accepted_for_bidding")
+                    {
+                        //wait up to one second for it to get to a new, filled, or partially filled state before canceling and making "wasrejected" true
+                        for (int i = 0; i < 100; i++)
+                        {
+                            auto get_order_response = client.getOrder(submit_limit_order_response.second.id);
+                            auto actual_order_response = get_order_response.second;
+                            if (actual_order_response.status == "new" || actual_order_response.status == "filled" || actual_order_response.status == "partially_filled")
+                                break;
+                            if (i == 99)
+                            {
+                                wasrejected = true;
+                            }
+                            usleep(10000);
+                        }
+                    }
+                    else//some unknown state tbh
+                    {
+                        wasrejected = true;
+                    }
+                }
             }
 
 
@@ -1391,29 +1416,71 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 );
                 if (auto status = submit_limit_order_response_two.first; !status.ok())
                 {
-                    std::cerr << "Error calling API: " << status.getMessage() << std::endl;
-                    string msg = "Error calling api during emer buy log process... ";
-                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                    if (submit_limit_order_response_two.second.status == "")//the order doesn't exist in this case..
+                    {
+                        usleep(300000);//0.3 seconds
+                        //try again getting status of limit sell... if still bad then do thing below...
+                        auto get_order_response = client.getOrder(submit_limit_order_response.second.id);
+                        auto actual_order_response = get_order_response.second;
+                        if (actual_order_response.status != "filled" || actual_order_response.status != "partially_filled" || actual_order_response.status != "new")
+                        {
+                            std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                            string msg = "Error calling api during emer buy log process... ";
+                            Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                        }
+
+                    }
+                    else
+                    {
+                        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                        string msg = "Error calling api during emer buy log process... ";
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                    }
                 }
-                usleep(100000);
-                string thislimid;
-                auto limit_order_response_two = submit_limit_order_response_two.second;
-                thislimid = limit_order_response_two.id;
 
-
-                string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
-                newFile << newline + "\n";
-
-                //check status of that order, and if it was bad, alert user right away!
-                if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted" && limit_order_response_two.status != "pending_new" && limit_order_response_two.status != "")
+                ifstream EmerBuyLog(DIRECTORY+"/Emergency_Buy_Log.txt");
+                vector<string> linesinthefile;
+                string currentline;
+                for (int i = 0; getline(EmerBuyLog, currentline); i++)
                 {
-                    string Message = "Failure for Emergency Buy Order Placed For: " + order_response.symbol + " on: " +
-                                     to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
-                                     " status of emergency buy order : " + limit_order_response_two.status;
-                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                    linesinthefile.push_back(currentline);
                 }
+                string lastline;
+                if (linesinthefile.size() > 0)
+                {
+                    if (linesinthefile.back() == "" && linesinthefile.size()>1)
+                    {
+                        lastline = linesinthefile[linesinthefile.size()-2];
+                    }
+                    else
+                        lastline = linesinthefile.back();
+                }
+                else
+                {
+                    lastline = "";
+                }
+                if (lastline == "Error calling api during emer buy log process... ")//emergency buy log was written to with above text...)
+                {
+                    usleep(100000);
+                    string thislimid;
+                    auto limit_order_response_two = submit_limit_order_response_two.second;
+                    thislimid = limit_order_response_two.id;
 
-                continue;
+
+                    string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
+                    newFile << newline + "\n";
+
+                    //check status of that order, and if it was bad, alert user right away!
+                    if (limit_order_response_two.status != "filled" && limit_order_response_two.status != "accepted" && limit_order_response_two.status != "pending_new" && limit_order_response_two.status != "")
+                    {
+                        string Message = "Failure for Emergency Buy Order Placed For: " + order_response.symbol + " on: " +
+                                         to_iso_extended_string(boost::posix_time::second_clock::local_time()) +
+                                         " status of emergency buy order : " + limit_order_response_two.status;
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                    }
+
+                    continue;
+                }
             }
 
             //so if there was no error putting in the limit sell...
@@ -2025,6 +2092,73 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
+            if (TodaysDailyLimSellsPlaced == true && FinalCheckForDay == false)// runs after above command
+            {
+                //not a perfect check but will hopefully catch any final remaining cases of error...
+
+                //first get all our positions and make a list of those tickers...
+                auto get_positions_response = client.getPositions();
+                auto positions = get_positions_response.second;
+                vector<string> tikers_we_have_positions_in;
+                for (const auto& position : positions)
+                {
+                    tikers_we_have_positions_in.push_back(position.symbol);
+                }
+
+                //get a list of all tickers we have open orders for..
+                auto list_orders_response = client.getOrders(alpaca::ActionStatus::Open);
+                auto open_orders = list_orders_response.second;
+                vector<string> openordertickers;
+                for (const auto& currentorder : open_orders)
+                {
+                    openordertickers.push_back(currentorder.symbol);
+                }
+
+                //first make sure we don't have an open order for something we don't have a position in...
+                //i.e. make sure that there is a corresponding ticker in "tickers we have a pos. in" for every ticker in "openordertickers"
+                for (auto& x : openordertickers)
+                {
+                    //make sure every x has a corresponding y in "tickers we have positions in"
+                    bool foundone = false;
+                    for (auto& y : tikers_we_have_positions_in)
+                    {
+                        if (x==y)
+                        {
+                            foundone = true;
+                            break;
+                        }
+                    }
+                    if (foundone == false)
+                    {
+                        string msg = "We have an open order for smthg we don't have a position in! This was recorded at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                        EmergencyAbort(client);
+                    }
+                }
+
+                //now make sure we don't have a position in smthg we don't also have an open order for...
+
+                for (auto& x : tikers_we_have_positions_in)
+                {
+                    bool foundone = false;
+                    for (auto& y : openordertickers)
+                    {
+                        if (x == y)
+                        {
+                            foundone = true;
+                            break;
+                        }
+                    }
+                    if (foundone == false)
+                    {
+                        string msg = "We have a positoin in smthg that we don't also have an open order in! This was recorded at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                        EmergencyAbort(client);
+                    }
+                }
+
+                FinalCheckForDay = true;
+            }
 
         }
 
