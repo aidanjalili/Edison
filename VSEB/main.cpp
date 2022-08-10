@@ -2207,7 +2207,7 @@ int main()
         }
 
         cout << "Algo is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
-        usleep(500000);
+        sleep(1);
     }
 
 
