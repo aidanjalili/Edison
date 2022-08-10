@@ -1910,6 +1910,16 @@ int main()
 
     }
 
+    //wait till the top of the second before you start running...
+
+    //retrieve unixtimestamp...
+    std::time_t timestamp_old = std::time(0);
+    //loop until it's right at the next second..
+    for (std::time_t timestamp_now = std::time(0); timestamp_now!=timestamp_old+1; timestamp_now = std::time(0))
+    {
+        //do nothing!
+    }
+
     //Seperate what we do at three different times below
     while (true)
     {
