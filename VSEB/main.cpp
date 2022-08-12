@@ -1322,7 +1322,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     alpaca::OrderTimeInForce::Day
             );
 
-            usleep(100000);//wait for lim sell order to be submitted (or in this case j a full blown cover)
+            usleep(100000);//
+            // wait for lim sell order to be submitted (or in this case j a full blown cover)
 
             if (auto status = submit_limit_order_response.first; !status.ok())
             {
@@ -1910,12 +1911,15 @@ int main()
 
     }
 
-    //wait till the top of the second before you start running...
+    //wait till the top of the 15 seconds before you start running...
 
     //retrieve unixtimestamp...
     std::time_t timestamp_old = std::time(0);
+    //find where the top of the 15 seconds is...
+    std::time_t top_of_the_fifteen = int(timestamp_old/15)*15;
+    top_of_the_fifteen+=15;
     //loop until it's right at the next second..
-    for (std::time_t timestamp_now = std::time(0); timestamp_now!=timestamp_old+1; timestamp_now = std::time(0))
+    for (std::time_t timestamp_now = std::time(0); timestamp_now<top_of_the_fifteen; timestamp_now = std::time(0))
     {
         //do nothing!
     }
@@ -2217,7 +2221,7 @@ int main()
         }
 
         cout << "Algo is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
-        sleep(1);
+        sleep(15);
     }
 
 
