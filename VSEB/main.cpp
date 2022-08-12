@@ -121,7 +121,23 @@ int ChangeUpTheFiles(alpaca::Client& client);
 int SellTwo(alpaca::Client& client);
 int LiquidateEverything(alpaca::Client& client);
 bool IsPathExist(const std::string &s);
+void WaitTillTopofTheFifteen();
+bool IsTheFirstofaMonth();
 
+
+void WaitTillTopofTheFifteen()
+{
+    //retrieve unixtimestamp...
+    std::time_t timestamp_old = std::time(0);
+    //find where the top of the 15 seconds is...
+    std::time_t top_of_the_fifteen = int(timestamp_old/15)*15;
+    top_of_the_fifteen+=15;
+    //loop until it's right at the next second..
+    for (std::time_t timestamp_now = std::time(0); timestamp_now<top_of_the_fifteen; timestamp_now = std::time(0))
+    {
+        //do nothing!
+    }
+}
 
 bool IsTheFirstofaMonth()
 {
@@ -1913,16 +1929,7 @@ int main()
 
     //wait till the top of the 15 seconds before you start running...
 
-    //retrieve unixtimestamp...
-    std::time_t timestamp_old = std::time(0);
-    //find where the top of the 15 seconds is...
-    std::time_t top_of_the_fifteen = int(timestamp_old/15)*15;
-    top_of_the_fifteen+=15;
-    //loop until it's right at the next second..
-    for (std::time_t timestamp_now = std::time(0); timestamp_now<top_of_the_fifteen; timestamp_now = std::time(0))
-    {
-        //do nothing!
-    }
+    WaitTillTopofTheFifteen();
 
     //Seperate what we do at three different times below
     while (true)
@@ -2221,7 +2228,7 @@ int main()
         }
 
         cout << "Algo is now running... Current date/time is: " << to_iso_extended_string(boost::posix_time::second_clock::local_time()) << endl;
-        sleep(15);
+        WaitTillTopofTheFifteen();
     }
 
 
