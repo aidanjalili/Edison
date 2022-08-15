@@ -1249,7 +1249,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                         }
 
                         int qty = stoi(qtyasstring);
-                        assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
+                        //commented out this assert for production
+                        ///assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
                         //Buy back this many shares of this ticker...
                         auto submit_buy_back = client.submitOrder(
                                 order_response.symbol,
@@ -1282,7 +1283,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             auto currentstopbuyorder_order_response = client.getOrder(sell_lim_id);
             //asssuming no error with that again cuz i rly hope/thing there should not be...
             auto currentstopbuyorder = currentstopbuyorder_order_response.second;
-            assert(currentstopbuyorder.status == "filled");
+            //the following assertion has been commented out for production version...
+            ///assert(currentstopbuyorder.status == "filled");
             //then leave this line alone...
             string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id + "," + lim_price;
             newFile << newline + "\n";
@@ -1711,7 +1713,8 @@ int ChangeUpTheFiles(alpaca::Client& client)
             vector<buyorder> ListofBuyOrders;
             while(in.read_row(ticker, qty, sell_lim_id, lim_price))
             {
-                assert(sell_lim_id == "NOT_YET_PLACED");
+                //commenting out asset below for production version
+                ///assert(sell_lim_id == "NOT_YET_PLACED");
 
                 stringstream thing(qty);
                 int  qtyasint = 0;
