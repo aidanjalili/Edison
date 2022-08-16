@@ -1171,7 +1171,12 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         //make sure this order has been updated already... if the udpated time does not exist or isn't for today wait until it is
         //as this has to happen to continue... after 15 seconds I abort everything as this is Alpaca's fault at this point for not
         //updating my order faster...
-        for (int i = 0; i < 1500; i++)
+
+
+        //check every .1 seconds until 15 seconds has passed because at that point it's alpaca's fault
+        std::time_t timestamp_now = std::time(0);
+        std::time_t timestamp_end = timestamp_now+15;
+        for (std::time_t timestamp_current = std::time(0); timestamp_current <= timestamp_end; timestamp_current = std::time(0))
         {
             auto ORDEr = client.getOrder(buyid);
             if (auto status = ORDEr.first; !status.ok())
@@ -1198,9 +1203,9 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             if (WasNotUpdatedToday == false)
                 break;
 
-            if (i == 1499)
+            if (timestamp_current == timestamp_end)
                 EmergencyAbort(client);
-            usleep(10000);
+            usleep(100000);
         }
 
         auto get_order_response = client.getOrder(buyid);
@@ -1250,7 +1255,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
                         int qty = stoi(qtyasstring);
                         //commented out this assert for production
-                        ///assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
+                        assert(qty != 0);//assuming the api works the way i think it does... given that status is partially filled and we're checking "filled_qty" this should NOT be 0...
                         //Buy back this many shares of this ticker...
                         auto submit_buy_back = client.submitOrder(
                                 order_response.symbol,
@@ -1284,7 +1289,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             //asssuming no error with that again cuz i rly hope/thing there should not be...
             auto currentstopbuyorder = currentstopbuyorder_order_response.second;
             //the following assertion has been commented out for production version...
-            ///assert(currentstopbuyorder.status == "filled");
+            assert(currentstopbuyorder.status == "filled");
             //then leave this line alone...
             string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id + "," + lim_price;
             newFile << newline + "\n";
@@ -1714,7 +1719,7 @@ int ChangeUpTheFiles(alpaca::Client& client)
             while(in.read_row(ticker, qty, sell_lim_id, lim_price))
             {
                 //commenting out asset below for production version
-                ///assert(sell_lim_id == "NOT_YET_PLACED");
+                assert(sell_lim_id == "NOT_YET_PLACED");
 
                 stringstream thing(qty);
                 int  qtyasint = 0;

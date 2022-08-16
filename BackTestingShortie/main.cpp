@@ -12,6 +12,7 @@
 #include <unistd.h>
 
 
+
 #include "stdlib.h"
 #include "stdio.h"
 #include "string.h"
@@ -173,7 +174,6 @@ int main()
         return status.getCode();
     }
     auto client = alpaca::Client(env);
-
 
     /*INIT Over*/
 
