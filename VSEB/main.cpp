@@ -1172,7 +1172,6 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         //as this has to happen to continue... after 15 seconds I abort everything as this is Alpaca's fault at this point for not
         //updating my order faster...
 
-
         //check every .1 seconds until 15 seconds has passed because at that point it's alpaca's fault
         std::time_t timestamp_now = std::time(0);
         std::time_t timestamp_end = timestamp_now+15;
@@ -1203,10 +1202,55 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             if (WasNotUpdatedToday == false)
                 break;
 
-            if (timestamp_current == timestamp_end)
-                EmergencyAbort(client);
+            if (timestamp_current == timestamp_end)//if last iteration
+            {
+                //if we get to the end check every second for the next 60 seconds, before giving up entirely on this ticker
+                std::time_t timestamp_now = std::time(0);
+                std::time_t timestamp_end = timestamp_now+60;
+                for (std::time_t timestamp_current = std::time(0); timestamp_current <= timestamp_end; timestamp_current = std::time(0))
+                {
+
+                    auto ORDEr = client.getOrder(buyid);
+                    if (auto status = ORDEr.first; !status.ok())
+                    {
+                        std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                        continue;
+                    }
+                    auto ORDEr_response = ORDEr.second;
+                    bool WasNotUpdatedToday = false;
+                    if (ORDEr_response.updated_at == "")
+                        WasNotUpdatedToday = true;
+                    else
+                    {
+                        string updated_date_and_time = ORDEr_response.updated_at;
+                        string updated_date = updated_date_and_time.substr(0,10);
+                        boost::gregorian::date TodaysDate = boost::gregorian::day_clock::local_day();
+                        std::string TodaysDateAsString = to_iso_extended_string(TodaysDate);
+                        if (updated_date!=TodaysDateAsString)
+                        {
+                            WasNotUpdatedToday=true;
+                        }
+                    }
+
+                    if (WasNotUpdatedToday == false)
+                        break;
+
+                    if (timestamp_current == timestamp_end)
+                    {
+                        //now it's been 75 seconds total and no update :( (fuck u alpaca)
+                        //we'll give up on everything
+                        string message = "alpaca failed us cuz they r little shits... it\'s been 75 seconds and still no updates on my order... so we are emergency aborting... This was logged at: " +  to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                        Log(DIRECTORY + "/Emergency_Buy_Log.txt", message);
+                        EmergencyAbort(client);
+                    }
+
+                    sleep(1);
+                }
+            }
+
             usleep(100000);
         }
+
 
         auto get_order_response = client.getOrder(buyid);
         auto order_response = get_order_response.second;
