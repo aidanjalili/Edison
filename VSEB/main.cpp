@@ -1181,6 +1181,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             if (auto status = ORDEr.first; !status.ok())
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                sleep(3);
                 continue;
             }
             auto ORDEr_response = ORDEr.second;
@@ -1214,6 +1215,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                     if (auto status = ORDEr.first; !status.ok())
                     {
                         std::cerr << "Error calling API: " << status.getMessage() << std::endl;
+                        sleep(3);
                         continue;
                     }
                     auto ORDEr_response = ORDEr.second;
@@ -2126,11 +2128,15 @@ int main()
                     return (i);
 
                 //sleep until all ahve been placed or a minute has passed...
-                for (int i = 0; i < 600; i++)
+
+                //but first wait half a second just to cut down on unecessary api calls cuz like we still need some time for these things to actually place
+                usleep(500000);
+                for (int i = 0; i < 60; i++)
                 {
                     auto resp = client.getOrders(alpaca::ActionStatus::Open);
                     if (auto status = resp.first; !status.ok())
                     {
+                        sleep(3);
                         cout << "Error getting order information: " << status.getMessage();
                         if (i == 599)
                             return status.getCode();
@@ -2143,7 +2149,7 @@ int main()
 
 
 
-                    usleep(100000);
+                    sleep(1);
                 }
 
                 /*

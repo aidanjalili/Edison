@@ -98,20 +98,20 @@ bool tester(ShortOrder CurrentShort)
 {
 //    try
 //    {
-        io::CSVReader<9> in(("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/Earnings_Calls_Data/" + CurrentShort.date.substr(0,10) +".csv").c_str());
-        in.read_header(io::ignore_extra_column, "ticker", "startdatetime", "startdatetimetype", "epsestimate", "epsactual", "epssurprisepct", "timeZoneShortName", "gmtOffsetMilliSeconds", "quoteType");
-        std::string ticker, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType;
-        while(in.read_row(ticker , startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType))
+    io::CSVReader<9> in(("/Users/aidanjalili03/Desktop/Edison/RawDataFetcher/Earnings_Calls_Data/" + CurrentShort.date.substr(0,10) +".csv").c_str());
+    in.read_header(io::ignore_extra_column, "ticker", "startdatetime", "startdatetimetype", "epsestimate", "epsactual", "epssurprisepct", "timeZoneShortName", "gmtOffsetMilliSeconds", "quoteType");
+    std::string ticker, startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType;
+    while(in.read_row(ticker , startdatetime, startdatetimetype, epsestimate,epsactual,epssurprisepct,timeZoneShortName,gmtOffsetMilliSeconds,quoteType))
+    {
+        //currently in typical order
+        if (ticker == CurrentShort.ticker)
         {
-            //currently in typical order
-            if (ticker == CurrentShort.ticker)
-            {
-                //cout << "cocky" << endl;
-                return true;
-            }
+            //cout << "cocky" << endl;
+            return true;
         }
-       // cout << "cock" << endl;
-        return false;
+    }
+    // cout << "cock" << endl;
+    return false;
 //    }
 //    catch (...)
 //    {
@@ -305,44 +305,44 @@ int main()
     cout << "cunt" << endl;
     //erase_if(AllShorts, tester);
 
-        for (auto& currentshort : AllShorts)
+    for (auto& currentshort : AllShorts)
+    {
+        INDEX = 0;
+
+        try
         {
-            INDEX = 0;
-
-            try
+            io::CSVReader<6> intest( DIR+"/"+currentshort.ticker+".csv" );
+        }
+        catch (...)
+        {
+            break;
+        }
+        io::CSVReader<6> intwo( DIR+"/"+currentshort.ticker+".csv" );
+        intwo.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
+        double yesterdaysclose, yesterdaysclosetemp;
+        while (intwo.read_row(Datetwo, Opentwo, Closetwo, Lowtwo, Hightwo, Volumetwo))
+        {
+            if(INDEX == 0)
+                yesterdaysclosetemp = Closetwo;
+            else
             {
-                io::CSVReader<6> intest( DIR+"/"+currentshort.ticker+".csv" );
+                yesterdaysclose = yesterdaysclosetemp;
+                yesterdaysclosetemp = Closetwo;
             }
-            catch (...)
+
+
+
+            if (INDEX >= currentshort.index+1  &&  INDEX <= currentshort.index+DAYSLATER)
             {
-                break;
-            }
-            io::CSVReader<6> intwo( DIR+"/"+currentshort.ticker+".csv" );
-            intwo.read_header(io::ignore_extra_column, "Date", "Open", "Close", "Low", "High", "Volume");
-            double yesterdaysclose, yesterdaysclosetemp;
-            while (intwo.read_row(Datetwo, Opentwo, Closetwo, Lowtwo, Hightwo, Volumetwo))
-            {
-                if(INDEX == 0)
-                    yesterdaysclosetemp = Closetwo;
-                else
-                {
-                    yesterdaysclose = yesterdaysclosetemp;
-                    yesterdaysclosetemp = Closetwo;
-                }
 
+                cout << "INDEX is: " << INDEX << endl;
+                cout << "buy order\'s INDEX is: " << currentshort.index << endl;
 
-
-                if (INDEX >= currentshort.index+1  &&  INDEX <= currentshort.index+DAYSLATER)
-                {
-
-                    cout << "INDEX is: " << INDEX << endl;
-                    cout << "buy order\'s INDEX is: " << currentshort.index << endl;
-
-                    /*Percent returns are calculated as if it were a buy... in results you need to multiply all percent_returns by -1*/
-                    cout << "high currently si: " << Hightwo << "$" << endl;
-                    cout << "But we shorted at: " << currentshort.price_at_short << "$"<< endl;
-                    //make sure it didn't move more than 1% up from where we bought it during pre/after hours and if it did
-                    //push back percent return of diff...
+                /*Percent returns are calculated as if it were a buy... in results you need to multiply all percent_returns by -1*/
+                cout << "high currently si: " << Hightwo << "$" << endl;
+                cout << "But we shorted at: " << currentshort.price_at_short << "$"<< endl;
+                //make sure it didn't move more than 1% up from where we bought it during pre/after hours and if it did
+                //push back percent return of diff...
 //                    if (Opentwo > 1.01*yesterdaysclose)
 //                    {
 //                        double percent_return = (Opentwo-yesterdaysclose)/yesterdaysclose;
@@ -362,22 +362,22 @@ int main()
 //                            break;
 //                        }
 //                    }
-                    //assumign it didn't move more than 1% over night at any pt, one of the following will run...
-                    /*above comment deprecated*/
-                    if (Hightwo >= 1.02*currentshort.price_at_short) //stop loss
-                    {
-                        cout << "current date in doc: " << Datetwo << endl;
-                        cout << "date of short: " << currentshort.date << endl;
-                        cout << "ticker: " << currentshort.ticker << endl;
-                        LineOfOutput ThisLineOfOutput;
-                        ThisLineOfOutput.date = Datetwo;
-                        ThisLineOfOutput.ticker = currentshort.ticker;
-                        ThisLineOfOutput.percent_return = 0.02;//MySpecialRandFunc();
-                        //assert(ThisLineOfOutput.percent_return >= 0.001 && ThisLineOfOutput.percent_return <= 0.01);
-                        Outputs.push_back(ThisLineOfOutput);
-                        INDEX++;//tho this doesn't rly do much as it's reset
-                        break;
-                    }
+                //assumign it didn't move more than 1% over night at any pt, one of the following will run...
+                /*above comment deprecated*/
+                if (Hightwo >= 1.02*currentshort.price_at_short) //stop loss
+                {
+                    cout << "current date in doc: " << Datetwo << endl;
+                    cout << "date of short: " << currentshort.date << endl;
+                    cout << "ticker: " << currentshort.ticker << endl;
+                    LineOfOutput ThisLineOfOutput;
+                    ThisLineOfOutput.date = Datetwo;
+                    ThisLineOfOutput.ticker = currentshort.ticker;
+                    ThisLineOfOutput.percent_return = 0.02;//MySpecialRandFunc();
+                    //assert(ThisLineOfOutput.percent_return >= 0.001 && ThisLineOfOutput.percent_return <= 0.01);
+                    Outputs.push_back(ThisLineOfOutput);
+                    INDEX++;//tho this doesn't rly do much as it's reset
+                    break;
+                }
 //                    else if (Lowtwo <= 0.95*currentshort.price_at_short) //5% stop loss
 //                    {
 //                        cout << "current date in doc: " << Datetwo << endl;
@@ -391,28 +391,28 @@ int main()
 //                        INDEX++;//tho this doesn't rly do much as it's reset
 //                        break;
 //                    }
-                    else if (INDEX == currentshort.index+DAYSLATER)
+                else if (INDEX == currentshort.index+DAYSLATER)
+                {
+                    double percent_return = (Closetwo-currentshort.price_at_short)/currentshort.price_at_short;
+                    if (percent_return != 0)
                     {
-                        double percent_return = (Closetwo-currentshort.price_at_short)/currentshort.price_at_short;
-                        if (percent_return != 0)
-                        {
-                            LineOfOutput ThisLineOfOutput;
-                            ThisLineOfOutput.date = Datetwo;
-                            ThisLineOfOutput.ticker = currentshort.ticker;
-                            ThisLineOfOutput.percent_return = percent_return;
-                            Outputs.push_back(ThisLineOfOutput);
-                            INDEX++;//tho this doesn't rly do much as it's reset
-                            break;
-                        }
+                        LineOfOutput ThisLineOfOutput;
+                        ThisLineOfOutput.date = Datetwo;
+                        ThisLineOfOutput.ticker = currentshort.ticker;
+                        ThisLineOfOutput.percent_return = percent_return;
+                        Outputs.push_back(ThisLineOfOutput);
+                        INDEX++;//tho this doesn't rly do much as it's reset
+                        break;
                     }
-
                 }
-                INDEX++;
+
             }
+            INDEX++;
         }
+    }
 
 
-        
+
     ofstream OutputFile("/Users/aidanjalili03/Desktop/Edison/BackTestingShortie/percent_returns.csv");
     OutputFile << "Date, Ticker, Percent Return" << "\n";
     for(auto iter  = Outputs.begin(); iter!=Outputs.end(); iter++)
@@ -422,4 +422,3 @@ int main()
 
     return 0;
 }
-
