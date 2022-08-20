@@ -65,7 +65,7 @@ int LiquidateEverything(alpaca::Client& client, bool CancelFirst)//only internal
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 string Message = "***Liquidate Everything Was Called But Could not close position for: " + position.symbol + " !!";
-                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                Log(DIRECTORY + "/General_Log.txt", Message);
                 continue;
             }
 
@@ -84,7 +84,7 @@ int LiquidateEverything(alpaca::Client& client, bool CancelFirst)//only internal
             {
                 std::cerr << "Error calling API: " << status.getMessage() << std::endl;
                 string Message = "***Could not close position for: " + position.symbol + " !!";
-                Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+                Log(DIRECTORY + "/General_Log.txt", Message);
                 continue;
             }
         }
@@ -138,13 +138,13 @@ int main()
     if (int status = LiquidateEverything(client, true); status!= 0)
     {
         string Message = "LIQUIDATING EVERYTHING SOMEHOW FAILED!";
-        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+        Log(DIRECTORY + "/General_Log.txt", Message);
         return status;
     }
     else
     {
         string Message = "LIQUIDATING EVERYTHING SUCEEDED (HOPEFULLY, ANYWAY)!";
-        Log(DIRECTORY + "/Emergency_Buy_Log.txt", Message);
+        Log(DIRECTORY + "/General_Log.txt", Message);
         return 0;
     }
 

@@ -2162,6 +2162,9 @@ int main()
                     files.push_back(file.path());
                 }
 
+                //somewhat importnat line -- trust me. doesn't "fix" anything per-se, but makes our algo less-risky. KEEP IT IN!!
+                sort(files.rbegin(), files.rend());
+
                 for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, fuck optimizing memory or runtime amiright or amiright?
                 {
                     PlaceLimSellOrders(client, files[i]);//should always return 0, but idrk know at this pt that fact might have to be double checked lol...
@@ -2171,7 +2174,8 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
-            if (TodaysDailyLimSellsPlaced == true && FinalCheckForDay == false)// runs after above command
+            // <i> Note to future Aidan: </i> Error ocurred somewhere here... look into this more when you get home or as soon as you can today; look at time recorded last time to make sure the 40 is high enuf
+            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 40 && TodaysDailyLimSellsPlaced == true && FinalCheckForDay == false )// runs after above command
             {
                 //not a perfect check but will hopefully catch any final remaining cases of error...
 
@@ -2179,18 +2183,30 @@ int main()
                 auto get_positions_response = client.getPositions();
                 auto positions = get_positions_response.second;
                 vector<string> tikers_we_have_positions_in;
-                for (const auto& position : positions)
+                int Total_Shares_Positions = 0;
+                for (auto& position : positions)
                 {
                     tikers_we_have_positions_in.push_back(position.symbol);
+                    Total_Shares_Positions+=stoi(position.qty);
                 }
 
                 //get a list of all tickers we have open orders for..
                 auto list_orders_response = client.getOrders(alpaca::ActionStatus::Open);
                 auto open_orders = list_orders_response.second;
                 vector<string> openordertickers;
-                for (const auto& currentorder : open_orders)
+                int Total_Shares_Open_Orders = 0;
+                for (auto& currentorder : open_orders)
                 {
                     openordertickers.push_back(currentorder.symbol);
+                    Total_Shares_Open_Orders+=stoi(currentorder.qty);
+                }
+
+                //make sure total number of shares we have open r the same as the total number we have positions in...
+                if (Total_Shares_Open_Orders!=Total_Shares_Positions)
+                {
+                    string msg = "We have a mis-match between the number of shares in open order and the number in positions! This was recorded at: " + to_iso_extended_string(boost::posix_time::second_clock::local_time());
+                    Log(DIRECTORY + "/Emergency_Buy_Log.txt", msg);
+                    EmergencyAbort(client);
                 }
 
                 //first make sure we don't have an open order for something we don't have a position in...
