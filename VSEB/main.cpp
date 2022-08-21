@@ -2174,7 +2174,6 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
-            // <i> Note to future Aidan: </i> Error ocurred somewhere here... look into this more when you get home or as soon as you can today; look at time recorded last time to make sure the 40 is high enuf
             if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 40 && TodaysDailyLimSellsPlaced == true && FinalCheckForDay == false )// runs after above command
             {
                 //not a perfect check but will hopefully catch any final remaining cases of error...
@@ -2187,7 +2186,10 @@ int main()
                 for (auto& position : positions)
                 {
                     tikers_we_have_positions_in.push_back(position.symbol);
-                    Total_Shares_Positions+=stoi(position.qty);
+                    int qty = stoi(position.qty);
+                    if (qty < 0)
+                        qty = qty*-1;
+                    Total_Shares_Positions+=qty;
                 }
 
                 //get a list of all tickers we have open orders for..
@@ -2198,7 +2200,10 @@ int main()
                 for (auto& currentorder : open_orders)
                 {
                     openordertickers.push_back(currentorder.symbol);
-                    Total_Shares_Open_Orders+=stoi(currentorder.qty);
+                    int qty = stoi(currentorder.qty);
+                    if (qty < 0)
+                        qty = qty*-1;
+                    Total_Shares_Open_Orders+=qty;
                 }
 
                 //make sure total number of shares we have open r the same as the total number we have positions in...
