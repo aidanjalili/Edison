@@ -1168,6 +1168,23 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
     while(in.read_row(ticker , buyid, sell_lim_id, lim_price))
     {
 
+        /*impt this guard stays first*/
+        if (sell_lim_id != "NOT_YET_PLACED")
+        {
+            //first things first... make sure this current stop buy in place hasn't been filled already... --> WHICH SHOULD BE THE CASE IF THE ABOVE CONDITION IS TRUE
+            auto currentstopbuyorder_order_response = client.getOrder(sell_lim_id);
+            //asssuming no error with that again cuz i rly hope/thing there should not be...
+            auto currentstopbuyorder = currentstopbuyorder_order_response.second;
+            //the following assertion has been commented out for production version...
+            assert(currentstopbuyorder.status == "filled");
+            //then leave this line alone...
+            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id + "," + lim_price;
+            newFile << newline + "\n";
+            continue;
+        }
+
+
+
         //make sure this order has been updated already... if the udpated time does not exist or isn't for today wait until it is
         //as this has to happen to continue... after 15 seconds I abort everything as this is Alpaca's fault at this point for not
         //updating my order faster...
@@ -1328,19 +1345,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
         }
 
 
-        if (sell_lim_id != "NOT_YET_PLACED")
-        {
-            //first things first... make sure this current stop buy in place hasn't been filled already... --> WHICH SHOULD BE THE CASE IF THE ABOVE CONDITION IS TRUE
-            auto currentstopbuyorder_order_response = client.getOrder(sell_lim_id);
-            //asssuming no error with that again cuz i rly hope/thing there should not be...
-            auto currentstopbuyorder = currentstopbuyorder_order_response.second;
-            //the following assertion has been commented out for production version...
-            assert(currentstopbuyorder.status == "filled");
-            //then leave this line alone...
-            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id + "," + lim_price;
-            newFile << newline + "\n";
-            continue;
-        }
+
 
         //we get last trade price
         auto last_trade_response = client.getLastTrade(order_response.symbol);
@@ -1950,6 +1955,7 @@ int main()
     //Run init() func. and check for errors
     if (int ret = Init(client); ret != 0)
         return ret;
+
 
     if (FirstRun())
     {
