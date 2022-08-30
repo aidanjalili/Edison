@@ -1178,7 +1178,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
             //the following assertion has been commented out for production version...
             assert(currentstopbuyorder.status == "filled");
             //then leave this line alone...
-            string newline = order_response.symbol + "," + order_response.id + "," + sell_lim_id + "," + lim_price;
+            string newline = ticker + "," + buyid + "," + sell_lim_id + "," + lim_price;
             newFile << newline + "\n";
             continue;
         }
