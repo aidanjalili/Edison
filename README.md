@@ -61,6 +61,5 @@ For when it actually works (extension/update to "for the future")
 Instead of capping at 75k cap at a percentage of the smallest marketcap that we r going to short for the day. Best way to do This may be writing a seperate python script that takes in standard input that you call via a bash command via c++ piping in
 standard input into the "python3 __progeramname__" comand. the python script writes market caps to seperate file.  idk j an idea. also, you could check to c if the python program ran successfully by looking at time last modified of the output file
 
-## After reading this doc it should take rly only like max 3 hrs to implement smthg like this (a dynamic investment amount cap) to the code to make 
-it sustainable For long term 
+## After reading this doc it should take rly only like max 3 hrs to implement smthg like this (a dynamic investment amount cap) to the code to make it sustainable For long term 
 use... now only needing periodic 50k transfers out of alpaca to my bank (could prolly set up thru alpaca support or j do it manually every now and again)
