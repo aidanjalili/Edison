@@ -2180,9 +2180,10 @@ int main()
                 TodaysDailyLimSellsPlaced = true;
             }
 
-            if (now.time_of_day().hours() == 9 && now.time_of_day().minutes() == 40 && TodaysDailyLimSellsPlaced == true && FinalCheckForDay == false )// runs after above command
+            if (TodaysDailyLimSellsPlaced == true && FinalCheckForDay == false )// runs after above command
             {
                 //not a perfect check but will hopefully catch any final remaining cases of error...
+                sleep(60);
 
                 //first get all our positions and make a list of those tickers...
                 auto get_positions_response = client.getPositions();
