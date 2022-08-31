@@ -41,7 +41,7 @@ const double LIMIT_AMOUNT = 26000.00;///change this back to 500 (subtravt 1,500 
 const string API_PUBLIC_KEY = "AKUL7PSSDDM0UW4BXKH8";
 const string API_PRIVATE_KEY = "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s";
 const bool IS_LIVE = true;
-int LIMIT_TO_INVEST_IN_EACH_TICKER = 75000;
+int LIMIT_TO_INVEST_IN_EACH_TICKER = 50000;
 
 /*Global variables and structs...*/
 struct HomeMadeTimeObj
