@@ -1411,14 +1411,8 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
                 continue;
             }
 
-            //so if there was no error putting in the limit sell...
-            string thislimid;
-            auto limit_order_response = submit_limit_order_response.second;
-            thislimid = limit_order_response.id;
-
-
-            string newline = order_response.symbol + "," + order_response.id + "," + thislimid + "," + lim_price;
-            newFile << newline + "\n";
+            //so if there was no error putting in the emer cover then we j delete it from our records and move on
+            continue;
 
         }
         else
