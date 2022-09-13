@@ -604,7 +604,7 @@ int SellTwo(alpaca::Client& client)
                 return status.getCode();
             }
             auto limsell = get_order_response_two.second;
-            if (limsell.status != "filled")
+            if (limsell.status == "new")
             {
                 if (limsell.status == "expired")
                 {
@@ -1550,6 +1550,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
                     continue;
                 }
+                continue;
             }
 
             //so if there was no error putting in the limit sell...
