@@ -37,7 +37,8 @@ using namespace std;
 const string DIRECTORY = "/Users/aidanjalili03/Desktop/Edison/VSEB";//should eventually change to just echoing a pwd command, but for rn on server change to output of pwd
 const bool TWENTY_FIVE_K_PROTECTION = true;///simply change this to false before the afternoon/buying time of the day the funds were transfered out of alpaca
 const int TWENTY_FIVE_K_PROTECTION_AMOUNT = 25000;//rn it's actually much less than 25k lol
-const double LIMIT_AMOUNT = 26000.00;///change this back to 500 (subtravt 1,500 from it)
+const double LIMIT_AMOUNT = 28500.00;///change this back to 500 (subtravt 
+1,500 from it)
 const string API_PUBLIC_KEY = "AKUL7PSSDDM0UW4BXKH8";
 const string API_PRIVATE_KEY = "BJSzEiXaZxaMExzV8iWj8bc3akKiSNC3QDr8vP0s";
 const bool IS_LIVE = true;
