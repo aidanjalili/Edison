@@ -2,6 +2,18 @@
 
 Makes money
 
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+## Instructions to Restart Edison (if You'd Like to) When Market Conditions Become Favorable Again
+Instructions are brief and simple
+1. Uncomment the two lines which are indicated in crontab -e file
+2. Turn on the three ifttt controls
+3. Put money (rmb you need 25k sitting there to day trade) into alpaca
+4. Start algo in a screen using ./run.bash inside VSEB folder. Before you do so rmb to clear RawData directory and CurrentlyBought directory before starting, as well as adjusting the top setting vars as appropriate (off the top of my head the only one that I can think of that'll change is the Emergency Abort value, as you will want to adjust at what equity value you want the whole algo to shut off, tho you can double check all of those variables rq).
+5. profit
+
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+
 ## TO DO
 Make it so that we updateassets/filterassets every day so that we always r having an updated list of those that are tradable and shortable.
 --Right now all we do is anticipate canceled order/rejected orders as things that have become unshortable/untradeable we try to trade anyway.
@@ -61,12 +73,11 @@ For when it actually works (extension/update to "for the future")
 Instead of capping at 75k cap at a percentage of the smallest marketcap that we r going to short for the day. Best way to do This may be writing a seperate python script that takes in standard input that you call via a bash command via c++ piping in
 standard input into the "python3 __progeramname__" comand. the python script writes market caps to seperate file.  idk j an idea. also, you could check to c if the python program ran successfully by looking at time last modified of the output file
 
-## After reading this doc it should take rly only like max 3 hrs to implement smthg like this (a dynamic investment amount cap) to the code to make it sustainable For long term 
-use... now only needing periodic 50k transfers out of alpaca to my bank (could prolly set up thru alpaca support or j do it manually every now and again). AND HONESTLY 
-AFTER HITTING THE 50k INVESTMENT LIMIT, YOU SHOULD JUST MOVE THE ALGO TO A DIFFERENT TRADING SOFTWARE LIKE SPYDER, TO EASILY IMPLEMENT BOTH THE X% OF THE MARKET CAP LIMIT 
-AND THEN EVENTUALLY (IF YOU HAVE ENUF COLLATARAL) THE HOLDING OVERNIGHT VERSION. ALSO CAN EASILY TEST COMPLETELY DIFFERENT AND NEW STRATEGIES OR IDEAS WITH THESE TYPES OF 
-SOFTWARE. SO LONG STORY SHORT, AFTER HITTING INVESTMENT LIMIT, CONINTUE WITH PLANS AS USUAL (FIRST, X% OF MKT CAP INSTEAD OF 50k FLATRATE, THEN SAME THING BUT ALLOWING 
-HOLDING OVERNIGHT -- this requires more collateral -- ) BUT CARRY OUT THOSE PLANS ON A DIFFERENT, GUI, ALGO TRADING BROKER. THEN ALSO AT SOME POINT IN THE FUTURE FUTURE 
-(YOU CAN PLAN MORE SPECIFICALLY WHEN IF YOU'VE GOTTEN TO THIS POINT) THINK ABOUT AND TEST ALL STRATEGIES YOU CAN DREAM OF THAT ARE POSSIBLE TO TEST WITH THE GUI (AND EVEN 
+## After reading this doc it should take rly only like max 3 hrs to implement smthg like this (a dynamic investment amount cap) to the code to make it sustainable For long term
+use... now only needing periodic 50k transfers out of alpaca to my bank (could prolly set up thru alpaca support or j do it manually every now and again). AND HONESTLY
+AFTER HITTING THE 50k INVESTMENT LIMIT, YOU SHOULD JUST MOVE THE ALGO TO A DIFFERENT TRADING SOFTWARE LIKE SPYDER, TO EASILY IMPLEMENT BOTH THE X% OF THE MARKET CAP LIMIT
+AND THEN EVENTUALLY (IF YOU HAVE ENUF COLLATARAL) THE HOLDING OVERNIGHT VERSION. ALSO CAN EASILY TEST COMPLETELY DIFFERENT AND NEW STRATEGIES OR IDEAS WITH THESE TYPES OF
+SOFTWARE. SO LONG STORY SHORT, AFTER HITTING INVESTMENT LIMIT, CONINTUE WITH PLANS AS USUAL (FIRST, X% OF MKT CAP INSTEAD OF 50k FLATRATE, THEN SAME THING BUT ALLOWING
+HOLDING OVERNIGHT -- this requires more collateral -- ) BUT CARRY OUT THOSE PLANS ON A DIFFERENT, GUI, ALGO TRADING BROKER. THEN ALSO AT SOME POINT IN THE FUTURE FUTURE
+(YOU CAN PLAN MORE SPECIFICALLY WHEN IF YOU'VE GOTTEN TO THIS POINT) THINK ABOUT AND TEST ALL STRATEGIES YOU CAN DREAM OF THAT ARE POSSIBLE TO TEST WITH THE GUI (AND EVEN
 IF THEY"RE NOT WRITE THEM DOWN J TO HAVE, -- IN FACT I THINK I ALREADY MAY HAVE A FEW OF THESE IDEAS IN THE "TODOS AND IDEAS".TXT FILE IN THIS REPO.
-
