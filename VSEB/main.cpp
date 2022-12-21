@@ -609,7 +609,7 @@ int SellTwo(alpaca::Client& client)
             {
                 if (limsell.status == "expired")
                 {
-                    cout << "We're fucked!" << endl;
+                    cout << "We're screwed!" << endl;
                     exit(-100);
                 }
 
@@ -972,7 +972,7 @@ bool func(string current_ticker_in_question)
     return false;
 }
 
-bool fucker(string& input_ticker)
+bool thingerzzz(string& input_ticker)
 {
     auto env = alpaca::Environment();
     auto client = alpaca::Client(env);
@@ -1257,7 +1257,7 @@ int PlaceLimSellOrders(alpaca::Client& client, string FILENAME)
 
                     if (timestamp_current == timestamp_end)
                     {
-                        //now it's been 75 seconds total and no update :( (fuck u alpaca)
+                        //now it's been 75 seconds total and no update :( (screw u alpaca)
                         //we'll give up on everything
                         string message = "alpaca failed us cuz they r little shits... it\'s been 75 seconds and still no updates on my order... so we are emergency aborting... This was logged at: " +  to_iso_extended_string(boost::posix_time::second_clock::local_time());
                         Log(DIRECTORY + "/Emergency_Buy_Log.txt", message);
@@ -2167,7 +2167,7 @@ int main()
                 //somewhat importnat line -- trust me. doesn't "fix" anything per-se, but makes our algo less-risky. KEEP IT IN!!
                 sort(files.rbegin(), files.rend());
 
-                for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, fuck optimizing memory or runtime amiright or amiright?
+                for (int i = 0; i < files.size(); i++)//could use iterator here again, but whatever, screw optimizing memory or runtime amiright or amiright?
                 {
                     PlaceLimSellOrders(client, files[i]);//should always return 0, but idrk know at this pt that fact might have to be double checked lol...
 
