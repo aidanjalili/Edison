@@ -1,83 +1,16 @@
 # Edison
 
-Makes money
+An algo. The strategy – "VSEB" – which originally stood for "Volume Spike End of Day Buy" has gone through so many different iterations that now the actual strategy does not resemble this at all. In fact, it is now a relatively simple short strategy. I've backtested so many different variations of this strategy, with all sorts of different parameters, that I'm convinced this is close to if not the optimal variant. I have not a done a multiple regression to better test this hypothesis, however.
 
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+As mentioned earlier, this project changed so much and is so different from what it was at different stages, it would be impossible to even summarize such changes here. Instead, this is a summary of how the current strategy works. Going through past commits as well as looking at the commented out code can give you an insight into previous versions of the project.
 
-## Instructions to Restart Edison (if You'd Like to) When Market Conditions Become Favorable Again
-Instructions are brief and simple
-1. Uncomment the two lines which are indicated in crontab -e file
-2. Turn on the three ifttt controls
-3. Put money (rmb you need 25k sitting there to day trade) into alpaca
-4. Start algo in a screen using ./run.bash inside VSEB folder. Before you do so rmb to clear RawData directory and CurrentlyBought directory before starting, as well as adjusting the top setting vars as appropriate (off the top of my head the only one that I can think of that'll change is the Emergency Abort value, as you will want to adjust at what equity value you want the whole algo to shut off, tho you can double check all of those variables rq).
-5. profit
+## The strategy
+The basic strategy is now simply that VSEB detects when a certain stock (whose price is less than 20 dollars) has a very modest (statistically speaking) volume increase on the day (only 1% of the running 6 month standard deviation above it's mean) but has a significant price increase (I think it's currently set for about 20% higher than yesterday close, or something around there anyway). We then short that stock with a stop loss of 1.5% and no take profit. Assuming the stock doesn't hit that stop loss price, we cover 5 market days later at end of day.
 
-–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+In order to avoid getting margin called over the maintenance margin amount alpaca demands (which can be very high) this strategy is actually a day trading strategy. Any asset we intend to hold "overnight" I simply sell (or cover in this case) at market close and re-buy (or re-short in this case) at market open. Although this means we miss out on after-hours and pre-market gains/losses this usually doesn't amount to much and actually makes the entire strategy much safer as the stop-losses will trigger (and usually execute) pretty quickly.
 
-## TO DO
-Make it so that we updateassets/filterassets every day so that we always r having an updated list of those that are tradable and shortable.
---Right now all we do is anticipate canceled order/rejected orders as things that have become unshortable/untradeable we try to trade anyway.
-But this is kind of a stupid fix.
+Further, there are various mechanisms in place to make sure this algorithm continues running at all costs and alerts me immediately should it encounter an error or is forced to stop running. The algo will automatically adjust to failed trades, cancelled orders, price spikes which exceed the speed at which we can place a stop loss, etc. I get a phone call, an email, and a text message should the algorithm encounter an error which it can fix, as well as when it encounters one it cannot fix itself. In the ladder case, however, it automatically liquidates everything and cancels all open orders before shutting itself off.
 
-## Important Notes
-This program should only be run the morning of the first day you'd like to make buys. So if you want the first day you trade stocks today make sure to check that:
-A) the market is open today
-and B) that you run it sometime in the morning before ~3pm. OR on a weekend sometime during the day.
-
-Also after you pull you need to create your own two directories "CurrentlyBought" and "RawData" and "Archives" (the latter only if it's your first run) inside of VSEB.
-
-Finally, it might be a good idea to do a "hard" refresh of this program every three months or so
-or as the user desires to update its ticker list.
-
-## A couple real quick technical notes
-
-The dates in the "CurrentlyBought" directory refer to the date that each of those
-assets were bought.
-
-The dates in the "Archives"
-directory refer to the date archived (which sometimes is the date sold in the case of a manual sell at closing.
-If the asset was sold through a limit sell it is simply the date archived/the date the asset it would have been
-sold had the limit order not been filled).
-
-## What to do when rich/if this actually starts to work
-
-There isn't much. First figure out how much (either as a func. of market cap, or outstanding shares, etc.) Go thru my backtesting, find the max number of tickers invested in in a week. Add 2 (j for securituy). then go thru each ticker listed their, find their market cap/outstanding shares, or whatever it is AT THAT TIME of the hypothetical trade. Make a list of those, avg it out, use that and multiply by max number of tickers in a weeek found earlier + 2. Can also double check that hopefully the stdev of the market caps/outstanding shares or whatever isn't too high. Every amnt of money I have in my accnt after that i can trasfer to a savings accnt. (Update the 75000 if-statement in code to reflect the avg market cap/whatever * acceptable proportion.)
-
-## For the future...
-
-Presumably you'll get to the point where you're hitting the 75000/ticker price pt. At that point up it to like 100k or 125 even, maybe more. But then start working on adding a feature that fetches each tickers market cap before you invest. Then take the smallest and limit ur investment to some n% of that for all tickers. (Or if you rly want to be fancy n% of each tickers corresponding market cap.) Then maybe keep a log of how much that is every day. Then once you realize your hitting that on avg everyday, make sure you have enuf money in alpaca for the max  margin reqs you c feesible (given the data you've been collecting on avg. market cap of what you're investing in.) Then change back to pre-margin release as that will make more money, I think anyway (holding overnight will that is.) But anyway that's j an idea.
-
-## Final quick notes
-
-This is my masterpiece. So far anyway. My magnum opus. So... yeah.
-
-## PS
-
-The backtesting which verified the effectiveness of this algo is a little sketchy, but oh well got to live life on the edge
-I guess. Who knows if it'll work, we'll c I suppose. If I lose all my money, I'll lose all my money, but I'll track it for sure.
-
-## Protocls
-––––
-Protocol for in general receiving a call from ifttt:
--check dashboard immediately or very soon
--if not possible, call abort number, dial 1 + 000, and it will abort.
-
-––––
-Protocol for hikes (ADD TO README)
--turn on ifttt abort on emergency buy log log applet
-
-–––
-Assuming eventually emergency_buy_log is very rarely logged, then can turn on that ifttt applet indefinitely
-–––
-For when it actually works (extension/update to "for the future")
-Instead of capping at 75k cap at a percentage of the smallest marketcap that we r going to short for the day. Best way to do This may be writing a seperate python script that takes in standard input that you call via a bash command via c++ piping in
-standard input into the "python3 __progeramname__" comand. the python script writes market caps to seperate file.  idk j an idea. also, you could check to c if the python program ran successfully by looking at time last modified of the output file
-
-## After reading this doc it should take rly only like max 3 hrs to implement smthg like this (a dynamic investment amount cap) to the code to make it sustainable For long term
-use... now only needing periodic 50k transfers out of alpaca to my bank (could prolly set up thru alpaca support or j do it manually every now and again). AND HONESTLY
-AFTER HITTING THE 50k INVESTMENT LIMIT, YOU SHOULD JUST MOVE THE ALGO TO A DIFFERENT TRADING SOFTWARE LIKE SPYDER, TO EASILY IMPLEMENT BOTH THE X% OF THE MARKET CAP LIMIT
-AND THEN EVENTUALLY (IF YOU HAVE ENUF COLLATARAL) THE HOLDING OVERNIGHT VERSION. ALSO CAN EASILY TEST COMPLETELY DIFFERENT AND NEW STRATEGIES OR IDEAS WITH THESE TYPES OF
-SOFTWARE. SO LONG STORY SHORT, AFTER HITTING INVESTMENT LIMIT, CONINTUE WITH PLANS AS USUAL (FIRST, X% OF MKT CAP INSTEAD OF 50k FLATRATE, THEN SAME THING BUT ALLOWING
-HOLDING OVERNIGHT -- this requires more collateral -- ) BUT CARRY OUT THOSE PLANS ON A DIFFERENT, GUI, ALGO TRADING BROKER. THEN ALSO AT SOME POINT IN THE FUTURE FUTURE
-(YOU CAN PLAN MORE SPECIFICALLY WHEN IF YOU'VE GOTTEN TO THIS POINT) THINK ABOUT AND TEST ALL STRATEGIES YOU CAN DREAM OF THAT ARE POSSIBLE TO TEST WITH THE GUI (AND EVEN
-IF THEY"RE NOT WRITE THEM DOWN J TO HAVE, -- IN FACT I THINK I ALREADY MAY HAVE A FEW OF THESE IDEAS IN THE "TODOS AND IDEAS".TXT FILE IN THIS REPO.
+## Final Notes
+Has only been tested with clang++ on mac and linux (ubuntu). Best way to compile is with bazel. Edison is the name of the entire project (inlcuding the program which backtests, the one that cleans and fetches the raw data, etc.), VSEB is this strategy specifically. Has only been backtested with data spanning  ~2018 – ~2020 due to data limitations and data accuracy limitations. Ophelia will be a much more robust and improved algo (in various respects) and is what I'm currently working on (have not pushed to a repo yet).
+*Has only been tested with clang++ on mac and linux (ubuntu). Best way to compile is with bazel.
